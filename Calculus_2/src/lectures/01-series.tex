@@ -1,0 +1,511 @@
+% !TEX root = ../lectures.tex
+
+{\large\bfseries Calculus 2}
+
+\section{Lecture 1}
+\subsection*{Series (Prelim)}
+
+\begin{definition}\label{def:1.1}
+A function of the form
+\[
+ f:\N\to\R,\qquad n\longmapsto a_n,
+\]
+where $\N$ is the set of all positive integers and $\R$ is the set of real numbers, is called a \emph{sequence} (of real numbers).
+\end{definition}
+
+\noindent\textbf{Notations.}
+\[
+ (a_n)_{n\in\N}=(a_n)_{n=1}^{\infty}=(a_n)=(a_1,a_2,\ldots,a_n,\ldots).
+\]
+For example,
+\[
+ (n^2)_{n\in\N}=(n^2)_{n=1}^{\infty}=(n^2)
+ =(1^2,2^2,3^2,\ldots,n^2,\ldots)
+ =(1,4,9,\ldots,n^2,\ldots)
+\]
+is the sequence of squares.
+
+\begin{definition}\label{def:1.2}
+Let $(a_n)_{n=1}^{\infty}$ be a sequence. Then the $n$-th \emph{partial sum} (of $(a_n)_{n=1}^{\infty}$) is defined to be
+\[
+S_n=
+\begin{cases}
+ a_1, & n=1,\\[2mm]
+ S_{n-1}+a_n, & n\ge 2.
+\end{cases}
+\]
+\end{definition}
+
+For example, if $\left(\frac1n\right)_{n=1}^{\infty}$ is a given sequence, then
+\[
+S_1=\frac11=1,
+\]
+\[
+S_2=S_1+\frac12=1+\frac12=\frac32,
+\]
+\[
+S_3=S_2+\frac13=\frac32+\frac13=\frac{11}{6},
+\]
+and, in general,
+\[
+S_n=1+\frac12+\cdots+\frac1n.
+\]
+
+\begin{definition}\label{def:1.3}
+Let $(a_n)_{n=1}^{\infty}$ be a sequence. Then the \emph{series}
+\[
+\sum_{n=1}^{\infty}a_n
+\]
+is defined to be
+\[
+\sum_{n=1}^{\infty}a_n\overset{\mathrm{def}}{=}\lim_{n\to+\infty}S_n,
+\]
+where $S_n$ is the $n$-th partial sum of $(a_n)_{n=1}^{\infty}$.
+\end{definition}
+
+\noindent\textbf{Notation.} Instead of $\sum_{n=1}^{\infty}a_n$ one can use
+\[
+a_1+a_2+a_3+a_4+\cdots+a_n+\cdots,
+\]
+the expanded form.
+
+\subsection*{Examples}
+\begin{enumerate}[label=\arabic*)]
+\item
+\[
+\sum_{n=1}^{\infty}\frac1n
+=1+\frac12+\cdots+\frac1n+\cdots
+\]
+is the \emph{harmonic series}.
+
+\item
+\[
+\sum_{n=1}^{\infty}\alpha\rho^{n-1}
+=\alpha+\alpha\rho+\alpha\rho^2+\cdots+\alpha\rho^{n-1}+\cdots
+\]
+is the \emph{geometric series}.
+
+\item Every real number $x\in[0,1)$ can be written as
+\[
+x=0.a_1a_2\ldots a_n\ldots,
+\qquad a_n\in\{0,1,\ldots,9\}.
+\]
+This notation is a shorthand for the series
+\[
+x=\sum_{n=1}^{\infty}\frac{a_n}{10^n}.
+\]
+For instance,
+\[
+0.2282828\ldots
+=\frac2{10}+\frac2{10^2}+\frac8{10^3}+\frac2{10^4}
+ +\frac8{10^5}+\frac2{10^6}+\cdots.
+\]
+
+\item
+\[
+\sum_{n=1}^{\infty}(-1)^{n+1}
+=1-1+1-1+\cdots+(-1)^{n+1}+\cdots.
+\]
+\end{enumerate}
+
+\begin{definition}\label{def:1.4}
+Let $(a_n)_{n=1}^{\infty}$ be a sequence. Then the series $\sum_{n=1}^{\infty}a_n$ is called
+\begin{itemize}
+\item \emph{convergent} (to $S$) if
+\[
+\lim_{n\to+\infty}S_n=S\in\R,
+\qquad S_n=a_1+\cdots+a_n
+\]
+is the $n$-th partial sum;
+\item \emph{divergent to $\pm\infty$} if
+\[
+\lim_{n\to+\infty}S_n=\pm\infty;
+\]
+\item \emph{divergent} if $\lim_{n\to+\infty}S_n$ does not exist.
+\end{itemize}
+\end{definition}
+
+\subsection*{Examples of convergent series}
+\begin{enumerate}[label=\arabic*)]
+\item If $|\rho|<1$, then
+\begin{align*}
+\sum_{n=1}^{\infty}\alpha\rho^{n-1}
+&\overset{\mathrm{def}}{=}
+\lim_{n\to+\infty}\sum_{k=1}^{n}\alpha\rho^{k-1}\\
+&=\lim_{n\to+\infty}\alpha\frac{1-\rho^n}{1-\rho}
+=\alpha\frac{1-0}{1-\rho}
+=\frac{\alpha}{1-\rho}\in\R.
+\end{align*}
+
+\item
+\begin{align*}
+\sum_{n=1}^{\infty}\frac1{n(n+1)}
+&\overset{\mathrm{def}}{=}
+\lim_{n\to+\infty}\sum_{k=1}^{n}\frac1{k(k+1)}\\
+&=\lim_{n\to+\infty}\left(1-\frac1{n+1}\right)=1.
+\end{align*}
+This is a telescoping series.
+
+\item
+\[
+\sum_{n=1}^{\infty}\frac1{n^2}
+\overset{\mathrm{def}}{=}
+\lim_{n\to+\infty}\sum_{k=1}^{n}\frac1{k^2}
+=\frac{\pi^2}{6}.
+\]
+This is not trivial; we will prove it later in our course.
+
+\item
+\[
+\sum_{n=1}^{\infty}\frac{(-1)^{n+1}}{n}
+=\lim_{n\to+\infty}\sum_{k=1}^{n}\frac{(-1)^{k+1}}{k}
+=\ln 2.
+\]
+\end{enumerate}
+
+\subsection*{Examples of series divergent to $+\infty$}
+\begin{enumerate}[label=\arabic*)]
+\item
+\[
+\sum_{n=1}^{\infty}1
+\overset{\mathrm{def}}{=}
+\lim_{n\to+\infty}\sum_{k=1}^{n}1
+=\lim_{n\to+\infty}n=+\infty.
+\]
+
+\item If $\rho>1$ and $\alpha>0$, then
+\[
+\sum_{n=1}^{\infty}\alpha\rho^{n-1}
+\overset{\mathrm{def}}{=}
+\lim_{n\to+\infty}\alpha\frac{1-\rho^n}{1-\rho}
+=+\infty.
+\]
+
+\item
+\[
+\sum_{n=1}^{\infty}\frac1n
+=\lim_{n\to+\infty}\sum_{k=1}^{n}\frac1k
+=+\infty.
+\]
+We will prove this later.
+\end{enumerate}
+
+\subsection*{Examples of divergent series}
+\begin{enumerate}[label=\arabic*)]
+\item
+\[
+\sum_{n=1}^{\infty}(-1)^{n+1}
+=\lim_{n\to+\infty}\sum_{k=1}^{n}(-1)^{k+1},
+\]
+where
+\[
+\sum_{k=1}^{n}(-1)^{k+1}
+=
+\begin{cases}
+1, & n\text{ is odd},\\
+0, & n\text{ is even}.
+\end{cases}
+\]
+Hence the limit does not exist.
+
+\item
+\[
+\sum_{n=1}^{\infty}\sin(n)
+\]
+is divergent: the limit $\lim_{n\to+\infty}\sum_{k=1}^{n}\sin(k)$ does not exist. We will prove this later.
+\end{enumerate}
+
+\begin{claim}\label{claim:1.1}
+Changing a finite number of terms in a series does not affect its convergence (although it may change the sum of the series).
+\end{claim}
+
+\begin{proof}
+Let $\sum_{n=1}^{\infty}a_n$ be the initial series and let $\sum_{n=1}^{\infty}b_n$ be obtained from it by changing a finite number of terms. Then it is clear that there exists $N\in\N$ such that
+\[
+\forall n\in\N,\quad n\ge N\implies a_n=b_n.
+\]
+Therefore, for every $n\ge N$,
+\[
+A_n-B_n=A_N-B_N,
+\]
+where
+\[
+A_k=\sum_{i=1}^{k}a_i,
+\qquad
+B_k=\sum_{i=1}^{k}b_i
+\]
+are the $k$-th partial sums. Thus
+\[
+\lim_{n\to+\infty}(A_n-B_n)=A_N-B_N\in\R,
+\]
+and the right-hand side does not depend on $n$. By the limit laws for sequences (see Calculus 1), it follows that either both limits $\lim A_n$ and $\lim B_n$ exist, or neither exists. Hence the convergence of the series is unchanged.
+\end{proof}
+
+\begin{claim}[Cauchy's criterion for series]\label{claim:1.2}
+Let $\sum_{n=1}^{\infty}a_n$ be a series. Then
+\[
+\left(\sum_{n=1}^{\infty}a_n\text{ converges}\right)
+\iff
+\left(
+\forall\varepsilon>0\ \exists N(\varepsilon)\in\N:\
+\forall m,k\in\N,\ m\ge N(\varepsilon)
+\implies
+\left|\sum_{n=m+1}^{m+k}a_n\right|<\varepsilon
+\right).
+\]
+\end{claim}
+
+\begin{proof}
+By \hyperref[def:1.4]{Definition~1.4},
+\[
+\sum_{n=1}^{\infty}a_n\text{ converges}
+\iff
+\exists\lim_{N\to+\infty}A_N,
+\qquad
+A_N=\sum_{n=1}^{N}a_n.
+\]
+By Cauchy's criterion for sequences (see Calculus 1), this is equivalent to
+\[
+\forall\varepsilon>0\ \exists N(\varepsilon)\in\N:\
+\forall m,k\in\N,\ m\ge N(\varepsilon)
+\implies |A_{m+k}-A_m|<\varepsilon.
+\]
+Since
+\begin{align*}
+A_{m+k}-A_m
+&=(a_1+\cdots+a_m+a_{m+1}+\cdots+a_{m+k})-(a_1+\cdots+a_m)\\
+&=a_{m+1}+\cdots+a_{m+k}
+=\sum_{n=m+1}^{m+k}a_n,
+\end{align*}
+the claim is proved.
+\end{proof}
+
+\begin{claim}[The negation of the Cauchy criterion]\label{claim:1.3}
+Let $\sum_{n=1}^{\infty}a_n$ be a series. Then
+\[
+\left(\sum_{n=1}^{\infty}a_n\text{ diverges}\right)
+\iff
+\left(
+\exists\varepsilon>0:\ \forall N\in\N\ \exists m\ge N\ \exists k\in\N:\
+\left|\sum_{n=m+1}^{m+k}a_n\right|\ge\varepsilon
+\right).
+\]
+\end{claim}
+
+\begin{proof}
+Exercise (or one can see that it follows directly from \hyperref[claim:1.2]{Claim~1.2}).
+\end{proof}
+
+\begin{claim}\label{claim:1.4}
+The following statements hold:
+\begin{enumerate}[label=\arabic*)]
+\item\label{item:claim:1.4:1} $\displaystyle \sum_{n=1}^{\infty}\frac1{n^2}$ converges;
+\item\label{item:claim:1.4:2} $\displaystyle \sum_{n=1}^{\infty}\frac1n$ diverges.
+\end{enumerate}
+\end{claim}
+
+\begin{proof}
+\textbf{1)} To prove this fact we use \hyperref[claim:1.2]{Claim~1.2}. Let $\varepsilon>0$ be arbitrary. Set
+\[
+N(\varepsilon)=\left\lceil\frac1\varepsilon\right\rceil.
+\]
+For every $m\ge N(\varepsilon)$ and every $k\in\N$,
+\begin{align*}
+\left|\sum_{n=m+1}^{m+k}\frac1{n^2}\right|
+&=\frac1{(m+1)^2}+\cdots+\frac1{(m+k)^2}\\
+&\le \left(\frac1m-\frac1{m+1}\right)+\cdots+
+\left(\frac1{m+k-1}-\frac1{m+k}\right)\\
+&=\frac1m-\frac1{m+k}
+<\frac1m
+\le\frac1{N(\varepsilon)}
+\le\varepsilon,
+\end{align*}
+where we used
+\[
+\frac1{n^2}\le \frac1{n(n-1)}=\frac1{n-1}-\frac1n.
+\]
+Therefore, by \hyperref[claim:1.2]{Claim~1.2}, $\sum_{n=1}^{\infty}\frac1{n^2}$ converges.
+
+\medskip
+\noindent\textbf{2)} We use \hyperref[claim:1.3]{Claim~1.3}. Let $\varepsilon=\frac12$. Let $N\in\N$ be arbitrary and set $m=N$, $k=N$. Then
+\begin{align*}
+\left|\sum_{n=m+1}^{m+k}\frac1n\right|
+&=\sum_{n=N+1}^{2N}\frac1n\\
+&=\frac1{N+1}+\frac1{N+2}+\cdots+\frac1{N+N}\\
+&\ge \underbrace{\frac1{2N}+\frac1{2N}+\cdots+\frac1{2N}}_{N\text{ times}}
+=N\cdot\frac1{2N}=\frac12=\varepsilon.
+\end{align*}
+Therefore, by \hyperref[claim:1.3]{Claim~1.3}, $\sum_{n=1}^{\infty}\frac1n$ diverges.
+\end{proof}
+
+\begin{claim}[Necessary condition for convergence]\label{claim:1.5}
+Let $\sum_{n=1}^{\infty}a_n$ be a series. Then
+\[
+\left(\sum_{n=1}^{\infty}a_n\text{ converges}\right)
+\implies
+\left(\lim_{n\to+\infty}a_n=0\right).
+\]
+\end{claim}
+
+\noindent\textbf{Note.} \hyperref[claim:1.4]{Claim~1.4}(2) shows that the converse does not hold. Indeed,
+\[
+\lim_{n\to+\infty}\frac1n=0,
+\qquad
+\sum_{n=1}^{\infty}\frac1n\text{ diverges}.
+\]
+
+\begin{proof}
+This follows directly from \hyperref[claim:1.2]{Claim~1.2} if we set $k=1$.
+\end{proof}
+
+\begin{claim}\label{claim:1.6}
+The series
+\[
+\sum_{n=1}^{\infty}\sin(nx)
+\]
+diverges for all $x\notin\pi\Z$.
+\end{claim}
+
+\begin{proof}
+Suppose $\sum_{n=1}^{\infty}\sin(nx)$ converges. Then, due to \hyperref[claim:1.5]{Claim~1.5},
+\[
+\lim_{n\to+\infty}\sin(nx)
+=\lim_{n\to+\infty}\sin((n+1)x)=0.
+\]
+Since
+\[
+\sin((n+1)x)=\sin(nx)\cos x+\cos(nx)\sin x
+\]
+and $\sin x\ne0$ (because $x\notin\pi\Z$), it follows that
+\[
+\lim_{n\to+\infty}\cos(nx)=0.
+\]
+But this contradicts the identity
+\[
+\sin^2(nx)+\cos^2(nx)=1.
+\]
+\end{proof}
+
+\begin{definition}\label{def:1.5}
+Let
+\[
+\sum_{n=1}^{\infty}a_n=S
+\]
+be a convergent series, and let
+\[
+S_n=\sum_{k=1}^{n}a_k
+\]
+be its $n$-th partial sum. Then, for every $n\in\N$,
+\[
+S=S_n+r_n,
+\]
+where the sequence $(r_n)_{n=1}^{\infty}$,
+\[
+r_n=\sum_{k=n+1}^{\infty}a_k,
+\]
+is called the \emph{tail} (or the \emph{remainder}) of the series $\sum_{n=1}^{\infty}a_n$.
+\end{definition}
+
+\begin{claim}\label{claim:1.7}
+Let $\sum_{n=1}^{\infty}a_n$ be a series. Then
+\[
+\left(\sum_{n=1}^{\infty}a_n\text{ converges}\right)
+\implies
+\left(\lim_{n\to+\infty}r_n=0\right).
+\]
+\end{claim}
+
+\begin{proof}
+Let $\sum_{n=1}^{\infty}a_n=S\in\R$. Then
+\[
+r_n=S-S_n\qquad\forall n\in\N.
+\]
+Therefore,
+\[
+\lim_{n\to+\infty}r_n
+=\lim_{n\to+\infty}(S-S_n)
+=S-\lim_{n\to+\infty}S_n
+=S-S=0.
+\]
+\end{proof}
+
+\begin{claim}[Linear combination of series]\label{claim:1.8}
+Let $\sum_{n=1}^{\infty}a_n$ and $\sum_{n=1}^{\infty}b_n$ be two convergent series. Then, for every $\alpha,\beta\in\R$, the series
+\[
+\sum_{n=1}^{\infty}(\alpha a_n+\beta b_n)
+\]
+is also convergent and
+\[
+\sum_{n=1}^{\infty}(\alpha a_n+\beta b_n)
+=\alpha\sum_{n=1}^{\infty}a_n
++\beta\sum_{n=1}^{\infty}b_n.
+\]
+This series is the linear combination of the series $\sum a_n$ and $\sum b_n$ with coefficients $\alpha$ and $\beta$.
+\end{claim}
+
+\begin{proof}
+Since $\sum_{n=1}^{\infty}a_n$ and $\sum_{n=1}^{\infty}b_n$ are convergent, for some $a,b\in\R$ we have
+\[
+\sum_{n=1}^{\infty}a_n=\lim_{n\to+\infty}A_n=a,
+\qquad
+A_n=\sum_{k=1}^{n}a_k,
+\]
+and
+\[
+\sum_{n=1}^{\infty}b_n=\lim_{n\to+\infty}B_n=b,
+\qquad
+B_n=\sum_{k=1}^{n}b_k.
+\]
+Therefore, by the limit laws for sequences (see Calculus 1),
+\begin{align*}
+\alpha a+\beta b
+&=\alpha\lim_{n\to+\infty}A_n+\beta\lim_{n\to+\infty}B_n\\
+&=\lim_{n\to+\infty}(\alpha A_n+\beta B_n)\\
+&=\lim_{n\to+\infty}\left(\sum_{k=1}^{n}(\alpha a_k+\beta b_k)\right).
+\end{align*}
+By \hyperref[def:1.3]{Definition~1.3}, this is precisely
+\[
+\sum_{n=1}^{\infty}(\alpha a_n+\beta b_n)=\alpha a+\beta b.
+\]
+\end{proof}
+
+\begin{claim}[Grouping theorem]\label{claim:1.9}
+Let
+\begin{enumerate}[label=\alph*)]
+\item\label{item:claim:1.9:a} $\displaystyle \sum_{n=1}^{\infty}a_n$ be a series;
+\item\label{item:claim:1.9:b} $(K_n)_{n=1}^{\infty}$ be a sequence of positive integers such that
+\[
+K_1=1,
+\qquad
+K_i<K_{i+1}\quad\text{for every }i\in\{1,2,\ldots\};
+\]
+\item\label{item:claim:1.9:c} $\displaystyle \sum_{n=1}^{\infty}b_n$, where
+\[
+b_n=a_{K_n}+\cdots+a_{K_{n+1}-1},
+\qquad n\in\N,
+\]
+be a \emph{grouped series}.
+\end{enumerate}
+Thus $b_n$ is the $n$-th block and $K_{n+1}-K_n$ is the size of the $n$-th block.
+Then:
+\begin{enumerate}[label=\arabic*)]
+\item\label{item:claim:1.9:1}
+\[
+\left(\sum_{n=1}^{\infty}a_n=\alpha\in\R\right)
+\implies
+\left(\sum_{n=1}^{\infty}b_n=\alpha\right).
+\]
+\item\label{item:claim:1.9:2} If
+\[
+\lim_{n\to+\infty}a_n=0,
+\qquad
+\exists m\in\N\ \forall n\in\N:\ K_{n+1}-K_n<m,
+\qquad
+\sum_{n=1}^{\infty}b_n=b\in\R,
+\]
+then
+\[
+\sum_{n=1}^{\infty}a_n=b.
+\]
+\end{enumerate}
+\end{claim}

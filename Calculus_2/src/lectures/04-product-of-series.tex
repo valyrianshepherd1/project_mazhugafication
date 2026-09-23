@@ -1,0 +1,615 @@
+% !TEX root = ../lectures.tex
+
+{\large\bfseries Calculus 2}
+
+\section{Lecture 4}
+\subsection*{Product of Series}
+
+\begin{definition}\label{def:4.1}
+Let
+\[
+\sum_{k=1}^{\infty}a_k
+\qquad\text{and}\qquad
+\sum_{k=1}^{\infty}b_k
+\]
+be two series. The \emph{Cauchy product} of these two series is defined as follows:
+\[
+\left(\sum_{k=1}^{\infty}a_k\right)
+\left(\sum_{k=1}^{\infty}b_k\right)
+\overset{\mathrm{def}}{=}
+\sum_{k=1}^{\infty}c_k,
+\qquad
+c_k=a_1b_k+a_2b_{k-1}+\cdots+a_kb_1.
+\]
+For example,
+\[
+c_1=a_1b_1,
+\qquad
+c_2=a_1b_2+a_2b_1,
+\qquad
+c_3=a_1b_3+a_2b_2+a_3b_1.
+\]
+\end{definition}
+
+\paragraph{Question.}
+Is it true that
+\[
+\left(
+\sum_{k=1}^{\infty}a_k=a\in\R
+\quad\text{and}\quad
+\sum_{k=1}^{\infty}b_k=b\in\R
+\right)
+\Longrightarrow
+\left(
+\sum_{k=1}^{\infty}c_k=ab
+\right),
+\]
+where $c_k=a_1b_k+\cdots+a_kb_1$? In other words, if both series converge, must their Cauchy product converge to the product of their sums?
+
+The following example shows that the answer is \textbf{no}.
+
+\paragraph{Example 4.1.}
+Let
+\[
+a_k=b_k=\frac{(-1)^{k+1}}{\sqrt{k}}.
+\]
+Then the series $\sum_{k=1}^{\infty}a_k$ and $\sum_{k=1}^{\infty}b_k$ are conditionally convergent, due to \hyperref[claim:3.8]{Claim~3.8} (alternating $p$-series). The terms of their Cauchy product are
+\begin{align*}
+c_k
+&=\frac{(-1)^{1+1}}{\sqrt{1}}\frac{(-1)^{k+1}}{\sqrt{k}}
++\cdots+
+\frac{(-1)^{i+1}}{\sqrt{i}}\frac{(-1)^{k-i+2}}{\sqrt{k-i+1}}
++\cdots+
+\frac{(-1)^{k+1}}{\sqrt{k}}\frac{(-1)^{1+1}}{\sqrt{1}}\\
+&=(-1)^{k+3}\sum_{i=1}^{k}\frac{1}{\sqrt{i}\sqrt{k-i+1}}.
+\end{align*}
+Hence
+\[
+|c_k|=\sum_{i=1}^{k}\frac{1}{\sqrt{i}\sqrt{k-i+1}}.
+\]
+By the arithmetic-geometric mean inequality,
+\[
+\sqrt{ab}\le\frac{a+b}{2}\qquad(a>0,b>0),
+\]
+and with $a=i$, $b=k-i+1$,
+\[
+\frac{1}{\sqrt{i}\sqrt{k-i+1}}
+\ge\frac{2}{i+k-i+1}
+=\frac{2}{k+1}.
+\]
+Therefore
+\[
+|c_k|\ge\sum_{i=1}^{k}\frac{2}{k+1}
+=\frac{2k}{k+1}\ge1.
+\]
+Since $\lim_{k\to\infty}c_k\ne0$, by \hyperref[claim:1.5]{Claim~1.5} (the necessary condition for convergence), the series
+\[
+\sum_{k=1}^{\infty}c_k
+\]
+diverges.
+
+The following two claims, which we give without proof, provide sufficient conditions for the implication above to hold.
+
+\begin{claim}[The Mertens Theorem]\label{claim:4.1}
+Let
+\[
+\sum_{k=1}^{\infty}a_k
+\qquad\text{and}\qquad
+\sum_{k=1}^{\infty}b_k
+\]
+be two convergent series with sums $a$ and $b$, respectively. If at least one of them converges absolutely, then their Cauchy product (\hyperref[def:4.1]{Definition~4.1}) converges to $ab$.
+\end{claim}
+
+Thus, the implication in the question is true if at least one of the series is absolutely convergent.
+
+\begin{claim}[The Abel Theorem on the Cauchy product]\label{claim:4.2}
+Let $\sum_{k=1}^{\infty}a_k$ and $\sum_{k=1}^{\infty}b_k$ be two convergent series with sums $a$ and $b$, respectively. If their Cauchy product
+\[
+\sum_{k=1}^{\infty}c_k
+\]
+(see \hyperref[def:4.1]{Definition~4.1}) is a convergent series, then
+\[
+\sum_{k=1}^{\infty}c_k=ab.
+\]
+\end{claim}
+
+\begin{definition}\label{def:4.2}
+Let
+\[
+\sum_{k=1}^{\infty}a_k
+\qquad\text{and}\qquad
+\sum_{k=1}^{\infty}b_k
+\]
+be two series. Let
+\[
+\widetilde\tau:\N\to\N^2,
+\qquad
+i\longmapsto(m_i,n_i),
+\]
+be a bijection from $\N$ to $\N^2$. We define the $\widetilde\tau$-product of the series $\sum a_k$ and $\sum b_k$ by
+\[
+\left(\sum_{k=1}^{\infty}a_k\right)
+\cprod{\widetilde\tau}
+\left(\sum_{k=1}^{\infty}b_k\right)
+=
+\sum_{i=1}^{\infty}a_{m_i}b_{n_i}.
+\]
+\end{definition}
+
+\paragraph{Note 1.}
+Since there are infinitely many bijections of the form $\widetilde\tau:\N\to\N^2$, there are infinitely many distinct definitions of the product of two series.
+
+\paragraph{Note 2.}
+The idea behind \hyperref[def:4.2]{Definition~4.2} is the following. If we need to multiply
+\[
+\sum_{k=1}^{\infty}a_k
+\qquad\text{and}\qquad
+\sum_{k=1}^{\infty}b_k,
+\]
+we need to expand the brackets
+\[
+(a_1+a_2+\cdots+a_k+\cdots)(b_1+b_2+\cdots+b_k+\cdots).
+\]
+It is natural to assume that the right-hand side should be the sum of all terms $a_i b_j$ (surjectivity), and every term $a_i b_j$ ought to appear only once (injectivity). However, the order in which the terms should be listed---that is, the choice of a bijection---is not clear. From the theoretical point of view, one choice is no better than another.
+
+For example:
+
+\noindent``the serpent'' order (= bijection $\widetilde\tau$):
+\begin{center}
+\begin{minipage}{\textwidth}
+\centering
+\includegraphics[width=0.86\textwidth]{figure_serpent_order.jpg}
+\par\smallskip
+\refstepcounter{figure}\label{fig:4.1}
+{\small Figure \thefigure}
+\end{minipage}
+\end{center}
+\[
+\left(\sum_{i=1}^{\infty}a_i\right)
+\cprod{\widetilde\tau}
+\left(\sum_{i=1}^{\infty}b_i\right)
+=
+a_1b_1+a_1b_2+a_2b_2+a_2b_1
++a_3b_1+a_3b_2+a_3b_3+a_2b_3
++a_1b_3+a_1b_4+a_2b_4+\cdots.
+\]
+
+\noindent``the diagonal'' order (= bijection $\widehat\tau$):
+\begin{center}
+\begin{minipage}{\textwidth}
+\centering
+\includegraphics[width=0.86\textwidth]{figure_diagonal_order.jpg}
+\par\smallskip
+\refstepcounter{figure}\label{fig:4.2}
+{\small Figure \thefigure}
+\end{minipage}
+\end{center}
+\[
+\left(\sum_{i=1}^{\infty}a_i\right)
+\cprod{\widehat\tau}
+\left(\sum_{i=1}^{\infty}b_i\right)
+=
+a_1b_1
++(a_1b_2+a_2b_1)
++(a_3b_1+a_2b_2+a_1b_3)
++(a_1b_4+a_2b_3+a_3b_2+a_4b_1)+\cdots,
+\]
+where terms $c_i$ are the same as in the Cauchy product (\hyperref[def:4.1]{Definition~4.1}).
+
+The next theorem shows that if both series are absolutely convergent, then the choice of the order does not matter.
+
+\begin{claim}[The Abel Theorem on Series Product]\label{claim:4.3}
+Let
+\[
+\sum_{k=1}^{\infty}a_k
+\qquad\text{and}\qquad
+\sum_{k=1}^{\infty}b_k
+\]
+be two absolutely convergent series with sums $a$ and $b$, respectively. Then, for every bijection
+\[
+\widetilde\tau:\N\to\N^2,
+\qquad i\longmapsto(m_i,n_i),
+\]
+we have
+\[
+\left(\sum_{k=1}^{\infty}a_k\right)
+\cprod{\widetilde\tau}
+\left(\sum_{k=1}^{\infty}b_k\right)
+=
+\sum_{i=1}^{\infty}a_{m_i}b_{n_i}
+=ab.
+\]
+\end{claim}
+
+\begin{proof}
+For every $N\in\N$, let
+\[
+K=\max\{m_1,\ldots,m_N,n_1,\ldots,n_N\}.
+\]
+Then
+\[
+\sum_{i=1}^{N}|a_{m_i}b_{n_i}|
+\le
+\left(\sum_{i=1}^{K}|a_i|\right)
+\left(\sum_{i=1}^{K}|b_i|\right).
+\]
+The inequality holds because all terms are nonnegative and every term from the left-hand sum is present in the product on the right. Hence
+\[
+\sum_{i=1}^{N}|a_{m_i}b_{n_i}|\le d\beta,
+\]
+where
+\[
+\sum_{i=1}^{\infty}|a_i|=d,
+\qquad
+\sum_{i=1}^{\infty}|b_i|=\beta.
+\]
+Since the two series are absolutely convergent, $d,\beta\in\R$, and the sequences of partial sums
+\[
+\left\{\sum_{i=1}^{n}|a_i|\right\}_{n=1}^{\infty},
+\qquad
+\left\{\sum_{i=1}^{n}|b_i|\right\}_{n=1}^{\infty}
+\]
+are nondecreasing; in particular their partial sums are bounded by $d$ and $\beta$, respectively.
+
+Thus the sequence of partial sums
+\[
+\left\{\sum_{i=1}^{N}|a_{m_i}b_{n_i}|\right\}_{N=1}^{\infty}
+\]
+is bounded by $d\beta$. Since this sequence is nondecreasing, \hyperref[claim:2.2]{Claim~2.2} implies that
+\[
+\sum_{i=1}^{\infty}|a_{m_i}b_{n_i}|
+\]
+is convergent. By \hyperref[def:3.1]{Definition~3.1}, the series
+\[
+\sum_{i=1}^{\infty}a_{m_i}b_{n_i}
+\]
+is absolutely convergent.
+
+Therefore, by \hyperref[claim:3.9]{Claim~3.9} (Cauchy's Rearrangement Theorem), no permutation $\sigma:\N\to\N$ affects its sum. We may rearrange the series so that the order is diagonal:
+\[
+a_1b_1
++(a_1b_2+a_2b_1)
++(a_1b_3+a_2b_2+a_3b_1)
++\cdots
++(a_1b_k+a_2b_{k-1}+\cdots+a_kb_1)+\cdots.
+\]
+Grouping the terms gives
+\[
+c_1+c_2+c_3+\cdots+c_k+\cdots.
+\]
+By \hyperref[def:4.1]{Definition~4.1}, this is the Cauchy product of $\sum a_i$ and $\sum b_i$. Since these series are absolutely convergent, \hyperref[claim:4.1]{Claim~4.1} (Mertens' theorem) gives
+\[
+\sum_{k=1}^{\infty}c_k=ab.
+\]
+Therefore
+\[
+\sum_{i=1}^{\infty}a_{m_i}b_{n_i}=ab.
+\]
+\end{proof}
+
+\subsection*{The Stirling Formula}
+
+To prove the formula, we will need the following fact.
+
+\begin{claim}\label{claim:4.4}
+Let
+\[
+I_n=\int_{0}^{\pi/2}\sin^n(x)\,dx,
+\qquad n\in\N\cup\{0\}.
+\]
+Then:
+\begin{enumerate}[label=\arabic*)]
+\item\label{item:claim:4.4:1} the sequence $\{I_n\}_{n=1}^{\infty}$ is nonincreasing;
+\item\label{item:claim:4.4:2} for every $n\in\N$,
+\[
+I_{2n}=\frac{\pi}{2}\cdot\frac{(2n-1)!!}{(2n)!!},
+\qquad
+I_{2n+1}=\frac{(2n)!!}{(2n+1)!!}.
+\]
+\end{enumerate}
+\end{claim}
+
+\begin{proof}
+\textbf{1)} For every $x\in[0,\pi/2]$,
+\[
+0\le\sin x\le1.
+\]
+Hence, for every $n\in\N\cup\{0\}$,
+\[
+0\le\sin^{n+1}x\le\sin^n x\le1,
+\]
+and therefore
+\[
+I_{n+1}=\int_0^{\pi/2}\sin^{n+1}x\,dx
+\le
+\int_0^{\pi/2}\sin^n x\,dx=I_n.
+\]
+Thus $\{I_n\}$ is nonincreasing.
+
+\medskip
+\noindent\textbf{2)} We prove the equalities by induction on $n\in\N\cup\{0\}$.
+
+For $n=0$,
+\[
+I_0=\int_0^{\pi/2}\sin^0x\,dx
+=\int_0^{\pi/2}1\,dx
+=\frac{\pi}{2}
+=\frac{\pi}{2}\cdot\frac{(2\cdot0-1)!!}{(2\cdot0)!!}.
+\]
+For $n=1$,
+\[
+I_1=\int_0^{\pi/2}\sin x\,dx
+=-\cos x\Big|_0^{\pi/2}
+=1
+=\frac{(2\cdot0)!!}{(2\cdot0+1)!!}.
+\]
+
+For the induction step, note that
+\begin{align*}
+I_{n+2}
+&=\int_0^{\pi/2}\sin^{n+1}x\,\sin x\,dx\\
+&=-\cos x\,\sin^{n+1}x\Big|_0^{\pi/2}
++\int_0^{\pi/2}(n+1)\sin^n x\cos^2x\,dx\\
+&=(n+1)\int_0^{\pi/2}\sin^n x(1-\sin^2x)\,dx\\
+&=(n+1)I_n-(n+1)I_{n+2}.
+\end{align*}
+Thus
+\[
+I_{n+2}=\frac{n+1}{n+2}I_n
+\qquad(n\in\N\cup\{0\}).
+\]
+Therefore
+\[
+I_{2n+2}=\frac{2n+1}{2n+2}I_{2n}
+=\frac{2n+1}{2n+2}\cdot\frac{\pi}{2}\frac{(2n-1)!!}{(2n)!!}
+=\frac{\pi}{2}\frac{(2n+1)!!}{(2n+2)!!},
+\]
+and
+\[
+I_{2n+3}=\frac{2n+2}{2n+3}I_{2n+1}
+=\frac{2n+2}{2n+3}\cdot\frac{(2n)!!}{(2n+1)!!}
+=\frac{(2n+2)!!}{(2n+3)!!}.
+\]
+\end{proof}
+
+\begin{claim}[The Wallis Formula]\label{claim:4.5}
+Let
+\[
+P_n=\prod_{k=1}^{n}\frac{(2k)^2}{(2k)^2-1}
+\qquad(n\in\N).
+\]
+Then
+\[
+\lim_{n\to\infty}P_n=\frac{\pi}{2}.
+\]
+\end{claim}
+
+\begin{proof}
+For every $n\in\N$,
+\[
+\frac{P_n}{P_{n-1}}=\frac{(2n)^2}{(2n)^2-1}>1,
+\]
+so the sequence $\{P_n\}_{n=1}^{\infty}$ is increasing.
+
+Also,
+\begin{align*}
+P_n
+&=\prod_{k=1}^{n}\frac{(2k)^2}{(2k-1)(2k+1)}\\
+&=\frac{(2\cdot4\cdot6\cdots2n)^2}
+{1\cdot3\cdot3\cdot5\cdot5\cdot7\cdots(2n-1)(2n+1)}\\
+&=\left(\frac{(2n)!!}{(2n+1)!!}\right)^2(2n+1).
+\tag{**}\label{eq:4:starstar:1}
+\end{align*}
+
+By \hyperref[item:claim:4.4:1]{item 1)} of \hyperref[claim:4.4]{Claim~4.4},
+\[
+I_{2n+1}\le I_{2n}\le I_{2n-1}.
+\]
+Using \hyperref[item:claim:4.4:2]{item 2)} of \hyperref[claim:4.4]{Claim~4.4},
+\[
+\frac{(2n)!!}{(2n+1)!!}
+\le
+\frac{\pi}{2}\frac{(2n-1)!!}{(2n)!!}
+\le
+\frac{(2n-2)!!}{(2n-1)!!}.
+\]
+Multiplying by $\frac{(2n)!!}{(2n-1)!!}$ gives
+\[
+\left(\frac{(2n)!!}{(2n+1)!!}\right)^2(2n+1)
+\le\frac{\pi}{2}
+\le
+\left(\frac{(2n)!!}{(2n+1)!!}\right)^2\frac{(2n+1)^2}{2n}.
+\]
+By \hyperref[eq:4:starstar:1]{(**)},
+\[
+P_n\le\frac{\pi}{2}\le P_n\frac{2n+1}{2n}.
+\]
+Hence
+\[
+\lim_{n\to\infty}P_n=\frac{\pi}{2}.
+\]
+\end{proof}
+
+\begin{claim}[Almost the Stirling Formula]\label{claim:4.6}
+There exists a limit
+\[
+\lim_{n\to\infty}\frac{n!}{\sqrt n\,(n/e)^n}=A>0.
+\]
+That is, we prove that the limit exists and its value is positive.
+\end{claim}
+
+\begin{proof}
+Let
+\[
+a_n=\frac{n!}{\sqrt n\,(n/e)^n}
+=\frac{n!e^n}{n^{n+1/2}}
+\qquad(n\in\N).
+\]
+We need to prove that $\lim_{n\to\infty}a_n=A>0$.
+
+Note that
+\begin{align*}
+\frac{a_{n+1}}{a_n}
+&=\frac{(n+1)!e^{n+1}}{(n+1)^{n+1+1/2}}
+\cdot\frac{n^{n+1/2}}{n!e^n}\\
+&=e\left(\frac{n}{n+1}\right)^{n+1/2}
+=e\left(1+\frac1n\right)^{-n-1/2}.
+\end{align*}
+Hence
+\begin{align*}
+\ln\left(\frac{a_{n+1}}{a_n}\right)
+&=1-\left(n+\frac12\right)\ln\left(1+\frac1n\right)\\
+&=1-\left(n+\frac12\right)
+\left(
+\frac1n-\frac12\frac1{n^2}+\frac13\frac1{n^3}+O\left(\frac1{n^4}\right)
+\right)\\
+&=1-
+\left(1-\frac12\frac1n+\frac13\frac1{n^2}+O\left(\frac1{n^3}\right)\right)
+-
+\left(\frac12\frac1n-\frac14\frac1{n^2}+\frac16\frac1{n^3}+O\left(\frac1{n^4}\right)\right)\\
+&=\left(-\frac13+\frac14\right)\frac1{n^2}
++O\left(\frac1{n^3}\right)\\
+&=\frac1{n^2}\left(-\frac1{12}+O\left(\frac1n\right)\right).
+\tag{1}\label{eq:4:1:1}
+\end{align*}
+
+Let
+\[
+P_n=\prod_{k=1}^{n}\frac{a_{k+1}}{a_k}
+=\frac{a_2}{a_1}\frac{a_3}{a_2}\cdots\frac{a_{n+1}}{a_n}
+=\frac{a_{n+1}}{a_1}.
+\tag{3}\label{eq:4:3:1}
+\]
+Then, by \hyperref[eq:4:1:1]{(1)},
+\[
+\ln(P_n)
+=\sum_{k=1}^{n}\ln\left(\frac{a_{k+1}}{a_k}\right)
+=\sum_{k=1}^{n}\frac1{k^2}\left(-\frac1{12}+O\left(\frac1k\right)\right).
+\tag{2}\label{eq:4:2:1}
+\]
+Since the factor in parentheses is bounded for all sufficiently large $k$, the series converges absolutely by \hyperref[claim:2.4]{Claim~2.4} and \hyperref[claim:2.7]{Claim~2.7}:
+\[
+\sum_{k=1}^{\infty}\frac1{k^2}\left(-\frac1{12}+O\left(\frac1k\right)\right)
+\]
+converges, say to $b\in\R$. Therefore, from \hyperref[eq:4:2:1]{(2)},
+\[
+\lim_{n\to\infty}\ln(P_n)=b.
+\]
+Thus
+\[
+\lim_{n\to\infty}P_n=e^b\in\R.
+\tag{4}\label{eq:4:4:1}
+\]
+
+Finally,
+\[
+\lim_{n\to\infty}a_n
+=\lim_{n\to\infty}a_{n+1}
+=a_1\lim_{n\to\infty}P_n
+=a_1e^b.
+\]
+Since $a_1=e$, we obtain
+\[
+A=e^{b+1}>0.
+\]
+\end{proof}
+
+\begin{claim}[The Stirling Formula]\label{claim:4.7}
+\[
+\lim_{n\to\infty}
+\frac{n!}{\sqrt{2\pi n}\,(n/e)^n}=1,
+\]
+equivalently,
+\[
+n!\sim\sqrt{2\pi n}\left(\frac ne\right)^n,
+\qquad n\to+\infty.
+\]
+\end{claim}
+
+\paragraph{Note.}
+\[
+\lim_{n\to\infty}
+\left(
+ n!-\sqrt{2\pi n}\left(\frac ne\right)^n
+\right)=+\infty.
+\]
+
+\begin{proof}
+Due to \hyperref[claim:4.5]{Claim~4.5} (the Wallis formula) and equality \hyperref[eq:4:starstar:1]{$(**)$}, we have
+\[
+\lim_{n\to\infty}
+\left(\frac{(2n)!!}{(2n+1)!!}\right)^2(2n+1)
+=\frac{\pi}{2}.
+\]
+Thus
+\[
+\lim_{n\to\infty}
+\left(
+\frac{(2n)!!}{(2n+1)!!}\sqrt{2n+1}
+\right)
+=\sqrt{\frac{\pi}{2}}.
+\tag{5}\label{eq:4:5:1}
+\]
+
+On the other hand,
+\[
+\frac{(2n)!!}{(2n+1)!!}
+=\frac{2\cdot4\cdot6\cdots2n}{1\cdot3\cdot5\cdots(2n+1)}
+=\frac{2^{2n}(n!)^2}{(2n+1)!}.
+\]
+Hence
+\begin{align*}
+&\lim_{n\to\infty}
+\left(
+\frac{(2n)!!}{(2n+1)!!}\sqrt{2n+1}
+\right)\\
+&=\lim_{n\to\infty}
+\left(
+\frac{2^{2n}(n!)^2}{(2n+1)!}\sqrt{2n+1}
+\right)\\
+&=\lim_{n\to\infty}
+\left(
+\frac{2^{2n}\left(A\sqrt n\,(n/e)^n\right)^2}
+{A\sqrt{2n+1}\,((2n+1)/e)^{2n+1}}
+\sqrt{2n+1}
+\right)\\
+&=\lim_{n\to\infty}
+\frac{2^{2n}eA\,n^{2n+1}}{(2n+1)^{2n+1}}\\
+&=\lim_{n\to\infty}
+\left(
+ eA\,2^{2n}\left(\frac{2n+1}{n}\right)^{-2n-1}
+\right)\\
+&=\lim_{n\to\infty}
+\left(
+ eA\cdot\frac12
+ \left(1+\frac1{2n}\right)^{-2n}
+ \left(1+\frac1{2n}\right)^{-1}
+\right)\\
+&=\frac12A.
+\end{align*}
+Therefore, by \hyperref[eq:4:5:1]{(5)},
+\[
+\sqrt{\frac{\pi}{2}}=\frac12A,
+\]
+so
+\[
+A=\sqrt{2\pi}.
+\]
+By \hyperref[claim:4.6]{Claim~4.6},
+\[
+\lim_{n\to\infty}
+\frac{n!}{\sqrt{2\pi}\,\sqrt n\,(n/e)^n}=1,
+\]
+which is the Stirling formula.
+\end{proof}
+
+\begin{claim}[The Robbins Formula]\label{claim:4.8}
+For every $n\in\N$, we have
+\[
+\sqrt{2\pi n}\left(\frac ne\right)^n e^{\frac{1}{12n+1}}
+<n!
+<\sqrt{2\pi n}\left(\frac ne\right)^n e^{\frac{1}{12n}}.
+\]
+\end{claim}
+
+\noindent\emph{Without proof.}

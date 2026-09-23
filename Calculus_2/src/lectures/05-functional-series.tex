@@ -1,0 +1,570 @@
+% !TEX root = ../lectures.tex
+
+{\large\bfseries Calculus 2}
+
+\section{Lecture 5}
+\subsection*{Functional Sequences and Series}
+
+\begin{definition}\label{def:5.1}
+Let $E\subseteq\R$, and $f_n:E\to\R$, $n\in\N$.
+
+Then:
+\begin{enumerate}
+    \item\label{item:definition:5.1:1} the sequence $\{f_n(x)\}_{n=1}^{\infty}$ is called a \emph{functional sequence};
+    \item\label{item:definition:5.1:2} the series $\displaystyle\sum_{n=1}^{\infty}f_n(x)$ is called a \emph{functional series}.
+\end{enumerate}
+\end{definition}
+
+\begin{definition}\label{def:5.2}
+Let $E\subseteq\R$, and $f_n:E\to\R$, $n\in\N$.
+
+Then:
+\begin{enumerate}
+    \item\label{item:definition:5.2:1} the sequence $\{f_n(x)\}_{n=1}^{\infty}$ \emph{converges pointwise} to a function $f:E\to\R$ (notation: $f_n\pconv{E}f$) on the set $E$ if
+    \[
+    \lim_{n\to\infty}f_n(x)=f(x)\qquad\text{for every }x\in E.
+    \]
+    That is,
+    \[
+    \bigl(f_n\pconv{E}f\bigr)
+    \Longleftrightarrow
+    \bigl(\forall x\in E\ \forall\varepsilon>0\ \exists N(\varepsilon,x)\in\N\ \forall n\ge N(\varepsilon,x)
+    \to |f_n(x)-f(x)|<\varepsilon\bigr).
+    \tag{1}\label{eq:5:1:1}
+    \]
+
+    \item\label{item:definition:5.2:2} the functional series $\displaystyle\sum_{k=1}^{\infty}f_k(x)$ \emph{converges pointwise} to a function $f:E\to\R$ (notation: $\displaystyle\sum_{k=1}^{\infty}f_k\pconv{E}f$) on the set $E$ if the sequence of partial sums
+    \[
+    \left\{S_n(x)=\sum_{k=1}^{n}f_k(x)\right\}_{n=1}^{\infty}
+    \]
+    converges pointwise to $f$.
+\end{enumerate}
+\end{definition}
+
+\begin{claim}[Properties of Finite Sums]\label{claim:5.1}
+Let $E\subseteq\R$, $u_k:E\to\R$, $\forall k\in\N$, and
+\[
+f_n(x)=\sum_{k=1}^{n}u_k(x),\qquad \forall n\in\N.
+\]
+Then:
+\begin{enumerate}
+    \item\label{item:claim:5.1:1} if every $u_k$ is continuous on $E$, then $f_n$ is also continuous on $E$;
+    \item\label{item:claim:5.1:2} if every $u_k$ is differentiable on $E$, then $f_n$ is also differentiable on $E$ and
+    \[
+    f_n'(x)=\sum_{k=1}^{n}u_k'(x),\qquad \forall x\in E;
+    \]
+    \item\label{item:claim:5.1:3} if every $u_k$ is Riemann integrable on $[a,b]\subseteq E$, then $f_n$ is also Riemann integrable on $[a,b]$ and
+    \[
+    \int_a^b f_n(x)\,dx=\sum_{k=1}^{n}\int_a^b u_k(x)\,dx.
+    \]
+\end{enumerate}
+\end{claim}
+
+\begin{proof}
+See Calculus-1.
+\end{proof}
+
+Can we extend Properties 1), 2), and 3) from \hyperref[claim:5.1]{Claim 5.1} to the series
+\[
+f(x)=\sum_{k=1}^{\infty}u_k(x)?
+\]
+In general, \textbf{NO} (see the next Claim), but \textbf{YES} under some assumptions.
+
+The main goal of this and the next lectures is to establish such assumptions.
+
+\begin{claim}\label{claim:5.2}
+Let $E\subseteq\R$, $u_k:E\to\R$, $k\in\N$, and
+\[
+f_n(x)=\sum_{k=1}^{n}u_k(x),\qquad \forall n\in\N.
+\]
+Then:
+\begin{enumerate}
+    \item\label{item:claim:5.2:1} If every $u_k$ is continuous on $E$ and $f_n\pconv{E}f$, then $f$ may not be continuous on $E$.
+    \item\label{item:claim:5.2:2} If every $u_k$ is differentiable on $E$ and $f_n\pconv{E}f$, then $f$ may not be differentiable on $E$.
+    \item\label{item:claim:5.2:3} If every $u_k$ is Riemann integrable on $[a,b]\subseteq E$ and $f_n\pconv{E}f$, then $f$ may not be Riemann integrable on $[a,b]\subseteq E$.
+\end{enumerate}
+\end{claim}
+
+Note that, \hyperref[claim:5.2]{Claim 5.2} shows that the assumption $f_n\pconv{E}f$ is not strong enough, if we want to extend the properties (i.e. continuity, differentiability and Riemann integrability) to
+\[
+f(x)=\sum_{k=1}^{\infty}u_k(x),
+\]
+we need to replace the assumption $f_n\pconv{E}f$ with a stronger one. We will prove the corresponding claims in the next lecture.
+
+\begin{proof}
+1) and 2). Let $E=\R$,
+\[
+u_k(x)=\frac{\sin(kx)}{k},\qquad \forall k\in\N.
+\]
+Then
+\[
+\sum_{k=1}^{\infty}\frac{\sin(kx)}{k}\pconv{\R}f(x),
+\]
+that is, the series converges pointwise on $\R$ (due to \hyperref[claim:3.2]{Claim 3.2} [Dirichlet's Test]).
+
+It can be shown that (we will be able to do it later in our course) that the function $f$ is of the form:
+
+\begin{center}
+\begin{minipage}{\textwidth}
+\centering
+\includegraphics[width=0.92\textwidth]{figure_periodic_extension.jpg}
+\par\smallskip
+\refstepcounter{figure}\label{fig:5.1}
+{\small Figure \thefigure}
+\end{minipage}
+\end{center}
+
+It is the periodic extension of
+\[
+g(x)=
+\begin{cases}
+\dfrac{\pi-x}{2},&x\in(0,2\pi),\\
+0,&x=0.
+\end{cases}
+\]
+
+That is, $f$ is discontinuous at the points $x=2\pi m$, $m\in\Z$.
+
+Since, for every $k\in\N$,
+\[
+u_k(x)=\frac{\sin(kx)}{k}
+\]
+is infinitely differentiable on $\R$, \hyperref[item:claim:5.2:1]{Items 1)} and \hyperref[item:claim:5.2:2]{2)} are proved.
+
+Also note that the equality
+\[
+f'(x)=\sum_{k=1}^{\infty}\left(\frac{\sin(kx)}{k}\right)'=\sum_{k=1}^{\infty}\cos(kx)
+\]
+has no sense (since the latter series diverges for every $x\in\R$).
+
+3) Let $E=[0,1]$, $\widetilde\tau:\N\to[0,1]\cap\Q$ be a bijection (you should know that such a bijection exists; why?) and
+\[
+u_k(x)=
+\begin{cases}
+1,&x=\widetilde\tau(k),\\
+0,&x\in[0,1]\setminus\{\widetilde\tau(k)\},
+\end{cases}
+\qquad \forall k\in\N.
+\]
+Then,
+\[
+\sum_{k=1}^{\infty}u_k(x)\pconv{E}f(x)=
+\begin{cases}
+1,&x\in[0,1]\cap\Q,\\
+0,&x\in[0,1]\text{ and }x\notin\Q.
+\end{cases}
+\]
+That is, $f$ is the Dirichlet function on $[0,1]$.
+
+It ought to be clear that $f$ is not Riemann-integrable on $E=[0,1]$ (since $f$ is nowhere continuous on $[0,1]$).
+Since every $u_k$ has finitely many points of discontinuities (actually just one point: $x=\widetilde\tau(k)$) and it is bounded on $[0,1]$, it is Riemann-integrable on $[0,1]$. Thus, the item is proved.
+\end{proof}
+
+\begin{definition}\label{def:5.3}
+Let $E\subseteq\R$, and $f_n:E\to\R$, $n\in\N$.
+
+Then:
+\begin{enumerate}
+    \item\label{item:definition:5.3:1} the functional sequence $\{f_n(x)\}_{n=1}^{\infty}$ is called \emph{uniformly convergent} to a function $f(x)$ on a set $E$ (notation $f_n\uconv{E}f$) if
+    \[
+    \lim_{n\to\infty}\sup_{x\in E}|f_n(x)-f(x)|=0.
+    \]
+    That is,
+    \[
+    \bigl(f_n\uconv{E}f\bigr)
+    \Longleftrightarrow
+    \bigl(\forall\varepsilon>0\ \exists N(\varepsilon)\in\N:\ \forall n\ge N(\varepsilon)\ \forall x\in E
+    \to |f_n(x)-f(x)|<\varepsilon\bigr).
+    \tag{2}\label{eq:5:2:1}
+    \]
+
+    \item\label{item:definition:5.3:2} the functional series $\displaystyle\sum_{k=1}^{\infty}f_k(x)$ is called \emph{uniformly convergent} to a function $f(x)$ on a set $E$ (notation $\displaystyle\sum_{k=1}^{\infty}f_k(x)\uconv{E}f(x)$) if the sequence of its partial sums
+    \[
+    \left\{S_n(x)=\sum_{k=1}^{n}f_k(x)\right\}_{n=1}^{\infty}
+    \]
+    converges uniformly to $f(x)$ on $E$.
+\end{enumerate}
+\end{definition}
+
+\hyperref[item:definition:5.3:2]{Definition 2)} means that, in order to converge uniformly on $E$, the functions $f_n(x)$ ought to be inside the $\varepsilon$-neighbourhood of $f(x)$ for all $n\ge N(\varepsilon)$ and for all $x\in E$.
+
+\begin{claim}\label{claim:5.3}
+Let $E\subseteq\R$, and $f_n:E\to\R$, $n\in\N$.
+Then
+\[
+\bigl(f_n\uconv{E}f\bigr)\Longrightarrow\bigl(f_n\pconv{E}f\bigr).
+\]
+That is, if the sequence $\{f_n(x)\}_{n=1}^{\infty}$ converges uniformly to $f(x)$ on $E$, then it converges pointwise to $f(x)$ on $E$.
+
+Note that the converse does not hold true in general.
+\end{claim}
+
+\begin{proof}
+$(\Rightarrow)$ The statement follows directly from \hyperref[def:5.2]{Def 5.2} and \hyperref[def:5.3]{Def 5.3}:
+\[
+\bigl(f_n\uconv{E}f\bigr)
+\]
+\[
+\Updownarrow\quad\text{\hyperref[def:5.3]{Def 5.3}}
+\]
+\[
+\bigl(\forall\varepsilon>0\ \exists N(\varepsilon)\in\N:\ \forall n\ge N(\varepsilon)\ \forall x\in E
+\to |f_n(x)-f(x)|<\varepsilon\bigr)
+\]
+\[
+\Downarrow\qquad\text{since we can use }N(\varepsilon,x)=N(\varepsilon)
+\]
+\[
+\bigl(\forall\varepsilon>0\ \forall x\in E\ \exists N(\varepsilon,x)\in\N:\ \forall n\ge N(\varepsilon,x)
+\to |f_n(x)-f(x)|<\varepsilon\bigr)
+\]
+\[
+\Updownarrow\quad\text{\hyperref[def:5.2]{Def 5.2}}
+\]
+\[
+\bigl(f_n\pconv{E}f\bigr).
+\]
+
+For the converse, let
+\[
+f_n(x)=
+\begin{cases}
+1,&x\in[n,n+1],\\
+0,&x\in\R\setminus[n,n+1],
+\end{cases}
+\qquad
+f(x)=0\quad\forall x\in\R,
+\qquad E=\R.
+\]
+
+Then $\forall x\in\R$:
+\[
+\lim_{n\to\infty}f_n(x)=0=f(x).
+\]
+That is, due to \hyperref[def:5.2]{Def 5.2}, $f_n\pconv{\R}f$.
+Since
+\[
+\sup_{x\in\R}|f_n(x)-f(x)|=1,
+\]
+we have
+\[
+\lim_{n\to\infty}\sup_{x\in\R}|f_n(x)-f(x)|=1\ne0.
+\]
+Therefore, due to \hyperref[def:5.3]{Def 5.3}, $f_n\nuconv{\R}f$.
+\end{proof}
+
+\begin{claim}[The Cauchy Criterion for the Uniform Convergence]\label{claim:5.4}
+Let $E\subseteq\R$, and $f_n:E\to\R$, $n\in\N$.
+Then
+\[
+\bigl(f_n\uconv{E}f\bigr)
+\]
+\[
+\Updownarrow
+\]
+\[
+\bigl(\forall\varepsilon>0\ \exists N(\varepsilon)\in\N:\ \forall k\ge N(\varepsilon)\ \forall m\ge N(\varepsilon)\ \forall x\in E
+\to |f_m(x)-f_k(x)|<\varepsilon\bigr).
+\tag{3}\label{eq:5:3:1}
+\]
+Equivalently,
+\[
+\bigl(\forall\varepsilon>0\ \exists N(\varepsilon)\in\N:\ \forall m\ge N(\varepsilon)\ \forall p\in\N\ \forall x\in E
+\to |f_{m+p}(x)-f_m(x)|<\varepsilon\bigr).
+\]
+\end{claim}
+
+\begin{proof}
+$(\Downarrow)$ Note that
+\[
+\bigl(f_n\uconv{E}f\bigr)
+\]
+by \hyperref[eq:5:2:1]{Formula 2} implies
+\[
+\bigl(\forall\varepsilon>0\ \exists N_1(\varepsilon):\ \forall n\ge N_1(\varepsilon)\ \forall x\in E
+\to |f_n(x)-f(x)|<\tfrac{\varepsilon}{2}\bigr).
+\]
+Let $N(\varepsilon)=N_1(\varepsilon)$ in \hyperref[eq:5:3:1]{Formula (3)}. Then, for $\forall k\ge N(\varepsilon)$, $\forall m\ge N(\varepsilon)$, $\forall x\in E$, we have
+\begin{align*}
+|f_m(x)-f_k(x)|
+&=|f_m(x)-f(x)+f(x)-f_k(x)|\\
+&\le |f_m(x)-f(x)|+|f_k(x)-f(x)|\\
+&<\frac{\varepsilon}{2}+\frac{\varepsilon}{2}=\varepsilon.
+\end{align*}
+Thus, we proved $(\Downarrow)$.
+
+$(\Uparrow)$ Note that
+\[
+\bigl(\forall\varepsilon>0\ \exists N(\varepsilon)\in\N:\ \forall k\ge N(\varepsilon)\ \forall m\ge N(\varepsilon)\ \forall x\in E
+\to |f_m(x)-f_k(x)|<\varepsilon\bigr)
+\]
+implies
+\[
+\bigl(\forall x\in E\ \forall\varepsilon>0\ \exists N(\varepsilon,x)\in\N:\ \forall k\ge N(\varepsilon,x)\ \forall m\ge N(\varepsilon,x)
+\to |f_m(x)-f_k(x)|<\varepsilon\bigr).
+\]
+For a fixed $x\in E$, this is the Cauchy convergence criterion for the sequence $\{f_n(x)\}_{n=1}^{\infty}$ (see Calculus-1). Therefore,
+\[
+\forall x\in E\to\exists\lim_{n\to\infty}f_n(x).
+\]
+Therefore, we can define $f:E\to\R$ as
+\[
+f(x)\overset{\mathrm{def}}{=}\lim_{n\to\infty}f_n(x),\qquad \forall x\in E.
+\]
+Thus, we proved that $f_n\pconv{E}f$.
+
+Now, if in \hyperref[eq:5:3:1]{Formula (3)} we take the limit $k\to\infty$, we will receive \hyperref[eq:5:2:1]{Formula 2} from \hyperref[def:5.3]{Def 5.3}:
+\[
+\forall\varepsilon>0\ \exists N(\varepsilon)\in\N:\ \forall m\ge N(\varepsilon)\ \forall x\in E
+\to |f_m(x)-f(x)|\le\varepsilon.
+\]
+Here we used that $\forall x\in E\ \exists\lim_{k\to\infty}f_k(x)=f(x)$.
+Therefore, due to \hyperref[def:5.3]{Def 5.3}, $f_n\uconv{E}f$.
+\end{proof}
+
+\begin{claim}[The Negation of the Cauchy Criterion for the UC]\label{claim:5.5}
+Let $E\subseteq\R$, and $f_n:E\to\R$, $n\in\N$.
+Then
+\[
+\bigl(f_n\nuconv{E}f\bigr)
+\]
+\[
+\Updownarrow
+\]
+\[
+\bigl(\exists\varepsilon>0\ \forall N\in\N\ \exists k\ge N\ \exists m\ge N\ \exists x\in E
+\to |f_m(x)-f_k(x)|\ge\varepsilon\bigr).
+\tag{4}\label{eq:5:4:1}
+\]
+\end{claim}
+
+\paragraph{Example.}
+Study the uniform convergence of the sequence
+\[
+\left\{f_n(x)=\frac{\ln(nx)}{\sqrt{nx}}\right\}_{n=1}^{\infty}
+\]
+on the set $E=(0,1)$.
+
+\paragraph{Solution.}
+Since, for every $x\in(0,1)$, we have
+\[
+\lim_{n\to\infty}f_n(x)=\lim_{n\to\infty}\frac{\ln(nx)}{\sqrt{nx}}=0
+\qquad\text{//see Calculus-1//},
+\]
+due to \hyperref[def:5.2]{Def 5.2}, the sequence $\{f_n(x)\}_{n=1}^{\infty}$ converges pointwise to the function $f\equiv0$ on $E=(0,1)$.
+
+Now, using \hyperref[claim:5.5]{Claim 5.5}, we will prove that $f_n\nuconv{E}f\equiv0$.
+In \hyperref[eq:5:4:1]{Formula (4)}, let
+\[
+\varepsilon=\frac14,\qquad k=N,\qquad m=2N,\qquad x=\frac1N\in E=(0,1).
+\]
+Then, we have:
+\begin{align*}
+|f_m(x)-f_k(x)|
+&=\left|f_{2N}\left(\frac1N\right)-f_N\left(\frac1N\right)\right|\\
+&=\frac{\ln(2N\cdot\frac1N)}{\sqrt{2N\cdot\frac1N}}
+-\frac{\ln(N\cdot\frac1N)}{\sqrt{N\cdot\frac1N}}\\
+&=\frac{\ln2}{\sqrt2}-\frac{\ln1}{\sqrt1}
+=\frac{\ln2}{\sqrt2}>\frac14=\varepsilon.
+\end{align*}
+Thus, due to \hyperref[claim:5.5]{Claim 5.5}, $f_n\nuconv{E}f\equiv0$.
+
+\begin{claim}[Necessary Condition for the Uniform Convergence]\label{claim:5.6}
+Let $E\subseteq\R$, $u_k:E\to\R$, $k\in\N$, and
+\[
+f_n(x)=\sum_{k=1}^{n}u_k(x),\qquad n\in\N.
+\]
+Then
+\[
+\bigl(f_n\uconv{E}f\bigr)\Longrightarrow\bigl(u_k\uconv{E}0\bigr).
+\]
+That is, if the series $\displaystyle\sum_{k=1}^{\infty}u_k(x)$ converges uniformly on $E$, then the sequence $\{u_k(x)\}_{k=1}^{\infty}$ converges uniformly to the zero function.
+
+Compare \hyperref[claim:5.6]{Claim 5.6} with \hyperref[claim:1.5]{Claim 1.5}.
+\end{claim}
+
+\begin{proof}
+Note that
+\[
+\bigl(f_n\uconv{E}f\bigr)
+\]
+due to \hyperref[claim:5.4]{Claim 5.4}, for $k=m-1$, implies
+\[
+\bigl(\forall\varepsilon>0\ \exists N(\varepsilon)\in\N:\ \forall m\ge N(\varepsilon)\ \forall x\in E
+\to |f_m(x)-f_{m-1}(x)|<\varepsilon\bigr).
+\]
+Since
+\[
+f_m(x)-f_{m-1}(x)
+=\sum_{k=1}^{m}u_k(x)-\sum_{k=1}^{m-1}u_k(x)=u_m(x),
+\]
+this is equivalent to
+\[
+\bigl(\forall\varepsilon>0\ \exists N(\varepsilon)\in\N:\ \forall m\ge N(\varepsilon)\ \forall x\in E
+\to |u_m(x)-0|<\varepsilon\bigr),
+\]
+which, due to \hyperref[def:5.3]{Def 5.3} and \hyperref[eq:5:2:1]{Formula (2)}, is
+\[
+u_m\uconv{E}0.
+\]
+\end{proof}
+
+\paragraph{Note.}
+The necessary condition (\hyperref[claim:5.6]{Claim 5.6}) is not sufficient. It cannot even guarantee the pointwise convergence.
+Let $E=(0,1)$, and
+\[
+u_k(x)=\frac{1}{k+x}.
+\]
+Then $u_k(x)\uconv{E}0$, but the series
+\[
+\sum_{k=1}^{\infty}\frac{1}{k+x}
+\]
+is divergent for every $x\in E=(0,1)$.
+
+\begin{claim}[The Weierstrass M-test]\label{claim:5.7}
+Let $E\subseteq\R$, $u_k:E\to\R$, $k\in\N$, and
+\[
+f_n(x)=\sum_{k=1}^{n}u_k(x),\qquad n\in\N.
+\]
+Suppose that there is a sequence of real numbers $\{M_k\}_{k=1}^{\infty}$ satisfying the conditions:
+\begin{enumerate}[label=\alph*)]
+    \item\label{item:claim:5.7:a} $\forall k\in\N\ \forall x\in E\to |u_k(x)|\le M_k$;
+    \item\label{item:claim:5.7:b} $\displaystyle\sum_{k=1}^{\infty}M_k$ converges.
+\end{enumerate}
+Then, the series
+\[
+\sum_{k=1}^{\infty}u_k(x)
+\]
+converges uniformly on $E$.
+That is, $f_n\uconv{E}f$.
+\end{claim}
+
+\begin{proof}
+First, note that
+\[
+\left|\sum_{k=m+1}^{m+p}M_k\right|<\varepsilon.
+\]
+From \hyperref[item:claim:5.7:a]{Item a)},
+\[
+\bigl(\forall k\in\N\ \forall x\in E\to |u_k(x)|\le M_k\bigr)
+\Longrightarrow
+\bigl(\forall k\in\N\to M_k\ge0\bigr).
+\]
+Therefore,
+\[
+\sum_{k=m+1}^{m+p}M_k<\varepsilon.
+\]
+Using again $\forall k\in\N\ \forall x\in E\to |u_k(x)|\le M_k$, we obtain
+\[
+\forall x\in E\to\sum_{k=m+1}^{m+p}|u_k(x)|<\varepsilon,
+\]
+and by
+\[
+|a_1+a_2+\cdots+a_n|\le|a_1|+|a_2|+\cdots+|a_n|,
+\qquad \forall a_1,a_2,\ldots,a_n\in\R,
+\]
+we get
+\[
+\forall x\in E\to
+\left|\sum_{k=m+1}^{m+p}u_k(x)\right|<\varepsilon
+\Longleftrightarrow
+\forall x\in E\to |f_{m+p}(x)-f_m(x)|<\varepsilon.
+\tag{**}\label{eq:5:starstar:1}
+\]
+Due to \hyperref[claim:1.2]{Claim 1.2}, we have
+\[
+\left(\sum_{k=1}^{\infty}M_k\text{ converges}\right)
+\]
+(\hyperref[item:claim:5.7:b]{Item b)}), hence
+\[
+\forall\varepsilon>0\ \exists N(\varepsilon)\in\N:\ \forall m\ge N(\varepsilon)\ \forall p\in\N
+\to \left|\sum_{k=m+1}^{m+p}M_k\right|<\varepsilon.
+\]
+Due to \hyperref[eq:5:starstar:1]{Formula (**)},
+\[
+\forall\varepsilon>0\ \exists N(\varepsilon)\in\N:\ \forall m\ge N(\varepsilon)\ \forall p\in\N\ \forall x\in E
+\to |f_{m+p}(x)-f_m(x)|<\varepsilon,
+\]
+which is equivalent to \hyperref[eq:5:3:1]{Formula (3)} from \hyperref[claim:5.4]{Claim 5.4}.
+Therefore, due to \hyperref[claim:5.4]{Claim 5.4}, $f_n\uconv{E}f$.
+\end{proof}
+
+\begin{claim}[The Dirichlet Test for the Uniform Convergence]\label{claim:5.8}
+Let $E\subseteq\R$, $a_k:E\to\R$, and $b_k:E\to\R$, $\forall k\in\N$.
+Suppose that:
+\begin{enumerate}[label=\alph*)]
+    \item\label{item:claim:5.8:a} $\exists M>0:\ \forall n\in\N\ \forall x\in E\to
+    \left|\displaystyle\sum_{k=1}^{n}a_k(x)\right|<M$;
+
+    that is, the sequence
+    \[
+    \left\{A_n=\sum_{k=1}^{n}a_k(x)\right\}_{n=1}^{\infty}
+    \]
+    is uniformly bounded on $E$;
+
+    \item\label{item:claim:5.8:b} either
+    \[
+    \forall k\in\N\ \forall x\in E\to b_k(x)\ge b_{k+1}(x),
+    \]
+    or
+    \[
+    \forall k\in\N\ \forall x\in E\to b_k(x)\le b_{k+1}(x);
+    \]
+
+    \item\label{item:claim:5.8:c} $b_k\uconv{E}0$.
+\end{enumerate}
+Then, the series
+\[
+\sum_{k=1}^{\infty}a_k(x)b_k(x)
+\]
+converges uniformly on $E$.
+\end{claim}
+
+\begin{claim}[The Abel Test for the Uniform Convergence]\label{claim:5.9}
+Let $E\subseteq\R$, $a_k:E\to\R$, and $b_k:E\to\R$, $\forall k\in\N$.
+Suppose that:
+\begin{enumerate}[label=\alph*)]
+    \item\label{item:claim:5.9:a} the series $\displaystyle\sum_{k=1}^{\infty}a_k(x)$ converges uniformly on $E$;
+
+    \item\label{item:claim:5.9:b} either
+    \[
+    \forall k\in\N\ \forall x\in E\to b_k(x)\ge b_{k+1}(x),
+    \]
+    or
+    \[
+    \forall k\in\N\ \forall x\in E\to b_k(x)\le b_{k+1}(x);
+    \]
+
+    \item\label{item:claim:5.9:c} $\exists M>0\ \forall k\in\N\ \forall x\in E\to |b_k(x)|\le M$;
+
+    that is, the sequence $\{b_k(x)\}_{k=1}^{\infty}$ is uniformly bounded on $E$.
+\end{enumerate}
+Then, the series
+\[
+\sum_{k=1}^{\infty}a_k(x)b_k(x)
+\]
+converges uniformly on $E$.
+\end{claim}
+
+\begin{claim}\label{claim:5.10}
+Let
+\[
+S_n(x)=\sum_{k=1}^{n}\sin(kx)
+\qquad\text{and}\qquad
+C_n(x)=\sum_{k=1}^{n}\cos(kx),
+\qquad \forall n\in\N.
+\]
+Then:
+\begin{enumerate}
+    \item\label{item:claim:5.10:1} $\forall\delta\in(0,\pi)\ \forall x\in[\delta,2\pi-\delta]\ \forall n\in\N\to
+    \displaystyle |S_n(x)|\le\frac{1}{\sin(\delta/2)}$;
+    \item\label{item:claim:5.10:2} $\forall\delta\in(0,\pi)\ \forall x\in[\delta,2\pi-\delta]\ \forall n\in\N\to
+    \displaystyle |C_n(x)|\le\frac{1}{\sin(\delta/2)}$.
+\end{enumerate}
+\end{claim}
+
+\begin{proof}
+1) Follows directly from \hyperref[claim:3.5]{Claim 3.5} for $a=x$ and $b=0$.
+
+2) Follows directly from \hyperref[claim:3.5]{Claim 3.5} for $a=x$ and $b=\frac{\pi}{2}$.
+\end{proof}

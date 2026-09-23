@@ -1,0 +1,67 @@
+# =========================
+# macOS
+# =========================
+
+.DS_Store
+
+
+# =========================
+# LaTeX build directories
+# =========================
+
+**/build/
+
+
+# =========================
+# LaTeX auxiliary files
+# =========================
+
+*.aux
+*.log
+*.out
+*.toc
+
+*.fls
+*.fdb_latexmk
+
+*.synctex
+*.synctex.gz
+
+*.bbl
+*.blg
+*.bcf
+*.run.xml
+
+*.lof
+*.lot
+
+*.nav
+*.snm
+*.vrb
+
+*.idx
+*.ilg
+*.ind
+
+*.acn
+*.acr
+*.alg
+*.glg
+*.glo
+*.gls
+*.ist
+
+*.dvi
+*.xdv
+
+*.tmp
+
+
+# =========================
+# Editors
+# =========================
+
+*.swp
+*.swo
+
+*~

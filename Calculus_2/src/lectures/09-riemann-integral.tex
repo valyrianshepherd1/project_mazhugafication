@@ -1,0 +1,559 @@
+% !TEX root = ../lectures.tex
+
+{\large\bfseries Calculus 2}
+
+\section{Lecture 9}
+\subsection*{$n$-Dimensional Riemann Integral: Part I}
+
+\begin{definition}\label{def:9.1}
+The set
+\[
+I=\{\bar{x}\in\R^n\mid a_i\leq x_i\leq b_i,\ i=1,2,\ldots,n\}
+=[a_1,b_1]\times[a_2,b_2]\times\cdots\times[a_n,b_n],
+\tag{1}\label{eq:9:1:1}
+\]
+where $\bar{x}=(x_1,\ldots,x_n)$, $\bar{a}=(a_1,\ldots,a_n)$, $\bar{b}=(b_1,\ldots,b_n)\in\R^n$, is called a \emph{nondegenerative $n$-dimensional closed interval}.
+\end{definition}
+
+\begin{definition}\label{def:9.2}
+Let an interval $I$ be defined by \hyperref[eq:9:1:1]{Equality (1)}. Then, the value
+\[
+|I|\overset{\mathrm{def}}{=}\prod_{i=1}^{n}(b_i-a_i)
+\]
+is called the \emph{measure} (or \emph{$n$-measure} or \emph{$n$-volume}) of the interval $I$.
+
+Note that, since $I$ is a nondegenerative interval (that is, $a_i<b_i$, $i=1,2,\ldots,n$), we have $|I|>0$.
+\end{definition}
+
+\begin{definition}\label{def:9.3}
+A \emph{partition} $P$ of a one-dimensional nondegenerative interval $I=[a,b]\subset\R$ is a finite system of points $x_0,\ldots,x_n$ of the interval such that
+\[
+a=x_0<x_1<x_2<\cdots<x_n=b.
+\]
+The intervals $[x_{i-1},x_i]$, $i=1,2,\ldots,n$, are called the intervals of the partition $P$.
+Note that
+\[
+I=\bigcup_{i=1}^{n}[x_{i-1},x_i].
+\]
+\end{definition}
+
+\begin{definition}\label{def:9.4}
+Let an interval $I$ be defined by \hyperref[eq:9:1:1]{Equality (1)}. Then, partitions of the coordinate intervals $[a_i,b_i]$, $i=1,\ldots,n$, induce a partition of the interval $I$ into finer intervals obtained as the direct products of the intervals of the partitions of the coordinate intervals. More precisely:
+
+Let $I=[a_1,b_1]\times[a_2,b_2]\times\cdots\times[a_n,b_n]$ be defined by \hyperref[eq:9:1:1]{Equality (1)}. Then, partitions of the coordinate intervals $[a_i,b_i]$
+\begin{align*}
+P_1:&\quad a_1=x_{10}<x_{11}<x_{12}<\cdots<x_{1t_1}=b_1,\\
+P_2:&\quad a_2=x_{20}<x_{21}<x_{22}<\cdots<x_{2t_2}=b_2,\\
+&\hspace{2.4cm}\vdots\\
+P_n:&\quad a_n=x_{n0}<x_{n1}<x_{n2}<\cdots<x_{nt_n}=b_n,
+\end{align*}
+induce a partition of $I$ into $t_1t_2\cdots t_n$ many intervals
+\[
+I_{i_1i_2\ldots i_n}
+=[x_{1(i_1-1)},x_{1i_1}]\times[x_{2(i_2-1)},x_{2i_2}]\times\cdots\times[x_{n(i_n-1)},x_{ni_n}]\subset\R^n.
+\]
+The representation of the interval $I$ as the union
+\[
+I=\bigcup_{i_1=1}^{t_1}\bigcup_{i_2=1}^{t_2}\cdots\bigcup_{i_n=1}^{t_n}I_{i_1i_2\ldots i_n}
+\]
+of finer intervals $I_{i_1i_2\ldots i_n}$ just described will be called a \emph{partition of the ($n$-dimensional) interval $I$}, and will be denoted by $P$.
+
+Note that, all intervals $I_{i_1i_2\ldots i_n}$ are nondegenerate by construction.
+\end{definition}
+
+For example: Let $I=[a_1,b_1]\times[a_2,b_2]$ be a 2-dimensional interval. Then partitions of the coordinate intervals
+\[
+P_1:\quad a_1=x_{10}<x_{11}<x_{12}<x_{13}=b_1,
+\]
+(partition of $[a_1,b_1]$ into $t_1=3$ many intervals $[x_{1(i_1-1)},x_{1i_1}]$), and
+\[
+P_2:\quad a_2=x_{20}<x_{21}<x_{22}=b_2,
+\]
+(partition of $[a_2,b_2]$ into $t_2=2$ many intervals $[x_{2(i_2-1)},x_{2i_2}]$), induce a partition of $I$ into $t_1t_2=3\cdot2=6$ many intervals:
+
+\begin{center}
+\begin{minipage}{\textwidth}
+\centering
+\includegraphics[width=0.88\textwidth]{figure_partition_example.jpg}
+\par\smallskip
+\refstepcounter{figure}\label{fig:9.1}
+{\small Figure \thefigure}
+\end{minipage}
+\end{center}
+
+\begin{definition}\label{def:9.5}
+Let $P$ be a partition of an interval $I$ into finer intervals $I_{i_1i_2\ldots i_n}$ (see \hyperref[def:9.4]{Def 9.4}). If in every interval $I_{i_1i_2\ldots i_n}$ we fix a point $\zeta_{i_1i_2\ldots i_n}\in I_{i_1i_2\ldots i_n}$, then we say that we have a \emph{tagged partition} (or a \emph{partition with distinguished points}). The set of all $t_1t_2\cdots t_n$ many points $\zeta_{i_1i_2\ldots i_n}$ we will denote by the single letter $\bar\zeta$, and the tagged partition of $I$ we will denote by $(P,\bar\zeta)$.
+\end{definition}
+
+\begin{definition}\label{def:9.6}
+Let $X$ be a non-empty subset of $\R^n$. Then, the \emph{diameter of $X$} we will define as
+\[
+d(X)=\sup_{\bar a,\bar b\in X}\|\bar a-\bar b\|,
+\]
+where
+\[
+\|\bar a-\bar b\|
+=\sqrt{(a_1-b_1)^2+(a_2-b_2)^2+\cdots+(a_n-b_n)^2}
+\]
+for $\bar a=(a_1,a_2,\ldots,a_n)$, $\bar b=(b_1,b_2,\ldots,b_n)$.
+
+Note that, if an interval $I$ is defined by \hyperref[eq:9:1:1]{Equality (1)}, then it ought to be clear that
+\[
+d(I)=\|\bar a-\bar b\|>0.
+\]
+\end{definition}
+
+\begin{definition}\label{def:9.7}
+Let $P$ be a partition of an interval $I$ (see \hyperref[def:9.4]{Def 9.4}). Then, the maximum among the diameters of the intervals $I_{i_1i_2\ldots i_n}$ of the partition $P$ is called the \emph{mesh} of the partition $P$ and denoted by $\lambda(P)$. That is,
+\[
+\lambda(P)=\max_{\substack{i_1\in\{1,\ldots,t_1\}\\ \cdots\\i_n\in\{1,\ldots,t_n\}}}
+d(I_{i_1i_2\ldots i_n}).
+\]
+\end{definition}
+
+\begin{definition}\label{def:9.8}
+Let
+\begin{itemize}
+    \item $I$ be an interval defined by \hyperref[eq:9:1:1]{Equality (1)};
+    \item $(P,\bar\zeta)$ be a tagged partition of $I$ (see \hyperref[def:9.5]{Def 9.5});
+    \item $|I_{i_1i_2\ldots i_n}|$ be the measure of an interval $I_{i_1i_2\ldots i_n}$ from partition $(P,\bar\zeta)$ (see \hyperref[def:9.2]{Def 9.2});
+    \item $f:I\to\R$ be a function.
+\end{itemize}
+Then, the sum
+\[
+\sigma(f,P,\bar\zeta)\overset{\mathrm{def}}{=}
+\sum_{i_1=1}^{t_1}\sum_{i_2=1}^{t_2}\cdots\sum_{i_n=1}^{t_n}
+f(\zeta_{i_1i_2\ldots i_n})\,|I_{i_1i_2\ldots i_n}|
+\]
+is called the \emph{Riemann sum} (of the function $f$ corresponding to the tagged partition $(P,\bar\zeta)$ of the interval $I$).
+\end{definition}
+
+\begin{definition}\label{def:9.9}
+Let $I$ be an interval defined by \hyperref[eq:9:1:1]{Equality (1)} and let $f:I\to\R$ be a function. We say that the \emph{(multiple) Riemann integral} of the function $f$ over the interval $I$ (denoted by $\int_I f(\bar x)\,d\bar x$) exists and equals $s$ if for every $\varepsilon>0$, there exists $\delta>0$ such that for any tagged partition $(P,\bar\zeta)$ of the interval $I$ whose mesh (i.e. $\lambda(P)$) is less than $\delta$, we have
+\[
+|\sigma(f,P,\bar\zeta)-s|<\varepsilon,
+\]
+where $\sigma(f,P,\bar\zeta)$ is the Riemann sum (see \hyperref[def:9.8]{Def 9.8}). That is,
+\[
+\left(\int_I f(\bar x)\,d\bar x=s\right)
+\Longleftrightarrow
+\left(\lim_{\lambda(P)\to0}\sigma(f,P,\bar\zeta)=s\right),
+\tag{2}\label{eq:9:2:1}
+\]
+or, equivalently,
+\[
+\forall\varepsilon>0\ \exists\delta(\varepsilon)>0\ \forall(P,\bar\zeta)
+\left[\lambda(P)<\delta\ \Longrightarrow\ |\sigma(f,P,\bar\zeta)-s|<\varepsilon\right].
+\]
+If limit (2) exists, we say that the function $f:I\to\R$ is \emph{Riemann integrable over the interval $I$}.
+
+The set of all Riemann integrable over the interval $I\subset\R^n$ functions we shall denote by $\Rcal(I)$.
+\end{definition}
+
+Equivalent but more expanded notation of the multiple integral is
+\[
+\int_I f(\bar x)\,d\bar x
+=\int_I f(x_1,\ldots,x_n)\,dx_1\cdots dx_n
+=\int_I\cdots\int f(x_1,\ldots,x_n)\,dx_1\cdots dx_n.
+\]
+If $n=2$, then the integral is called the \emph{double integral} and usually denoted by
+\[
+\iint_I f(x,y)\,dx\,dy.
+\]
+If $n=3$, then the integral is called the \emph{triple integral} and usually denoted by
+\[
+\iiint_I f(x,y,z)\,dx\,dy\,dz.
+\]
+
+Note that our process of constructing the multiple Riemann integral over an interval $I\subset\R^n$ is a verbatim repetition of the procedure of constructing the Riemann integral over a one-dimensional interval from Calculus-1.
+
+\subsection*{Criteria for Riemann Integrability}
+
+\begin{definition}\label{def:9.10}
+A set $E\subset\R^n$ has \emph{($n$-dimensional) Lebesgue measure zero} if, for every $\varepsilon>0$, there exist at most countable system $\{I_i\}$ of $n$-dimensional intervals $I_i$ (see \hyperref[def:9.1]{Def 9.1}) such that
+\[
+E\subseteq\bigcup_i I_i
+\qquad\text{and}\qquad
+\sum_i |I_i|\leq\varepsilon,
+\]
+where $|I_i|$ is the measure of $I_i$ (see \hyperref[def:9.2]{Def 9.2}).
+
+If $E\subset\R^n$ is a set of Lebesgue measure zero, we denote this by $\mu(E)=0$.
+
+Note that, since the series $\sum |I_i|$ converges absolutely, by \hyperref[claim:3.9]{Claim 3.9}, the exact order of summation does not affect the sum, so that \hyperref[def:9.10]{Def 9.10} is unambiguous.
+\end{definition}
+
+\begin{claim}[Examples of sets of Lebesgue measure zero]\label{claim:9.1}
+\begin{enumerate}
+    \item\label{item:claim:9.1:1} The union of a finite or countable number of sets of Lebesgue measure zero is a set of Lebesgue measure zero.
+    \item\label{item:claim:9.1:2} Any finite or countable set is a set of Lebesgue measure zero.
+    \item\label{item:claim:9.1:3} A subset of a set of Lebesgue measure zero is itself of Lebesgue measure zero.
+    \item\label{item:claim:9.1:4} There are examples of uncountable 1-dimensional sets of Lebesgue measure zero.
+\end{enumerate}
+\end{claim}
+
+\begin{proof}
+1) Let $E=\bigcup_n E_n$ be at most countable union of sets $E_n\subset\R^n$ such that $\mu(E_n)=0$ (see \hyperref[def:9.10]{Def 9.10}).
+Then, given $\varepsilon>0$, for each $E_n$, by \hyperref[def:9.10]{Def 9.10}, there exists at most countable system $\{I_{nk}\}$ of intervals $I_{nk}\subset\R^n$ such that
+\[
+E_n\subseteq\bigcup_k I_{nk}
+\qquad\text{and}\qquad
+\sum_k |I_{nk}|<\frac{\varepsilon}{2^n}.
+\]
+Since the union of at most countably many sets is itself at most countable, the system $\bigcup_n\{I_{nk}\}$ is at most countable. Since, for every $n$, $E_n\subseteq\bigcup_k I_{nk}$, we have
+\[
+E=\bigcup_n E_n\subseteq\bigcup_n\bigcup_k I_{nk}=\bigcup I_{nk}.
+\]
+Note that, by the definition of the union of sets, the order in which we unite the sets $I_{nk}$ in $\bigcup I_{nk}$ is of no importance.
+Since for every $n$, $\sum_k |I_{nk}|<\varepsilon/2^n$, it should be clear that any finite sum of $|I_{nk}|$ is bounded by the value
+\[
+\frac{\varepsilon}{2}+\frac{\varepsilon}{2^2}+\cdots=\varepsilon.
+\]
+Therefore, we have
+\[
+\sum_{n,k}|I_{nk}|\leq\varepsilon.
+\]
+Note that, if the sum is countable, then the series $\sum_{n,k}|I_{nk}|$ converges absolutely (by \hyperref[claim:2.2]{Claim 2.2}), and the value of $\sum_{n,k}|I_{nk}|$ does not depend on the order of summation (due to \hyperref[claim:3.9]{Claim 3.9}).
+Thus, by \hyperref[def:9.10]{Def 9.10}, $E=\bigcup_n E_n$ is a set of Lebesgue measure zero.
+
+2) It should be clear that if $E=\{\bar a\}\subset\R^n$ is a one-point set, then, for every $\varepsilon>0$, there exists a nondegenerate interval $I\subset\R^n$ such that $E=\{\bar a\}\subset I$ and $|I|<\varepsilon$.
+Indeed, if $\bar a=(a_1,a_2,\ldots,a_n)$, then you can consider
+\[
+I=[a_1-\delta,a_1+\delta]\times\cdots\times[a_n-\delta,a_n+\delta]\subset\R^n.
+\]
+Then, by \hyperref[def:9.2]{Def 9.2}, $|I|=(2\delta)^n$ and it is enough to set $\delta<\frac12\sqrt[n]{\varepsilon}$.
+Since any finite (countable) set is a union of finitely (countably) many one-point sets, now \hyperref[item:claim:9.1:2]{Item 2)} follows directly from \hyperref[item:claim:9.1:1]{Item 1)}.
+
+3) The statement follows directly from \hyperref[def:9.10]{Def 9.10}.
+
+4) Such examples are relatively difficult to construct, thus we state this without proof.
+\end{proof}
+
+\begin{claim}[The Lebesgue Criterion for Riemann Integrability]\label{claim:9.2}
+Let
+\begin{itemize}
+    \item $I\subset\R^n$ be a nondegenerative closed interval (see \hyperref[def:9.1]{Def 9.1});
+    \item $f:I\to\R$ be a function on $I$;
+    \item $T(f)=\{\bar x\in I\mid f\text{ is discontinuous at }\bar x\}$ be the set of all points of discontinuity of the function $f$ on the interval $I$.
+\end{itemize}
+Then, $f$ is Riemann integrable on $I$ (i.e. $f\in\Rcal(I)$) if and only if $f$ is bounded on $I$ (i.e. $f\in\Bcal(I)$) and the set $T(f)$ is of Lebesgue measure zero (i.e. $\mu(T(f))=0$).
+Thus,
+\[
+(f\in\Rcal(I))\Longleftrightarrow(f\in\Bcal(I)\text{ and }\mu(T(f))=0).
+\]
+\end{claim}
+
+\begin{proof}
+Since the proof of Lebesgue's Criterion is very difficult (especially the $\Leftarrow$ direction), we state it without a proof.
+\end{proof}
+
+Note that if some property holds at all points of a set $X$ except possibly the points of a set of Lebesgue measure zero, then we say that the property holds \emph{almost everywhere} on $X$. Thus, we can rephrase the Lebesgue Criterion like this: $f$ is Riemann integrable on $I$ iff $f$ is bounded on $I$ and $f$ is almost everywhere continuous on $I$.
+
+Let us consider another useful criterion for Riemann integrability.
+
+\begin{definition}\label{def:9.11}
+Let
+\begin{itemize}
+    \item $I$ be an interval defined by \hyperref[eq:9:1:1]{Equality (1)};
+    \item $P$ be a partition of the interval $I$ defined as in \hyperref[def:9.4]{Def 9.4};
+    \item $f:I\to\R$ be a function on $I$;
+    \item
+    \[
+    m_{i_1i_2\ldots i_n}\overset{\mathrm{def}}{=}\inf_{\bar x\in I_{i_1i_2\ldots i_n}}f(\bar x),
+    \qquad
+    M_{i_1i_2\ldots i_n}\overset{\mathrm{def}}{=}\sup_{\bar x\in I_{i_1i_2\ldots i_n}}f(\bar x).
+    \]
+\end{itemize}
+Then, the quantities
+\[
+\underline{S}(f,P)\overset{\mathrm{def}}{=}
+\sum_{i_1=1}^{t_1}\sum_{i_2=1}^{t_2}\cdots\sum_{i_n=1}^{t_n}
+m_{i_1i_2\ldots i_n}|I_{i_1i_2\ldots i_n}|
+\]
+and
+\[
+\overline{S}(f,P)\overset{\mathrm{def}}{=}
+\sum_{i_1=1}^{t_1}\sum_{i_2=1}^{t_2}\cdots\sum_{i_n=1}^{t_n}
+M_{i_1i_2\ldots i_n}|I_{i_1i_2\ldots i_n}|
+\]
+are called the \emph{lower Darboux sum} and the \emph{upper Darboux sum} (of the function $f$ over the interval $I$ corresponding to the partition $P$ of the interval).
+\end{definition}
+
+\begin{claim}[Main Properties of Darboux Sums]\label{claim:9.3}
+Let
+\begin{itemize}
+    \item $I$ be an interval defined by \hyperref[eq:9:1:1]{Equality (1)};
+    \item $f:I\to\R$ be a function on $I$.
+\end{itemize}
+Then:
+\begin{enumerate}
+    \item\label{item:claim:9.3:1} if a partition $P'$ of the interval $I$ is obtained by refining intervals of a partition $P$ of $I$, then we have
+    \[
+    \underline{S}(f,P)\leq\underline{S}(f,P')\leq\overline{S}(f,P')\leq\overline{S}(f,P);
+    \]
+    \item\label{item:claim:9.3:2} for any two partitions $P_1$ and $P_2$ of the interval $I$ we have
+    \[
+    \underline{S}(f,P_1)\leq\overline{S}(f,P_2).
+    \]
+\end{enumerate}
+\end{claim}
+
+\begin{proof}
+1) Follows immediately from \hyperref[def:9.11]{Def 9.11} (taking into account the definition of $\inf$ and $\sup$).
+
+2) Let $P$ be an auxiliary partition of the interval $I$ obtained by intersecting the intervals of the partitions $P_1$ and $P_2$.
+For example:
+
+\begin{center}
+\begin{minipage}{\textwidth}
+\centering
+\includegraphics[width=0.92\textwidth]{figure_refinement_example.jpg}
+\par\smallskip
+\refstepcounter{figure}\label{fig:9.2}
+{\small Figure \thefigure}
+\end{minipage}
+\end{center}
+
+Since $P$ is a refinement of each of the partitions $P_1$ and $P_2$, by \hyperref[item:claim:9.3:1]{Item 1)}, we have
+\[
+\underline{S}(f,P_1)\leq\underline{S}(f,P)\leq\overline{S}(f,P)\leq\overline{S}(f,P_2).
+\]
+\end{proof}
+
+\begin{definition}\label{def:9.12}
+Let $I$ be an interval defined by \hyperref[eq:9:1:1]{Equality (1)} and let $f:I\to\R$ be a function on $I$.
+Then, the \emph{lower Darboux integral} and the \emph{upper Darboux integral} (of the function $f$ over the interval $I$) are respectively defined to be:
+\[
+\underline{\int_I}f(\bar x)\,d\bar x
+\overset{\mathrm{def}}{=}\underline{L}(f)
+\overset{\mathrm{def}}{=}\sup_P\underline{S}(f,P),
+\]
+and
+\[
+\overline{\int_I}f(\bar x)\,d\bar x
+\overset{\mathrm{def}}{=}\overline{U}(f)
+\overset{\mathrm{def}}{=}\inf_P\overline{S}(f,P),
+\]
+where $\underline{S}(f,P)$ and $\overline{S}(f,P)$ are the lower and upper Darboux sums (see \hyperref[def:9.11]{Def 9.11}), and the supremum and infimum are taken over all possible partitions $P$ of the interval $I$.
+
+It should be clear that, due to \hyperref[def:9.11]{Def 9.11} and \hyperref[def:9.12]{Def 9.12}, for any partition $P$ of $I$, we have
+\[
+\underline{S}(f,P)\leq\underline{L}(f)\leq\overline{U}(f)\leq\overline{S}(f,P).
+\]
+\end{definition}
+
+\begin{claim}[The Darboux Theorem]\label{claim:9.4}
+Let
+\begin{itemize}
+    \item $I\subset\R^n$ be a nondegenerative closed interval (see \hyperref[def:9.1]{Def 9.1});
+    \item $f:I\to\R$ be a bounded on $I$ function.
+\end{itemize}
+Then:
+\begin{enumerate}
+    \item\label{item:claim:9.4:1}
+    \[
+    \lim_{\lambda(P)\to0}\underline{S}(f,P)=\underline{L}(f);
+    \]
+    \item\label{item:claim:9.4:2}
+    \[
+    \lim_{\lambda(P)\to0}\overline{S}(f,P)=\overline{U}(f).
+    \]
+\end{enumerate}
+\end{claim}
+
+\begin{proof}
+1) By the definition of the limit (see Calculus-1) we have:
+\[
+\left(\exists\lim_{\lambda(P)\to0}\underline{S}(f,P)=\underline{L}(f)\right)
+\Longleftrightarrow
+\left(\forall\varepsilon>0\ \exists\delta>0\ \forall P\,[\lambda(P)<\delta\Rightarrow |\underline{S}(f,P)-\underline{L}(f)|\leq\varepsilon]\right).
+\tag{3}\label{eq:9:3:1}
+\]
+That is, it suffices to prove the right-hand statement.
+Fix $\varepsilon>0$.
+Note that
+\[
+(f\in\Bcal(I))\Rightarrow(\exists M>0\ \forall\bar x\in I\ [|f(\bar x)|<M]).
+\]
+Let
+\[
+\widehat\varepsilon=\frac{\varepsilon}{2M+1}.
+\]
+By \hyperref[def:9.12]{Def 9.12} (essentially by the definition of the supremum), there exists a partition $\widehat P$ of the interval $I$ such that
+\[
+\underline{L}(f)-\widehat\varepsilon<\underline{S}(f,\widehat P).
+\tag{4}\label{eq:9:4:1}
+\]
+Let $\widehat T$ be the set of all points of the interval $I$ laying on the boundary of the intervals of the partition $\widehat P$.
+Taking into account the simple structure of $\widehat T$, it is not that difficult to see that there exists a number $\delta>0$ such that the sum of the measures of those intervals that intersect $\widehat T$ is less than $\widehat\varepsilon$ for every partition $P$ of $I$ such that $\lambda(P)<\delta$.
+Indeed, take a look at the picture:
+
+\begin{center}
+\begin{minipage}{\textwidth}
+\centering
+\includegraphics[width=0.95\textwidth]{figure_hat_partition.jpg}
+\par\smallskip
+\refstepcounter{figure}\label{fig:9.3}
+{\small Figure \thefigure}
+\end{minipage}
+\end{center}
+
+Since $\widehat\varepsilon$ and $\widehat P$ are fixed, it should be clear that there exists $\delta>0$ such that the sum of the areas (2-measures) of the green intervals is less than $\widehat\varepsilon$ for every partition $P$ such that $\lambda(P)<\delta$.
+
+Let $P$ be any partition of $I$ such that $\lambda(P)<\delta$.
+Due to \hyperref[eq:9:4:1]{(4)}, it remains to prove that
+\[
+|\underline{S}(f,P)-\underline{L}(f)|\leq\varepsilon.
+\]
+Let $P'$ be an auxiliary partition of $I$ obtained by intersecting the intervals of partitions $\widehat P$ and $P$.
+Then, we have
+\[
+\underline{L}(f)-\widehat\varepsilon
+\overset{(4)}{<}\underline{S}(f,\widehat P)
+\leq\underline{S}(f,P')
+\leq\underline{L}(f).
+\tag{5}\label{eq:9:5:1}
+\]
+Also note that
+\begin{align*}
+|\underline{S}(f,P')-\underline{S}(f,P)|
+&\leq \sum_{\substack{I_i\in P\\I_i\cap\widehat T\neq\varnothing}}2M\,|I_i|\\
+&\leq 2M\widehat\varepsilon.
+\tag{6}\label{eq:9:6:1}
+\end{align*}
+Indeed, the sums $\underline{S}(f,P')$ and $\underline{S}(f,P)$ both contain all the terms that correspond to intervals of the partition $P$ that do not intersect $\widehat T$, and if an interval $I_i$ from $P$ is such that $I_i\cap\widehat T\neq\varnothing$, then, by the construction of a partition $P'$, there are intervals $I_{i1},\ldots,I_{ik}$ in $P'$ such that their union is $I_i$. Then
+\[
+\left|\sup_{I_i}f+\cdots+\sup_{I_{ik}}f-\inf_{I_i}f\right|\leq 2\sup_I f\leq2M.
+\]
+Since $\lambda(P)<\delta$, by the paragraph after \hyperref[eq:9:4:1]{Inequality (4)}, we have
+\[
+\sum_{\substack{I_i\in P\\I_i\cap\widehat T\neq\varnothing}}|I_i|<\widehat\varepsilon.
+\]
+Therefore,
+\begin{align*}
+|\underline{S}(f,P)-\underline{L}(f)|
+&\leq |\underline{S}(f,P)-\underline{S}(f,P')|+|\underline{S}(f,P')-\underline{L}(f)|\\
+&\leq 2M\widehat\varepsilon+\widehat\varepsilon
+=\varepsilon.
+\end{align*}
+Thus, we proved \hyperref[item:claim:9.4:1]{Item 1)}.
+
+2) Can be proven similarly to \hyperref[item:claim:9.4:1]{Item 1)}.
+\end{proof}
+
+\begin{claim}[Necessary Condition for Riemann Integrability]\label{claim:9.5}
+Let
+\begin{itemize}
+    \item $I\subset\R^n$ be a nondegenerative closed interval (see \hyperref[def:9.1]{Def 9.1});
+    \item $f:I\to\R$ be a function on $I$.
+\end{itemize}
+Then,
+\[
+f\in\Rcal(I)\Longrightarrow f\in\Bcal(I).
+\]
+That is, every Riemann integrable on $I$ function is bounded on $I$.
+\end{claim}
+
+\begin{proof}
+Let $f$ be unbounded on $I$. Then, for any partition $P$ of the interval $I$, there exists an interval $I_i$ of the partition $P$ such that $f$ is unbounded on $I_i$.
+If $(P,\bar\zeta')$ and $(P,\bar\zeta'')$ are two tagged partitions of $P$ (see \hyperref[def:9.8]{Def 9.8}) with points $\bar\zeta'$ and $\bar\zeta''$ differing only in the choice of the points $\bar\zeta'_i$ and $\bar\zeta''_i$, then, by \hyperref[def:9.8]{Def 9.8}, we have
+\[
+|\sigma(f,P,\bar\zeta')-\sigma(f,P,\bar\zeta'')|
+=|f(\bar\zeta'_i)-f(\bar\zeta''_i)|\,|I_i|.
+\tag{7}\label{eq:9:7:1}
+\]
+Since $|I_i|>0$ (indeed, by \hyperref[def:9.4]{Def 9.4} all intervals of any partition of $I$ are nondegenerate, thus, by \hyperref[def:9.2]{Def 9.2}, their $n$-measures are positive), by changing the points $\bar\zeta'_i,\bar\zeta''_i\in I_i$, as a result of unboundedness of $f$ on $I_i$, we could make the right-hand side of \hyperref[eq:9:7:1]{Equality (7)} arbitrarily large.
+Therefore, by the Cauchy criterion (see Calculus-1), this implies that the Riemann sums of $f$ on $I$ do not have a limit as $\lambda(P)\to0$.
+Thus, by \hyperref[def:9.9]{Def 9.9}, $f$ is not Riemann integrable on $I$.
+
+It should be clear that $f\in\Bcal(I)\not\Rightarrow f\in\Rcal(I)$.
+\end{proof}
+
+\begin{claim}[The Darboux Criterion for Riemann Integrability]\label{claim:9.6}
+Let
+\begin{itemize}
+    \item $I\subset\R^n$ be a nondegenerative closed interval (see \hyperref[def:9.1]{Def 9.1});
+    \item $f:I\to\R$ be a function on $I$.
+\end{itemize}
+Then, $f$ is Riemann integrable on $I$ if and only if it is bounded on $I$ and its lower and upper Darboux integrals are equal.
+Thus,
+\[
+(f\in\Rcal(I))\Longleftrightarrow(f\in\Bcal(I)\text{ and }\underline{L}(f)=\overline{U}(f)).
+\]
+\end{claim}
+
+\begin{proof}
+\emph{Necessity.} If $f\in\Rcal(I)$, then, by \hyperref[claim:9.5]{Claim 9.5}, $f\in\Bcal(I)$.
+Let
+\[
+\int_I f(\bar x)\,d\bar x=s\in\R.
+\]
+Then, by \hyperref[def:9.9]{Def 9.9}, we have
+\[
+\forall\varepsilon>0\ \exists\delta(\varepsilon)>0\ \forall(P,\bar\zeta)\
+[\lambda(P)<\delta\Rightarrow s-\tfrac{\varepsilon}{2}\leq\sigma(f,P,\bar\zeta)\leq s+\tfrac{\varepsilon}{2}].
+\tag{8}\label{eq:9:8:1}
+\]
+Since in \hyperref[eq:9:8:1]{(8)} both inequalities hold true for every $\bar\zeta$, we have
+\[
+\forall\varepsilon>0\ \exists\delta(\varepsilon)>0\ \forall P\
+[\lambda(P)<\delta\Rightarrow s-\tfrac{\varepsilon}{2}\leq\inf_{\bar\zeta}\sigma(f,P,\bar\zeta)],
+\tag{9}\label{eq:9:9:1}
+\]
+and
+\[
+\forall\varepsilon>0\ \exists\delta(\varepsilon)>0\ \forall P\
+[\lambda(P)<\delta\Rightarrow \sup_{\bar\zeta}\sigma(f,P,\bar\zeta)\leq s+\tfrac{\varepsilon}{2}].
+\tag{10}\label{eq:9:10:1}
+\]
+Due to \hyperref[def:9.11]{Def 9.11}, it should be clear that
+\[
+\inf_{\bar\zeta}\sigma(f,P,\bar\zeta)=\underline{S}(f,P),
+\qquad
+\sup_{\bar\zeta}\sigma(f,P,\bar\zeta)=\overline{S}(f,P).
+\]
+Therefore, (9) and (10) imply that
+\[
+\forall\varepsilon>0\ \exists\delta(\varepsilon)>0\ \forall P\
+[\lambda(P)<\delta\Rightarrow \overline{S}(f,P)-\underline{S}(f,P)\leq\varepsilon].
+\tag{11}\label{eq:9:11:1}
+\]
+Since, by \hyperref[def:9.12]{Def 9.12}, for every partition $P$ we have
+\[
+\underline{S}(f,P)\leq\underline{L}(f)\leq\overline{U}(f)\leq\overline{S}(f,P),
+\]
+(11) implies that
+\[
+\forall\varepsilon>0\quad 0\leq\overline{U}(f)-\underline{L}(f)\leq\varepsilon.
+\]
+Since the inequality $\overline{U}(f)-\underline{L}(f)\leq\varepsilon$ does not depend on $P$, this is obviously equivalent to
+\[
+\underline{L}(f)=\overline{U}(f).
+\]
+
+\emph{Sufficiency.} Note that, due to \hyperref[def:9.11]{Def 9.11} and \hyperref[def:9.12]{Def 9.12}, we have
+\[
+\forall(P,\bar\zeta)\quad
+\underline{S}(f,P)\leq\sigma(f,P,\bar\zeta)\leq\overline{S}(f,P).
+\tag{12}\label{eq:9:12:1}
+\]
+Since, by \hyperref[claim:9.4]{Claim 9.4},
+\[
+\lim_{\lambda(P)\to0}\underline{S}(f,P)=\underline{L}(f)
+\qquad\text{and}\qquad
+\lim_{\lambda(P)\to0}\overline{S}(f,P)=\overline{U}(f),
+\]
+and it is given that $\underline{L}(f)=\overline{U}(f)=s$ for some $s\in\R$, by the Squeeze theorem (see Calculus-1), from \hyperref[eq:9:12:1]{Inequality (12)} we have
+\[
+\lim_{\lambda(P)\to0}\underline{S}(f,P)=\underline{L}(f)=s
+\leq\lim_{\lambda(P)\to0}\sigma(f,P,\bar\zeta)
+\leq s=\overline{U}(f)=\lim_{\lambda(P)\to0}\overline{S}(f,P).
+\tag{13}\label{eq:9:13:1}
+\]
+That is, due to \hyperref[def:9.9]{Def 9.9}, $f\in\Rcal(I)$.
+
+Note that, if $f\in\Rcal(I)$, then
+\[
+\underline{L}(f)=\overline{U}(f)=\int_I f(\bar x)\,d\bar x.
+\]
+\end{proof}

@@ -1,0 +1,826 @@
+% !TEX root = ../lectures.tex
+
+{\large\bfseries Calculus 2}
+
+\section{Lecture 7}
+\subsection*{Power Series}
+
+\begin{definition}\label{def:7.1}
+A functional series of the form
+\[
+\sum_{k=0}^{\infty}a_k(x-x_0)^k
+=a_0+a_1(x-x_0)+a_2(x-x_0)^2+\cdots+a_k(x-x_0)^k+\cdots
+\tag{1}\label{eq:7:1:1}
+\]
+is called a \emph{power series centered at $x_0$}.
+
+$x_0\in\R$ is called the \emph{center} of the series.
+
+$a_k\in\R$, $k\in\N\cup\{0\}$ are the \emph{coefficients} of the series.
+
+Since by the linear substitution $t=x-x_0$, the power series (1) can be rewritten as a power series centered at $0$:
+\[
+\sum_{k=0}^{\infty}a_kt^k
+=a_0+a_1t+a_2t^2+\cdots+a_kt^k+\cdots,
+\tag{2}\label{eq:7:2:1}
+\]
+without loss of generality, we can study only power series of the form (2).
+\end{definition}
+
+\begin{definition}\label{def:7.2}
+Let
+\[
+D=\left\{x\in\R\ \middle|\ \sum_{k=0}^{\infty}a_kx^k\text{ converges}\right\}\subseteq\R.
+\]
+That is, $D$ is the \emph{set of all points of convergence} of $\sum_{k=0}^{\infty}a_kx^k$.
+
+Then,
+\[
+R=\sup\{|x|\mid x\in D\}
+\]
+is called the \emph{radius of convergence} of the power series $\sum_{k=0}^{\infty}a_kx^k$.
+The set $D$ is called the \emph{interval of convergence} of the power series $\sum_{k=0}^{\infty}a_kx^k$.
+
+Note that, since $0\in D$, we have $D\neq\varnothing$, which implies that
+$R=\sup\{|x|\mid x\in D\}$ exists.
+\end{definition}
+
+\begin{claim}\label{claim:7.1}
+Let $\sum_{k=0}^{\infty}a_kx^k$ be a power series and let $R$ be its radius of convergence.
+Then:
+\begin{enumerate}
+    \item\label{item:claim:7.1:1} $\forall x\in\R:\ |x|<R$, the series $\sum_{k=0}^{\infty}a_kx^k$ converges \emph{absolutely};
+    \item\label{item:claim:7.1:2} $\forall x\in\R:\ |x|>R$, the series $\sum_{k=0}^{\infty}a_kx^k$ \emph{diverges}.
+\end{enumerate}
+\end{claim}
+
+\begin{proof}
+1) Due to \hyperref[def:3.1]{Def 3.1}, it suffices to show that the series
+\[
+\sum_{k=0}^{\infty}|a_kx^k|
+\]
+converges.
+
+Since
+\[
+|x|<R=\sup\{|y|\mid y\in D\},
+\qquad
+D=\left\{y\in\R\ \middle|\ \sum_{k=0}^{\infty}a_ky^k\text{ converges}\right\},
+\]
+by the definition of the supremum, there exists $y\in D$ such that $|x|<|y|$.
+Since $y\in D$, the series $\sum_{k=0}^{\infty}a_ky^k$ converges, therefore, due to \hyperref[claim:1.5]{Claim 1.5}, we have
+\[
+\lim_{k\to\infty}a_ky^k=0,
+\]
+which implies that
+\[
+\exists M>0\ \forall k\in\N\cup\{0\}\to |a_ky^k|<M.
+\]
+Therefore, for every $k\in\N\cup\{0\}$ we have
+\[
+|a_kx^k|
+=|a_ky^k|\left|\frac{x}{y}\right|^k
+<M\left|\frac{x}{y}\right|^k
+=Mq^k,
+\]
+where
+\[
+0\leq |x|<|y|\quad\Longrightarrow\quad q=\left|\frac{x}{y}\right|\in[0,1).
+\]
+The latter implies that the series
+\[
+\sum_{k=0}^{\infty}Mq^k
+\]
+converges. Therefore, due to \hyperref[claim:5.7]{Claim 5.7} [The Weierstrass M-test], the series
+\[
+\sum_{k=0}^{\infty}|a_kx^k|
+\]
+converges.
+
+2) Assume that $|x|>R$ and $\sum_{k=0}^{\infty}a_kx^k$ converges.
+The latter implies (see \hyperref[def:7.2]{Def 7.2}) that $x\in D$.
+Therefore, since
+\[
+R=\sup\{|y|\mid y\in D\},
+\]
+we have $|x|\leq R$, which contradicts $|x|>R$.
+Thus, our assumption is false and the series $\sum_{k=0}^{\infty}a_kx^k$ diverges.
+\end{proof}
+
+\begin{claim}[The Cauchy--Hadamard Formula]\label{claim:7.2}
+For any power series $\sum_{k=0}^{\infty}a_kx^k$, its radius of convergence $R$ is given by
+\[
+\frac{1}{R}
+=
+\overline{\lim}_{k\to\infty}|a_k|^{1/k}
+=
+\lim_{k\to\infty}\sup_{n\geq k}|a_n|^{1/n}.
+\tag{*}\label{eq:7:star:1}
+\]
+\end{claim}
+
+\begin{proof}
+Recall that, by \hyperref[def:7.2]{Def 7.2}, we have
+\[
+D=\left\{x\in\R\ \middle|\ \sum_{k=0}^{\infty}a_kx^k\text{ converges}\right\}
+\qquad\text{and}\qquad
+R=\sup\{|x|\mid x\in D\}.
+\]
+It is clear that $0\in D$.
+Let $x\neq0$, then we have
+\[
+L
+=
+\overline{\lim}_{k\to\infty}|a_kx^k|^{1/k}
+=
+\overline{\lim}_{k\to\infty}|a_k|^{1/k}|x|
+=
+|x|\tau,
+\tag{1}\label{eq:7:1:2}
+\]
+where
+\[
+\tau=\overline{\lim}_{k\to\infty}|a_k|^{1/k}.
+\]
+\hyperref[eq:7:1:2]{Equality (1)} holds true since $x$ does not depend on $k$ and $|x|>0$ (see \hyperref[claim:7.4]{Claim 7.4}).
+
+Then, due to \hyperref[claim:2.9]{Claim 2.9} [The Root Test], the series $\sum_{k=0}^{\infty}|a_kx^k|$ converges if $L=|x|\tau<1$ and diverges if $L=|x|\tau>1$.
+
+\begin{itemize}
+    \item If $\tau=0$, then $|x|\tau=0<1$, $\forall x\in\R$, thus $D=\R$ and $R=+\infty$; that is, \hyperref[eq:7:star:1]{Formula (*)} holds true if $\tau=0$.
+
+    \item If $\tau=+\infty$, then $|x|\tau=+\infty>1$, $\forall x\in\R\setminus\{0\}$, thus $D=\{0\}$ and $R=0$; that is, \hyperref[eq:7:star:1]{Formula (*)} holds true if $\tau=+\infty$.
+
+    \item If $\tau\in(0,+\infty)$, then
+    \[
+    |x|\tau<1
+    \Longleftrightarrow
+    |x|<\frac{1}{\tau},
+    \]
+    hence
+    \[
+    \left\{x\in\R\ \middle|\ |x|<\frac{1}{\tau}\right\}\subseteq D,
+    \]
+    which implies that $R\geq\frac{1}{\tau}$.
+
+    Let us assume that $R>\frac{1}{\tau}$. Then, due to \hyperref[def:7.2]{Def 7.2}, there is $x\in D$ such that
+    \[
+    R>|x|>\frac{1}{\tau}.
+    \]
+    Inequality $|x|>\frac{1}{\tau}$ implies that the series $\sum_{k=0}^{\infty}|a_kx^k|$ diverges (since $L=|x|\tau>1$), and inequality $R>|x|$ implies that the series $\sum_{k=0}^{\infty}a_kx^k$ converges (due to \hyperref[claim:7.1]{Claim 7.1}).
+    Thus, the assumption is false.
+\end{itemize}
+Therefore, $R=\frac{1}{\tau}$ and \hyperref[eq:7:star:1]{Formula (*)} holds true if $\tau\in(0,+\infty)$.
+\end{proof}
+
+\textbf{Note} that \hyperref[claim:7.1]{Claim 7.1} tells nothing about the behavior of the series $\sum_{k=0}^{\infty}a_kx^k$ at the boundary points $x=R$ and $x=-R$, if $R\in(0,+\infty)$.
+
+In fact, all logically admissible possibilities can occur:
+\begin{itemize}
+    \item the series can be absolutely convergent at $x=R$ and $x=-R$;
+
+    for example:
+    \[
+    \sum_{k=1}^{\infty}\frac{1}{k^2}x^k,
+    \qquad R=1,
+    \qquad D=[-1,1];
+    \]
+
+    \item the series can be divergent at $x=R$ and $x=-R$;
+
+    for example:
+    \[
+    \sum_{k=1}^{\infty}\frac{1}{k}x^{2k},
+    \qquad R=1,
+    \qquad D=(-1,1);
+    \]
+
+    \item the series can be divergent at $x=R$ and conditionally convergent at $x=-R$;
+
+    for example:
+    \[
+    \sum_{k=1}^{\infty}\frac{1}{k}x^k,
+    \qquad R=1,
+    \qquad D=[-1,1);
+    \]
+
+    \item the series can be conditionally convergent at $x=R$ and divergent at $x=-R$;
+
+    for example:
+    \[
+    \sum_{k=1}^{\infty}\frac{(-1)^k}{k}x^k,
+    \qquad R=1,
+    \qquad D=(-1,1].
+    \]
+\end{itemize}
+
+\begin{claim}[On Uniform Convergence of Power Series]\label{claim:7.3}
+Let $\sum_{k=0}^{\infty}a_kx^k$ be a power series with the radius of convergence $R>0$.
+Then:
+\begin{enumerate}
+    \item\label{item:claim:7.3:1} the series converges \emph{uniformly} on every interval
+    \[
+    I=[a,b]\subset(-R,R);
+    \]
+
+    \item\label{item:claim:7.3:2} if the series \emph{converges at $x=R$}, then, it converges \emph{uniformly} on every interval
+    \[
+    I=[a,R]\subset(-R,R];
+    \]
+
+    \item\label{item:claim:7.3:3} if the series \emph{diverges at $x=R$}, then, it converges \emph{non-uniformly} on every interval
+    \[
+    I=[a,R)\subset(-R,R).
+    \]
+\end{enumerate}
+\end{claim}
+
+\begin{proof}
+1) Let
+\[
+m=\max\{|a|,|b|\}.
+\]
+It is clear that $0\leq m<R$.
+Note that:
+\begin{itemize}
+    \item $\forall k\in\N\cup\{0\}$, $\forall x\in I=[a,b]$,
+    \[
+    |a_kx^k|\leq |a_k|m^k=:M_k;
+    \]
+
+    \item since $|m|<R$, due to \hyperref[item:claim:7.1:1]{Item 1)} of \hyperref[claim:7.1]{Claim 7.1}, the series
+    \[
+    \sum_{k=0}^{\infty}M_k
+    =
+    \sum_{k=0}^{\infty}|a_k|m^k
+    \]
+    converges.
+\end{itemize}
+Thus, due to \hyperref[claim:5.7]{Claim 5.7} [The Weierstrass M-test], the series $\sum_{k=0}^{\infty}a_kx^k$ converges uniformly on $[a,b]\subset(-R,R)$.
+
+2) Due to \hyperref[item:claim:7.3:1]{Item 1)} and \hyperref[claim:6.6]{Claim 6.6}, it suffices to prove the claim for $I=[0,R]$.
+
+Let
+\[
+f_k(x)=a_kR^k
+\qquad\text{and}\qquad
+g_k(x)=\left(\frac{x}{R}\right)^k,
+\qquad x\in[0,R],\quad \forall k\in\N\cup\{0\}.
+\]
+Note that:
+\begin{itemize}
+    \item the series
+    \[
+    \sum_{k=0}^{\infty}f_k(x)
+    =
+    \sum_{k=0}^{\infty}a_kR^k
+    \]
+    converges uniformly on $[0,R]$.
+
+    Indeed, the series converges since this is one of the conditions of the claim; since the series $\sum_{k=0}^{\infty}a_kR^k$ does not effectively depend on $x$, we can say, due to \hyperref[def:5.3]{Def 5.3}, that it converges uniformly on $[0,R]$.
+
+    \item $\forall k\in\N\cup\{0\}$, $\forall x\in[0,R]$,
+    \[
+    \left(\frac{x}{R}\right)^k\geq\left(\frac{x}{R}\right)^{k+1},
+    \]
+    i.e. $g_k(x)\geq g_{k+1}(x)$;
+
+    \item $\forall k\in\N\cup\{0\}$, $\forall x\in[0,R)$,
+    \[
+    \left|\frac{x}{R}\right|<1,
+    \]
+    i.e. $g_k(x)\downarrow0$.
+\end{itemize}
+Thus, due to \hyperref[claim:5.9]{Claim 5.9} [The Abel Test for the UC], the series
+\[
+\sum_{k=0}^{\infty}f_k(x)g_k(x)
+=
+\sum_{k=0}^{\infty}a_kR^k\left(\frac{x}{R}\right)^k
+=
+\sum_{k=0}^{\infty}a_kx^k
+\]
+converges uniformly on $[0,R]$.
+
+3) The pointwise convergence of $\sum_{k=0}^{\infty}a_kx^k$ on $[a,R)$ follows from \hyperref[item:claim:7.1:1]{Item 1)} of \hyperref[claim:7.1]{Claim 7.1}.
+Let us assume that the series
+\[
+\sum_{k=0}^{\infty}a_kx^k
+=
+\lim_{n\to\infty}f_n(x),
+\qquad
+f_n(x)=\sum_{k=0}^{n}a_kx^k,
+\]
+converges uniformly on $[a,R)$.
+Note that:
+\begin{itemize}
+    \item $\lambda=R$ is a finite limit point of the set $[a,R)$;
+    \item $\forall n\in\N$, we have
+    \[
+    \lim_{x\to R}f_n(x)=\sum_{k=0}^{n}a_kR^k\in\R
+    \]
+    (since $n$ is finite).
+\end{itemize}
+Thus, due to \hyperref[item:claim:6.1:1]{Item 1)} of \hyperref[claim:6.1]{Claim 6.1} [On Changing the Order of Two Limits], the limit
+\[
+\lim_{n\to\infty}\sum_{k=0}^{n}a_kR^k
+=
+\sum_{k=0}^{\infty}a_kR^k
+\]
+exists. Since this contradicts the conditions of the claim, our assumption is false and the series $\sum_{k=0}^{\infty}a_kx^k$ converges non-uniformly on $[a,R)\subset(-R,R)$.
+\end{proof}
+
+\begin{claim}\label{claim:7.4}
+Let $\{a_k\}_{k=1}^{\infty}$ and $\{b_k\}_{k=1}^{\infty}$ be two numerical sequences.
+If
+\[
+\exists\lim_{k\to\infty}a_k=\alpha>0,
+\]
+then
+\[
+\overline{\lim}_{k\to\infty}(a_kb_k)
+=
+\alpha\cdot\overline{\lim}_{k\to\infty}b_k.
+\]
+\end{claim}
+
+\begin{proof}
+See Calculus-1.
+\end{proof}
+
+\begin{claim}[On Derivative of Power Series]\label{claim:7.5}
+Let
+\[
+S(x)=\sum_{k=0}^{\infty}a_kx^k
+\]
+on $(-R,R)$, where $R>0$ is the radius of convergence of the power series.
+Then:
+\begin{enumerate}
+    \item\label{item:claim:7.5:1} the radius of convergence of the series
+    \[
+    \sum_{k=1}^{\infty}ka_kx^{k-1}
+    \]
+    is equal to $R$;
+
+    \item\label{item:claim:7.5:2} for every $x\in(-R,R)$, we have
+    \[
+    S'(x)
+    =
+    \left(\sum_{k=0}^{\infty}a_kx^k\right)'
+    =
+    \sum_{k=1}^{\infty}ka_kx^{k-1}.
+    \tag{3}\label{eq:7:3:1}
+    \]
+\end{enumerate}
+\end{claim}
+
+\begin{proof}
+1) Note that:
+\begin{itemize}
+    \item the series
+    \[
+    \sum_{k=1}^{\infty}ka_kx^{k-1}
+    \qquad\text{and}\qquad
+    \sum_{k=1}^{\infty}ka_kx^k
+    =
+    x\sum_{k=1}^{\infty}ka_kx^{k-1}
+    \]
+    have the same interval of convergence, therefore, due to \hyperref[def:7.2]{Def 7.2}, they have the same radius of convergence;
+
+    \item since
+    \[
+    \lim_{k\to\infty}k^{1/k}=1>0,
+    \]
+    due to \hyperref[claim:7.4]{Claim 7.4}, we have the equality
+    \[
+    \begin{aligned}
+    \overline{\lim}_{k\to\infty}|ka_k|^{1/k}
+    &=\overline{\lim}_{k\to\infty}\left(k^{1/k}|a_k|^{1/k}\right)\\
+    &=1\cdot\overline{\lim}_{k\to\infty}|a_k|^{1/k}
+    =\overline{\lim}_{k\to\infty}|a_k|^{1/k}.
+    \end{aligned}
+    \]
+    which, due to \hyperref[claim:7.2]{Claim 7.2} [The Cauchy--Hadamard Formula], implies that the series $\sum_{k=1}^{\infty}ka_kx^k$ and $\sum_{k=0}^{\infty}a_kx^k$ have the same radius of convergence.
+\end{itemize}
+Therefore, the series $\sum_{k=1}^{\infty}ka_kx^{k-1}$ and $\sum_{k=0}^{\infty}a_kx^k$ have the same radius of convergence and \hyperref[item:claim:7.5:1]{Item 1)} is proved.
+
+2) Let $x_0\in(-R,R)$ be arbitrary. Then it ought to be clear that there is an open interval $J=(-r,r)$ such that $x_0\in J$ and $0<r<R$.
+
+Let
+\[
+u_k(x)=a_kx^k,\qquad \forall k\in\N\cup\{0\},
+\]
+and
+\[
+f_n(x)=\sum_{k=0}^{n}u_k(x),\qquad \forall n\in\N\cup\{0\}.
+\]
+Then note that:
+\begin{enumerate}[label=\alph*)]
+    \item $\forall k\in\N\cup\{0\}$, $u_k(x)=a_kx^k$ is differentiable on $J=(-r,r)$;
+
+    \item the series $\sum_{k=0}^{\infty}u_k(x)$ converges at $x=0\in J$;
+
+    \item the series
+    \[
+    \sum_{k=0}^{\infty}u_k'(x)
+    =
+    \sum_{k=1}^{\infty}ka_kx^{k-1}
+    \]
+    converges uniformly on $J$.
+\end{enumerate}
+Indeed, due to \hyperref[item:claim:7.5:1]{Item 1)}, the radius of convergence of the series $\sum_{k=1}^{\infty}ka_kx^{k-1}$ is equal to $R>0$.
+Therefore, due to \hyperref[item:claim:7.3:1]{Item 1)} of \hyperref[claim:7.3]{Claim 7.3}, it converges uniformly on the interval $[-r,r]\subset(-R,R)$, which implies the uniform convergence of the series on $(-r,r)$.
+
+That is, all conditions of \hyperref[claim:6.13]{Claim 6.13} [Term-by-term Diff. of Series] are satisfied and \hyperref[eq:7:3:1]{Equality (3)} holds true $\forall x\in(-r,r)$ due to \hyperref[item:claim:6.13:2]{Item 2)} of \hyperref[claim:6.13]{Claim 6.13}.
+Then, since $x_0\in(-R,R)$ is arbitrary, \hyperref[eq:7:3:1]{Equality (3)} holds true $\forall x\in(-R,R)$ and \hyperref[item:claim:7.5:2]{Item 2)} is proved.
+\end{proof}
+
+\textbf{Note} that the series $\sum_{k=0}^{\infty}a_kx^k$ and $\sum_{k=1}^{\infty}ka_kx^{k-1}$ have the same radius of convergence, but the series may have different intervals of convergence (see \hyperref[def:7.2]{Def 7.2}).
+
+For example, if $a_0=0$, $a_k=\frac{1}{k^2}$, $\forall k\in\N$, we have
+\[
+\sum_{k=0}^{\infty}a_kx^k
+=
+\sum_{k=1}^{\infty}\frac{1}{k^2}x^k
+\qquad\text{with }R=1\text{ and }D=[-1,1],
+\]
+and
+\[
+\sum_{k=1}^{\infty}ka_kx^{k-1}
+=
+\sum_{k=1}^{\infty}\frac{1}{k}x^{k-1}
+\qquad\text{with }R=1\text{ and }D=[-1,1).
+\]
+
+\begin{claim}[Analyticity of Power Series]\label{claim:7.6}
+Let
+\[
+S(x)=\sum_{k=0}^{\infty}a_kx^k
+\]
+on $(-R,R)$, where $R>0$ is the radius of convergence of the series.
+Then $S\in C^{\infty}(-R,R)$ and, for $\forall n\in\N$, $\forall x\in(-R,R)$, we have
+\[
+S^{(n)}(x)
+=
+\sum_{k=n}^{\infty}k(k-1)\cdots(k-n+1)a_kx^{k-n},
+\]
+where $C^{\infty}(-R,R)$ is the set of all infinitely differentiable functions on $(-R,R)$ and $S^{(n)}(x)$ is the $n$-th derivative of $S(x)$.
+\end{claim}
+
+\begin{proof}
+Follows directly from \hyperref[claim:7.5]{Claim 7.5} via mathematical induction on $n\in\N$.
+\end{proof}
+
+\begin{claim}[On Antiderivative of Power Series]\label{claim:7.7}
+Let
+\[
+S(x)=\sum_{k=0}^{\infty}a_kx^k
+\]
+on $(-R,R)$, where $R>0$ is the radius of convergence of the series.
+Then:
+\begin{enumerate}
+    \item\label{item:claim:7.7:1} the radius of convergence of the series
+    \[
+    \sum_{k=0}^{\infty}\frac{a_k}{k+1}x^{k+1}
+    \]
+    is equal to $R$;
+
+    \item\label{item:claim:7.7:2} for every $x\in(-R,R)$, we have
+    \[
+    \int_0^x S(t)\,dt
+    =
+    \int_0^x\left(\sum_{k=0}^{\infty}a_kt^k\right)dt
+    =
+    \sum_{k=0}^{\infty}\frac{a_k}{k+1}x^{k+1}
+    =
+    \sum_{k=0}^{\infty}\left(\int_0^x a_kt^k\,dt\right).
+    \tag{4}\label{eq:7:4:1}
+    \]
+\end{enumerate}
+\end{claim}
+
+\begin{proof}
+1) Note that:
+\begin{itemize}
+    \item the series
+    \[
+    \sum_{k=0}^{\infty}\frac{a_k}{k+1}x^{k+1}
+    =
+    x\sum_{k=0}^{\infty}\frac{a_k}{k+1}x^k
+    \]
+    and the series
+    \[
+    \sum_{k=0}^{\infty}\frac{a_k}{k+1}x^k
+    \]
+    have the same interval of convergence, therefore, due to \hyperref[def:7.2]{Def 7.2}, they have the same radius of convergence;
+
+    \item since
+    \[
+    \lim_{k\to\infty}\left(\frac{1}{k+1}\right)^{1/k}=1>0,
+    \]
+    due to \hyperref[claim:7.4]{Claim 7.4}, we have the equality
+    \[
+    \begin{aligned}
+    \overline{\lim}_{k\to\infty}\left|\frac{1}{k+1}a_k\right|^{1/k}
+    &=\overline{\lim}_{k\to\infty}\left(\left(\frac{1}{k+1}\right)^{1/k}|a_k|^{1/k}\right)\\
+    &=1\cdot\overline{\lim}_{k\to\infty}|a_k|^{1/k}
+    =\overline{\lim}_{k\to\infty}|a_k|^{1/k}.
+    \end{aligned}
+    \]
+    which, due to \hyperref[claim:7.2]{Claim 7.2} [The Cauchy--Hadamard Formula], implies that the series $\sum_{k=0}^{\infty}\frac{a_k}{k+1}x^k$ and $\sum_{k=0}^{\infty}a_kx^k$ have the same radius of convergence.
+\end{itemize}
+Therefore, the series $\sum_{k=0}^{\infty}\frac{a_k}{k+1}x^{k+1}$ and $\sum_{k=0}^{\infty}a_kx^k$ have the same radius of convergence and \hyperref[item:claim:7.7:1]{Item 1)} is proved.
+
+2) Let $x\in(-R,R)$, $I=[0,x]\subset(-R,R)$,
+\[
+u_k(t)=a_kt^k,
+\qquad \forall k\in\N\cup\{0\},
+\]
+and
+\[
+f_n(t)=\sum_{k=0}^{n}u_k(t).
+\]
+Then note that:
+\begin{enumerate}[label=\alph*)]
+    \item $\forall k\in\N\cup\{0\}$, $u_k(t)=a_kt^k$ is Riemann integrable on $I=[0,x]$;
+
+    \item the series $\sum_{k=0}^{\infty}a_kt^k$ converges uniformly on $I=[0,x]$.
+\end{enumerate}
+The latter holds since $I=[0,x]\subset(-R,R)$ and due to \hyperref[item:claim:7.3:1]{Item 1)} of \hyperref[claim:7.3]{Claim 7.3}.
+Thus, all conditions of \hyperref[claim:6.12]{Claim 6.12} [Term-by-term Int. of Series] are satisfied and, for every $x\in(-R,R)$, we have
+\[
+\int_0^x S(t)\,dt
+=
+\int_0^x\left(\sum_{k=0}^{\infty}a_kt^k\right)dt
+\overset{1}{=}
+\sum_{k=0}^{\infty}\left(\int_0^x a_kt^k\,dt\right)
+\overset{2}{=}
+\sum_{k=0}^{\infty}\frac{a_k}{k+1}x^{k+1}.
+\]
+Here, 1) is due to \hyperref[claim:6.12]{Claim 6.12} and 2) follows from
+\[
+\int_0^x a_kt^k\,dt
+=
+\left.\frac{a_k}{k+1}t^{k+1}\right|_0^x
+=
+\frac{a_k}{k+1}x^{k+1}.
+\]
+Thus, \hyperref[eq:7:4:1]{Equality (4)} is proved.
+\end{proof}
+
+\textbf{Note} that \hyperref[item:claim:7.7:1]{Item 1)} of \hyperref[claim:7.7]{Claim 7.7} tells us that the series $\sum_{k=0}^{\infty}a_kx^k$ and $\sum_{k=0}^{\infty}\frac{a_k}{k+1}x^{k+1}$ have the same radius of convergence, but the series may have different intervals of convergence (see \hyperref[def:7.2]{Def 7.2}).
+
+For example, if $a_0=0$, $a_k=\frac{1}{k}$, $\forall k\in\N$, we have
+\[
+\sum_{k=0}^{\infty}a_kx^k
+=
+\sum_{k=1}^{\infty}\frac{1}{k}x^k
+\qquad\text{with }R=1\text{ and }D=[-1,1),
+\]
+and
+\[
+\sum_{k=0}^{\infty}\frac{a_k}{k+1}x^{k+1}
+=
+\sum_{k=1}^{\infty}\frac{1}{k(k+1)}x^{k+1}
+\qquad\text{with }R=1\text{ and }D=[-1,1].
+\]
+
+\begin{claim}[On Equality of Power Series]\label{claim:7.8}
+Let
+\[
+f(x)=\sum_{k=0}^{\infty}a_kx^k\quad\text{on }(-R_1,R_1)
+\]
+and
+\[
+g(x)=\sum_{k=0}^{\infty}b_kx^k\quad\text{on }(-R_2,R_2),
+\]
+where $R_1>0$ and $R_2>0$ are radii of convergence of the power series $\sum_{k=0}^{\infty}a_kx^k$ and $\sum_{k=0}^{\infty}b_kx^k$ respectively.
+If there is a numerical sequence $\{x_n\}_{n=1}^{\infty}$ such that:
+\begin{enumerate}[label=\alph*)]
+    \item\label{item:claim:7.8:a} $x_n\in(-r,r)\setminus\{0\}$, $\forall n\in\N$, where
+    \[
+    r=\min\{R_1,R_2\}>0;
+    \]
+    \item\label{item:claim:7.8:b} $\displaystyle\lim_{n\to\infty}x_n=0$;
+    \item\label{item:claim:7.8:c} $f(x_n)=g(x_n)$ for every $n\in\N$,
+\end{enumerate}
+then $a_k=b_k$, $\forall k\in\N\cup\{0\}$.
+\end{claim}
+
+\begin{proof}
+Let
+\[
+c_k=a_k-b_k,
+\qquad \forall k\in\N\cup\{0\}.
+\]
+Then, for every $x\in(-r,r)$, we have
+\[
+h(x):=\sum_{k=0}^{\infty}c_kx^k
+=
+\sum_{k=0}^{\infty}(a_k-b_k)x^k
+\overset{1}{=}
+\sum_{k=0}^{\infty}a_kx^k-
+\sum_{k=0}^{\infty}b_kx^k
+=f(x)-g(x),
+\tag{**}\label{eq:7:starstar:1}
+\]
+where \hyperref[eq:7:1:2]{Equality 1}) holds since both series converge due to \hyperref[item:claim:7.1:1]{Item 1)} of \hyperref[claim:7.1]{Claim 7.1}.
+
+From \hyperref[eq:7:starstar:1]{Formula (**)} it follows that:
+\begin{itemize}
+    \item the series
+    \[
+    h(x)=\sum_{k=0}^{\infty}c_kx^k
+    \]
+    has the radius of convergence $R\geq r>0$;
+
+    \item
+    \[
+    h(x_n)=0,
+    \qquad \forall n\in\N;
+    \tag{5}\label{eq:7:5:1}
+    \]
+
+    \item it suffices to prove that
+    \[
+    c_k:=a_k-b_k=0,
+    \qquad \forall k\in\N\cup\{0\}.
+    \]
+\end{itemize}
+
+Let us assume that there is $k\in\N\cup\{0\}$ such that $c_k\neq0$.
+Then
+\[
+m=\min\{k\in\N\cup\{0\}\mid c_k\neq0\}
+\]
+is well-defined and, for every $x\in(-r,r)$, we have
+\begin{align*}
+h(x)
+&=\sum_{k=0}^{\infty}c_kx^k
+=\sum_{k=0}^{m-1}c_kx^k+\sum_{k=m}^{\infty}c_kx^k\\
+&=0+\sum_{k=m}^{\infty}c_kx^k
+=x^m\sum_{k=0}^{\infty}c_{k+m}x^k.
+\end{align*}
+Here, the first finite sum is $0$ since $c_k=0$ for every $k\in\{0,1,\ldots,m-1\}$.
+
+It ought to be clear that the series
+\[
+\widehat h(x):=\sum_{k=0}^{\infty}c_{k+m}x^k
+\]
+and
+\[
+h(x)=x^m\sum_{k=0}^{\infty}c_{m+k}x^k=x^m\widehat h(x)
+\]
+have the same interval of convergence, therefore, due to \hyperref[def:7.2]{Def 7.2}, the series have the same radius of convergence $R\geq r>0$.
+
+Since, due to \hyperref[item:claim:7.8:a]{Item a)}, $x_n\neq0$ for every $n\in\N$, the equalities
+\[
+h(x)=x^m\widehat h(x),
+\qquad \forall x\in(-r,r),
+\]
+and \hyperref[eq:7:5:1]{Formula (5)} imply that
+\[
+\widehat h(x_n)=0,
+\qquad \forall n\in\N.
+\]
+Now note that
+\[
+c_m
+\overset{1}{=}
+\sum_{k=0}^{\infty}c_{k+m}0^k
+\overset{2}{=}
+\widehat h(0)
+\overset{3}{=}
+\widehat h\left(\lim_{n\to\infty}x_n\right)
+\overset{4}{=}
+\lim_{n\to\infty}\widehat h(x_n)
+\overset{5}{=}
+\lim_{n\to\infty}0
+=0.
+\]
+Indeed:
+\begin{enumerate}
+    \item since $0^0:=1$ and $0^k=0$, $\forall k\in\N$;
+    \item by definition, $\widehat h(x)=\sum_{k=0}^{\infty}c_{m+k}x^k$, $\forall x\in(-r,r)$, $r>0$;
+    \item $\lim_{n\to\infty}x_n=0$ due to \hyperref[item:claim:7.8:b]{Item b)};
+    \item due to \hyperref[item:claim:7.5:2]{Item 2)} of \hyperref[claim:7.5]{Claim 7.5}, $\widehat h$ is continuous on $(-r,r)$; since $\lim_{n\to\infty}x_n=0\in(-r,r)$, this implies that
+    \[
+    \lim_{n\to\infty}\widehat h(x_n)
+    =
+    \widehat h\left(\lim_{n\to\infty}x_n\right);
+    \]
+    \item due to \hyperref[eq:7:5:1]{Equality (5)}, we have $\widehat h(x_n)=0$, $\forall n\in\N$.
+\end{enumerate}
+That is, we arrived at a contradiction (with $c_m\neq0$).
+Therefore, the assumption is false and $c_k=0$, $\forall k\in\N\cup\{0\}$.
+\end{proof}
+
+Now we can easily prove \hyperref[claim:4.2]{Claim 4.2} [The Abel Theorem on the Cauchy product].
+
+\begin{claim}[The Abel Theorem on the Cauchy product]\label{claim:7.9}
+Let $\sum_{k=0}^{\infty}a_k$ and $\sum_{k=0}^{\infty}b_k$ be two convergent series with sums $a$ and $b$ respectively.
+If their Cauchy product $\sum_{k=0}^{\infty}c_k$, where
+\[
+c_k=a_0b_k+a_1b_{k-1}+\cdots+a_kb_0,
+\qquad \forall k\in\N\cup\{0\},
+\]
+is a convergent series with the sum $c$, then $c=a\cdot b$.
+\end{claim}
+
+\begin{proof}
+Let us consider the series:
+\[
+f(x):=\sum_{k=0}^{\infty}a_kx^k,
+\qquad
+g(x):=\sum_{k=0}^{\infty}b_kx^k,
+\qquad
+h(x):=\sum_{k=0}^{\infty}c_kx^k.
+\]
+Let $R_1$, $R_2$, and $R_3$ be the radii of convergence of $f(x)$, $g(x)$, and $h(x)$ respectively.
+Since
+\[
+f(1)=\sum_{k=0}^{\infty}a_k1^k=a,
+\qquad
+g(1)=\sum_{k=0}^{\infty}b_k1^k=b,
+\qquad
+h(1)=\sum_{k=0}^{\infty}c_k1^k=c,
+\]
+due to \hyperref[def:7.2]{Def 7.2}, we have $R_1\geq1$, $R_2\geq1$, and $R_3\geq1$.
+Therefore, due to \hyperref[item:claim:7.3:1]{Item 1)} (if $R_i>1$) or \hyperref[item:claim:7.3:2]{Item 2)} (if $R_i=1$) of \hyperref[claim:7.3]{Claim 7.3}, the series $f(x)$, $g(x)$, and $h(x)$ converge uniformly on the interval $[0,1]$.
+
+Therefore, due to \hyperref[claim:6.11]{Claim 6.11} [Continuity of a Series], the functions $f(x)$, $g(x)$, and $h(x)$ are continuous on $[0,1]$ and we have
+\[
+\lim_{x\to1-0}f(x)\overset{1}{=}f(1)=a,
+\qquad
+\lim_{x\to1-0}g(x)\overset{1}{=}g(1)=b,
+\qquad
+\lim_{x\to1-0}h(x)\overset{1}{=}h(1)=c.
+\tag{6}\label{eq:7:6:1}
+\]
+\hyperref[eq:7:6:1]{Equalities 1)} hold since the functions are continuous at $x=1$.
+
+Since $R_1\geq1$ and $R_2\geq1$, due to \hyperref[item:claim:7.1:1]{Item 1)} of \hyperref[claim:7.1]{Claim 7.1}, the series $f(x)=\sum_{k=0}^{\infty}a_kx^k$ and $g(x)=\sum_{k=0}^{\infty}b_kx^k$ converge absolutely for every $x\in[0,1)$.
+
+Note that, for every $k\in\N\cup\{0\}$, $\forall x\in\R$, we have
+\begin{align*}
+c_kx^k
+&=(a_0x^0)(b_kx^k)+(a_1x^1)(b_{k-1}x^{k-1})+\cdots+(a_kx^k)(b_0x^0).
+\end{align*}
+That is, due to \hyperref[def:4.1]{Def 4.1},
+\[
+h(x)=\sum_{k=0}^{\infty}c_kx^k
+\]
+is the Cauchy product of the series
+\[
+\sum_{k=0}^{\infty}a_kx^k=f(x)
+\qquad\text{and}\qquad
+\sum_{k=0}^{\infty}b_kx^k=g(x).
+\]
+Therefore, due to \hyperref[claim:4.1]{Claim 4.1} [The Mertens Theorem], we have
+\[
+h(x)=f(x)\cdot g(x),
+\qquad \text{for every }x\in[0,1).
+\tag{7}\label{eq:7:7:1}
+\]
+To finish the proof, note that:
+\[
+c
+\overset{1}{=}
+\lim_{x\to1-0}h(x)
+\overset{2}{=}
+\lim_{x\to1-0}\bigl(f(x)g(x)\bigr)
+\overset{3}{=}
+\left(\lim_{x\to1-0}f(x)\right)
+\left(\lim_{x\to1-0}g(x)\right)
+\overset{4}{=}
+ab.
+\]
+Here, 1) and 4) are due to \hyperref[eq:7:6:1]{Equalities (6)}, 2) is due to \hyperref[eq:7:7:1]{Equality (7)}, and 3) is due to the \hyperref[eq:7:7:1]{Equality (7)} for every $x<1$ and we can assume that $x>0$.
+\end{proof}
+
+\begin{claim}\label{claim:7.10}
+Let $\sum_{k=0}^{\infty}a_kx^k$ be a power series with the radius of convergence $R>0$.
+Then
+\[
+\forall p\in(0,R)\quad \exists C>0\quad \forall k\in\N\cup\{0\}
+\quad\to\quad
+|a_k|\leq\frac{C}{p^k}.
+\]
+\end{claim}
+
+\begin{proof}
+Since $p\in(0,R)$, due to \hyperref[item:claim:7.1:1]{Item 1)} of \hyperref[claim:7.1]{Claim 7.1}, the series
+\[
+\sum_{k=0}^{\infty}|a_k|p^k
+\]
+converges. Therefore, due to \hyperref[claim:1.5]{Claim 1.5},
+\[
+\lim_{k\to\infty}|a_k|p^k=0.
+\]
+It is well-known (see Calculus-1) that every convergent sequence is bounded. Thus we have
+\[
+\exists C>0\quad \forall k\in\N\cup\{0\}
+\quad\to\quad
+|a_k|p^k<C.
+\]
+Since $p>0$, the claim is proved.
+\end{proof}

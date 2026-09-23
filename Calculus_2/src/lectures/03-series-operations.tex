@@ -1,0 +1,638 @@
+% !TEX root = ../lectures.tex
+
+{\large\bfseries Calculus 2}
+
+\section{Lecture 3}
+\subsection*{Operations with series}
+
+\begin{claim}[The Abel transformation]\label{claim:3.1}
+Let $\{a_i\}_{i=1}^{\infty}$ and $\{b_i\}_{i=1}^{\infty}$ be two sequences. Then, for every $n,k\in\N$, we have
+\[
+\boxed{
+\sum_{i=n+1}^{n+k}a_i b_i
+=A_{n+k}b_{n+k}-A_n b_{n+1}
+-\sum_{i=n+1}^{n+k-1}A_i\bigl(b_{i+1}-b_i\bigr)
+}
+\]
+where
+\[
+A_m=\sum_{j=1}^{m}a_j.
+\]
+\end{claim}
+
+\begin{proof}
+Note that $a_i=A_i-A_{i-1}$. Hence
+\begin{align*}
+\sum_{i=n+1}^{n+k}a_i b_i
+&=\sum_{i=n+1}^{n+k}(A_i-A_{i-1})b_i\\
+&=\sum_{i=n+1}^{n+k}A_i b_i-\sum_{i=n+1}^{n+k}A_{i-1}b_i\\
+&=\sum_{i=n+1}^{n+k}A_i b_i-\sum_{i=n}^{n+k-1}A_i b_{i+1}\\
+&=A_{n+k}b_{n+k}-A_n b_{n+1}
+-\sum_{i=n+1}^{n+k-1}A_i(b_{i+1}-b_i).
+\end{align*}
+\end{proof}
+
+\begin{claim}[The Dirichlet Test]\label{claim:3.2}
+Let $\{a_i\}_{i=1}^{\infty}$ and $\{b_i\}_{i=1}^{\infty}$ be two sequences of real numbers satisfying the following conditions:
+\begin{enumerate}[label=\alph*)]
+\item\label{item:claim:3.2:a} there exists $M>0$ such that
+\[
+\left|\sum_{i=1}^{n}a_i\right|\le M
+\qquad\text{for every }n\in\N;
+\]
+\item\label{item:claim:3.2:b} $\{b_i\}_{i=1}^{\infty}$ is monotonic; that is, either
+\[
+b_i\ge b_{i+1}\quad(\forall i\in\N)
+\]
+or
+\[
+b_i\le b_{i+1}\quad(\forall i\in\N);
+\]
+\item\label{item:claim:3.2:c}
+\[
+\lim_{i\to+\infty}b_i=0.
+\]
+\end{enumerate}
+Then the series
+\[
+\sum_{i=1}^{\infty}a_i b_i
+\]
+converges.
+\end{claim}
+
+\begin{proof}
+Due to \hyperref[claim:1.2]{Claim~1.2} (Cauchy's criterion),
+\[
+\left(\sum_{i=1}^{\infty}a_i b_i\text{ converges}\right)
+\iff
+\left(
+\forall\varepsilon>0\ \exists N(\varepsilon)\in\N:\
+\forall n,k\in\N,\ n>N(\varepsilon)
+\Longrightarrow
+\left|\sum_{i=n+1}^{n+k}a_i b_i\right|<\varepsilon
+\right).
+\]
+Thus, it suffices to prove the condition on the right.
+
+Let $\varepsilon>0$ be arbitrary. Since $\lim_{i\to+\infty}b_i=0$, there exists $N_1(\varepsilon)\in\N$ such that
+\[
+\forall n>N_1(\varepsilon),
+\qquad |b_n|<\frac{\varepsilon}{2M}.
+\]
+Set $N(\varepsilon)=N_1(\varepsilon)$. For every $n,k\in\N$ with $n>N(\varepsilon)$, the Abel transformation gives
+\begin{align*}
+\left|\sum_{i=n+1}^{n+k}a_i b_i\right|
+&=\left|
+A_{n+k}b_{n+k}-A_n b_{n+1}
+-\sum_{i=n+1}^{n+k-1}A_i(b_{i+1}-b_i)
+\right|\\
+&\le |A_{n+k}|\,|b_{n+k}|+|A_n|\,|b_{n+1}|
++\sum_{i=n+1}^{n+k-1}|A_i|\,|b_{i+1}-b_i|\\
+&\le M|b_{n+k}|+M|b_{n+1}|
++M\sum_{i=n+1}^{n+k-1}|b_{i+1}-b_i|.
+\tag{*}\label{eq:3:star:1}
+\end{align*}
+
+Suppose first that $b_i\ge b_{i+1}$ for every $i\in\N$. Together with $\lim b_i=0$, this implies $b_i\ge0$ for every $i\in\N$. Therefore, continuing from \hyperref[eq:3:star:1]{(*)},
+\begin{align*}
+\left|\sum_{i=n+1}^{n+k}a_i b_i\right|
+&\le M b_{n+k}+M b_{n+1}
++M\sum_{i=n+1}^{n+k-1}(b_i-b_{i+1})\\
+&=M\bigl(b_{n+k}+b_{n+1}+b_{n+1}-b_{n+k}\bigr)\\
+&=2M b_{n+1}
+<2M\cdot\frac{\varepsilon}{2M}=\varepsilon.
+\end{align*}
+Hence, by Cauchy's criterion, $\sum_{i=1}^{\infty}a_i b_i$ converges.
+
+If instead $b_i\le b_{i+1}$ for every $i\in\N$, then together with $\lim b_i=0$ this implies $b_i\le0$ for every $i\in\N$. The sequence $\{-b_i\}$ is nonincreasing and tends to $0$, so by the case already proved, the series $\sum a_i(-b_i)$ converges. Therefore $\sum a_i b_i$ converges as well.
+\end{proof}
+
+\begin{claim}[The Abel Test]\label{claim:3.3}
+Let $\{a_i\}_{i=1}^{\infty}$ and $\{b_i\}_{i=1}^{\infty}$ be two sequences of real numbers satisfying the following conditions:
+\begin{enumerate}[label=\alph*)]
+\item\label{item:claim:3.3:a} $\sum_{i=1}^{\infty}a_i$ converges;
+\item\label{item:claim:3.3:b} $\{b_i\}_{i=1}^{\infty}$ is monotonic;
+\item\label{item:claim:3.3:c} $\{b_i\}_{i=1}^{\infty}$ is bounded; that is, there exists $L>0$ such that
+\[
+|b_i|\le L\qquad(\forall i\in\N).
+\]
+\end{enumerate}
+Then the series
+\[
+\sum_{i=1}^{\infty}a_i b_i
+\]
+converges.
+\end{claim}
+
+\begin{proof}
+Since $\{b_i\}_{i=1}^{\infty}$ is monotonic and bounded, we have (see Calculus 1)
+\[
+\exists\lim_{i\to+\infty}b_i=b.
+\]
+Note that:
+\begin{enumerate}[label=\arabic*)]
+\item the sequence $\{b_i-b\}_{i=1}^{\infty}$ satisfies conditions b) and c) of \hyperref[claim:3.2]{Claim~3.2};
+\item since $\sum_{i=1}^{\infty}a_i$ converges, the sequence of partial sums
+\[
+\left\{\sum_{k=1}^{i}a_k\right\}_{i=1}^{\infty}
+\]
+is bounded, so $\{a_i\}$ satisfies condition a) of \hyperref[claim:3.2]{Claim~3.2}.
+\end{enumerate}
+Therefore, by \hyperref[claim:3.2]{Claim~3.2}, the series
+\[
+\sum_{i=1}^{\infty}a_i(b_i-b)
+\]
+converges. Since
+\[
+\sum_{i=1}^{\infty}a_i b_i
+=b\sum_{i=1}^{\infty}a_i
++\sum_{i=1}^{\infty}a_i(b_i-b),
+\]
+the series $\sum_{i=1}^{\infty}a_i b_i$ converges.
+\end{proof}
+
+\begin{claim}[The Leibniz Test]\label{claim:3.4}
+Let $\{b_i\}_{i=1}^{\infty}$ be a sequence of real numbers satisfying
+\begin{enumerate}[label=\alph*)]
+\item\label{item:claim:3.4:a} $\{b_i\}_{i=1}^{\infty}$ is nonincreasing, that is,
+\[
+b_i\ge b_{i+1}\qquad(\forall i\in\N);
+\]
+\item\label{item:claim:3.4:b}
+\[
+\lim_{i\to+\infty}b_i=0.
+\]
+\end{enumerate}
+Then:
+\begin{enumerate}[label=\arabic*)]
+\item\label{item:claim:3.4:1} the series
+\[
+\sum_{i=1}^{\infty}(-1)^{i+1}b_i
+\]
+converges;
+\item\label{item:claim:3.4:2} for every $n\in\N$,
+\[
+\left|\sum_{i=n+1}^{\infty}(-1)^{i+1}b_i\right|\le b_{n+1}.
+\]
+\end{enumerate}
+\end{claim}
+
+\begin{proof}
+\textbf{1)} This follows directly from \hyperref[claim:3.2]{Claim~3.2} (Dirichlet's test) if we set
+\[
+a_i=(-1)^{i+1},
+\]
+because
+\[
+\left|\sum_{i=1}^{n}a_i\right|
+=\left|\sum_{i=1}^{n}(-1)^{i+1}\right|\le1.
+\]
+
+\medskip
+\noindent\textbf{2)} Let
+\[
+S_n=\sum_{i=1}^{n}(-1)^{i+1}b_i
+\qquad(n\in\N).
+\]
+For every $n\in\N$,
+\[
+S_{2n+2}=S_{2n}+b_{2n+1}-b_{2n+2}\ge S_{2n},
+\]
+and
+\[
+S_{2n+1}=S_{2n-1}-b_{2n}+b_{2n+1}\le S_{2n-1}.
+\]
+Therefore $\{S_{2n}\}_{n=1}^{\infty}$ is nondecreasing and $\{S_{2n-1}\}_{n=1}^{\infty}$ is nonincreasing. Due to \hyperref[item:claim:3.4:1]{item 1)}, the sequence $\{S_n\}_{n=1}^{\infty}$ is convergent, so both subsequences converge and have the same limit. Let
+\[
+\lim_{n\to+\infty}S_n=S.
+\]
+Hence
+\[
+S_{2n}\le S\le S_{2n-1}
+\qquad(\forall n\in\N).
+\]
+Consequently,
+\[
+0\le S-S_{2n}\le S_{2n+1}-S_{2n}=b_{2n+1},
+\]
+and
+\[
+0\le S_{2n-1}-S\le S_{2n-1}-S_{2n}=b_{2n}.
+\]
+Thus, for every $n\in\N$,
+\[
+|S-S_n|\le b_{n+1}.
+\]
+Since
+\[
+S-S_n=\sum_{i=n+1}^{\infty}(-1)^{i+1}b_i,
+\]
+the statement follows.
+\end{proof}
+
+\begin{claim}[Sine and cosine sums]\label{claim:3.5}
+For every $n\in\N$ and $\alpha,b\in\R$, we have
+\[
+\sum_{k=1}^{n}\sin(\alpha k+b)
+=
+\begin{cases}
+\displaystyle
+\frac{\sin\!\left(\frac{n+1}{2}\alpha+b\right)
+      \sin\!\left(\frac n2\alpha\right)}
+     {\sin\!\left(\frac\alpha2\right)},
+& \alpha\notin2\pi\Z,\\[1.2em]
+\displaystyle n\sin b,
+& \alpha\in2\pi\Z.
+\end{cases}
+\]
+\end{claim}
+
+\begin{proof}
+If $\alpha\in2\pi\Z$, then $\sin(\alpha k+b)=\sin b$, and the formula is immediate.
+
+Assume that $\alpha\notin2\pi\Z$, and let
+\[
+S_n=\sum_{k=1}^{n}\sin(\alpha k+b).
+\]
+Using
+\[
+2\sin x\sin y=\cos(x-y)-\cos(x+y)
+\qquad(\forall x,y\in\R),
+\]
+we obtain
+\begin{align*}
+2\sin\!\left(\frac\alpha2\right)S_n
+&=\sum_{k=1}^{n}2\sin(\alpha k+b)\sin\!\left(\frac\alpha2\right)\\
+&=\sum_{k=1}^{n}
+\left(
+\cos\!\left(\alpha k+b-\frac\alpha2\right)
+-\cos\!\left(\alpha k+b+\frac\alpha2\right)
+\right)\\
+&=\cos\!\left(\alpha+b-\frac\alpha2\right)
+-\cos\!\left(\alpha n+b+\frac\alpha2\right).
+\end{align*}
+This is a telescoping sum. Now use
+\[
+\cos x-\cos y
+=2\sin\!\left(\frac{x+y}{2}\right)
+ \sin\!\left(\frac{y-x}{2}\right)
+\qquad(\forall x,y\in\R)
+\]
+to get
+\[
+2\sin\!\left(\frac\alpha2\right)S_n
+=2\sin\!\left(\frac{n+1}{2}\alpha+b\right)
+ \sin\!\left(\frac n2\alpha\right).
+\]
+It remains to divide both sides by $2\sin(\alpha/2)\ne0$.
+\end{proof}
+
+\begin{claim}\label{claim:3.6}
+For every $n\in\N$, we have
+\begin{enumerate}[label=\arabic*)]
+\item\label{item:claim:3.6:1}
+\[
+S_n=\sin1+\sin2+\cdots+\sin n
+=\frac{\sin\!\left(\frac{n+1}{2}\right)
+        \sin\!\left(\frac n2\right)}
+       {\sin\!\left(\frac12\right)};
+\]
+\item\label{item:claim:3.6:2}
+\[
+C_n=\cos1+\cos2+\cdots+\cos n
+=\frac{\cos\!\left(\frac{n+1}{2}\right)
+        \sin\!\left(\frac n2\right)}
+       {\sin\!\left(\frac12\right)}.
+\]
+\end{enumerate}
+\end{claim}
+
+\begin{proof}
+\textbf{1)} Follows directly from \hyperref[claim:3.5]{Claim~3.5} by setting $\alpha=1$ and $b=0$.
+
+\medskip
+\noindent\textbf{2)} Follows directly from \hyperref[claim:3.5]{Claim~3.5} by setting $\alpha=1$ and $b=\pi/2$ and using
+\[
+\sin\!\left(x+\frac\pi2\right)=\cos x
+\qquad(\forall x\in\R).
+\]
+\end{proof}
+
+\begin{definition}\label{def:3.1}
+A series $\sum_{k=1}^{\infty}a_k$ is called
+\begin{itemize}
+\item \emph{absolutely convergent} if the series $\sum_{k=1}^{\infty}|a_k|$ converges;
+\item \emph{conditionally convergent} if it converges but the series $\sum_{k=1}^{\infty}|a_k|$ diverges.
+\end{itemize}
+Thus, there are three alternatives for a series $\sum_{k=1}^{\infty}a_k$:
+\begin{itemize}
+\item the series is absolutely convergent;
+\item the series is conditionally convergent;
+\item the series is divergent.
+\end{itemize}
+\end{definition}
+
+\begin{claim}\label{claim:3.7}
+An absolutely convergent series is convergent. That is,
+\[
+\left(\sum_{k=1}^{\infty}|a_k|\text{ converges}\right)
+\implies
+\left(\sum_{k=1}^{\infty}a_k\text{ converges}\right).
+\]
+\end{claim}
+
+\begin{proof}
+Since
+\[
+0\le a_k+|a_k|\le2|a_k|
+\qquad(\forall k\in\N),
+\]
+and the series $\sum_{k=1}^{\infty}|a_k|$ converges, due to \hyperref[claim:2.4]{Claim~2.4} (the First Comparison Test), the series
+\[
+\sum_{k=1}^{\infty}(a_k+|a_k|)
+\]
+converges. Since
+\[
+\sum_{k=1}^{\infty}a_k
+=\sum_{k=1}^{\infty}(a_k+|a_k|)
+-\sum_{k=1}^{\infty}|a_k|,
+\]
+due to \hyperref[claim:1.8]{Claim~1.8}, the series $\sum_{k=1}^{\infty}a_k$ converges.
+\end{proof}
+
+\begin{claim}[Alternating $p$-series]\label{claim:3.8}
+The series
+\[
+\sum_{k=1}^{\infty}\frac{(-1)^{k+1}}{k^p}
+\]
+\begin{enumerate}[label=\arabic*)]
+\item\label{item:claim:3.8:1} converges absolutely if $p>1$;
+\item\label{item:claim:3.8:2} converges conditionally if $0<p\le1$;
+\item\label{item:claim:3.8:3} diverges if $p\le0$.
+\end{enumerate}
+\end{claim}
+
+\begin{proof}
+\textbf{1)} Since
+\[
+\sum_{k=1}^{\infty}\left|\frac{(-1)^{k+1}}{k^p}\right|
+=\sum_{k=1}^{\infty}\frac1{k^p},
+\]
+\hyperref[item:claim:3.8:1]{item 1)} follows from \hyperref[claim:2.7]{Claim~2.7}.
+
+\medskip
+\noindent\textbf{3)} If $p\le0$, then
+\[
+\lim_{k\to+\infty}\frac{(-1)^{k+1}}{k^p}\ne0.
+\]
+Hence \hyperref[item:claim:3.8:3]{item 3)} follows from \hyperref[claim:1.5]{Claim~1.5} (the necessary condition for convergence).
+
+\medskip
+\noindent\textbf{2)} If $p>0$, the series
+\[
+\sum_{k=1}^{\infty}\frac{(-1)^{k+1}}{k^p}
+\]
+converges due to \hyperref[claim:3.4]{Claim~3.4} (the Leibniz Test). For $0<p\le1$, the series of absolute values $\sum_{k=1}^{\infty}1/k^p$ diverges by \hyperref[claim:2.7]{Claim~2.7}. Therefore the convergence is conditional.
+\end{proof}
+
+\begin{definition}\label{def:3.2}
+Let $\tau:\N\to\N$ be a \emph{permutation} of the set of natural numbers; that is, $\tau$ is a bijection from $\N$ to $\N$. Then the series
+\[
+\sum_{k=1}^{\infty}a_{\tau(k)}
+\]
+is called a \emph{rearrangement} of the series
+\[
+\sum_{k=1}^{\infty}a_k.
+\]
+Roughly speaking, a rearrangement changes the order of the terms of the series. For example,
+\[
+a_2+a_1+a_4+a_3+a_6+a_5+\cdots+a_{2n}+a_{2n-1}+\cdots
+\]
+is a rearrangement of $\sum_{k=1}^{\infty}a_k$.
+\end{definition}
+
+\begin{claim}[Cauchy's Rearrangement Theorem]\label{claim:3.9}
+Let
+\[
+\sum_{k=1}^{\infty}a_k
+\]
+be an absolutely convergent series. Then, for any permutation $\tau:\N\to\N$, we have
+\[
+\sum_{k=1}^{\infty}a_{\tau(k)}
+=\sum_{k=1}^{\infty}a_k.
+\]
+\end{claim}
+
+\begin{proof}
+Let
+\[
+\sum_{k=1}^{\infty}a_k=\alpha.
+\]
+We need to prove that
+\[
+\sum_{k=1}^{\infty}a_{\tau(k)}=\alpha.
+\]
+By the definition of convergence, it suffices to prove that
+\[
+\forall\varepsilon>0\ \exists N\in\N:\ \forall n>N,
+\qquad
+\left|\alpha-\sum_{k=1}^{n}a_{\tau(k)}\right|<\varepsilon.
+\tag{$\diamond$}\label{eq:3:diamond:1}
+\]
+Since the series is absolutely convergent, $\sum_{k=1}^{\infty}|a_k|$ converges. Due to \hyperref[claim:1.7]{Claim~1.7},
+\[
+\forall\varepsilon>0\ \exists M\in\N:\ \forall n\ge M,
+\qquad
+\sum_{k=n+1}^{\infty}|a_k|<\varepsilon.
+\tag{$\triangledown$}\label{eq:3:triangledown:1}
+\]
+Choose $N\in\N$ such that
+\[
+\{1,2,\ldots,M\}\subseteq\{\tau(1),\tau(2),\ldots,\tau(N)\}.
+\]
+This can be done since $\tau:\N\to\N$ is a bijection. Then for every $n>N$,
+\begin{align*}
+\left|\alpha-\sum_{k=1}^{n}a_{\tau(k)}\right|
+&=\left|\sum_{k=1}^{\infty}a_k-\sum_{k=1}^{n}a_{\tau(k)}\right|\\
+&\le\sum_{k=M+1}^{\infty}|a_k|\\
+&<\varepsilon,
+\end{align*}
+where the terms $a_1,a_2,\ldots,a_M$ cancel due to the choice of $N$. This proves \hyperref[eq:3:diamond:1]{$(\diamond)$}.
+\end{proof}
+
+\begin{claim}\label{claim:3.10}
+Let $\{a_k\}_{k=1}^{\infty}$ be a sequence of real numbers. Let $\lambda_k$ be the $k$-th nonnegative term of $\{a_k\}_{k=1}^{\infty}$, and let $\beta_k$ be the $k$-th negative term of $\{a_k\}_{k=1}^{\infty}$.
+
+For example, if
+\[
+\{a_k\}_{k=1}^{\infty}=(1,0,-7,2,-3,1,-1,\ldots),
+\]
+then
+\[
+\lambda_1=1,\quad \lambda_2=0,\quad \lambda_3=2,\quad \lambda_4=1,
+\]
+and
+\[
+\beta_1=-7,\quad \beta_2=-3,\quad \beta_3=-1.
+\]
+
+If the series $\sum_{k=1}^{\infty}a_k$ converges conditionally, then:
+\begin{enumerate}[label=\arabic*)]
+\item\label{item:claim:3.10:1} there are infinitely many nonnegative and infinitely many negative terms in the sequence $\{a_k\}_{k=1}^{\infty}$;
+\item\label{item:claim:3.10:2} both series
+\[
+\sum_{k=1}^{\infty}\lambda_k
+\qquad\text{and}\qquad
+\sum_{k=1}^{\infty}\beta_k
+\]
+are divergent.
+\end{enumerate}
+\end{claim}
+
+\begin{proof}
+\textbf{1)} Suppose that the set of nonnegative terms of the sequence $\{a_k\}_{k=1}^{\infty}$ is finite. Then there exists $N\in\N$ such that
+\[
+\forall k>N,
+\qquad a_k<0.
+\]
+Hence, since $|a_k|=-a_k$ for $k>N$,
+\[
+\sum_{k=1}^{\infty}|a_k|
+=\sum_{k=1}^{N}|a_k|+\sum_{k=N+1}^{\infty}|a_k|
+=M-\sum_{k=N+1}^{\infty}a_k,
+\]
+where $M=\sum_{k=1}^{N}|a_k|$ is a constant. The series on the right converges because $\sum a_k$ converges. Therefore $\sum a_k$ converges absolutely, which is a contradiction. Thus, the set of nonnegative terms is infinite. In a similar way, one proves that the set of negative terms is also infinite.
+
+\medskip
+\noindent\textbf{2)} Due to \hyperref[item:claim:3.10:1]{item 1)}, we can define the series $\sum_{k=1}^{\infty}\lambda_k$ and $\sum_{k=1}^{\infty}\beta_k$.
+
+Suppose first that both series are convergent:
+\[
+\sum_{k=1}^{\infty}\lambda_k=\lambda\in\R,
+\qquad
+\sum_{k=1}^{\infty}\beta_k=\beta\in\R.
+\]
+Then, for every $N\in\N$,
+\[
+\sum_{k=1}^{N}|a_k|
+\le
+\sum_{k=1}^{N}\lambda_k
++\sum_{k=1}^{N}|\beta_k|
+\le\lambda+|\beta|.
+\]
+Therefore, due to \hyperref[claim:2.2]{Claim~2.2}, the series $\sum_{k=1}^{\infty}|a_k|$ converges. This contradicts conditional convergence. Hence at least one of the series $\sum\lambda_k$ or $\sum\beta_k$ diverges.
+
+Suppose that one of these series converges and the other diverges. Without loss of generality, assume that
+\[
+\sum_{k=1}^{\infty}\lambda_k\text{ diverges},
+\qquad
+\sum_{k=1}^{\infty}\beta_k=\beta\in\R.
+\]
+Then
+\[
+\forall E>0\ \exists N\in\N:\ \forall n\ge N,
+\qquad
+\sum_{k=1}^{n}\lambda_k>E-\beta.
+\]
+Choose $M\in\N$ such that
+\[
+\{\lambda_1,\ldots,\lambda_N\}\subseteq\{a_1,\ldots,a_M\}.
+\]
+Then
+\[
+\sum_{k=1}^{M}a_k
+\ge\sum_{k=1}^{N}\lambda_k+\beta
+>E-\beta+\beta=E.
+\]
+Since $E>0$ is arbitrary, the partial sums of $\sum a_k$ are unbounded above, so $\sum a_k$ diverges. This is a contradiction. Therefore both $\sum\lambda_k$ and $\sum\beta_k$ are divergent.
+\end{proof}
+
+\begin{claim}[The Riemann Rearrangement Theorem]\label{claim:3.11}
+Let
+\[
+\sum_{k=1}^{\infty}a_k
+\]
+be a conditionally convergent series. Then, for any $\alpha\in\R$, there exists a permutation $\tau:\N\to\N$ such that
+\[
+\sum_{k=1}^{\infty}a_{\tau(k)}=\alpha.
+\]
+\end{claim}
+
+\begin{proof}
+Let $\lambda_k$ be the $k$-th nonnegative term and $\beta_k$ the $k$-th negative term of the sequence $\{a_k\}_{k=1}^{\infty}$. We construct the rearranged series $\sum_{k=1}^{\infty}a_{\tau(k)}$ as follows.
+
+Let $\alpha\in\R$ be arbitrary.
+\begin{itemize}
+\item Let $p_1$ be the smallest natural number such that
+\[
+\sum_{k=1}^{p_1}\lambda_k>\alpha.
+\]
+Such $p_1$ exists because $\sum_{k=1}^{\infty}\lambda_k=+\infty$ by \hyperref[item:claim:3.10:2]{item 2)} of \hyperref[claim:3.10]{Claim~3.10}.
+
+\item Let $q_1$ be the smallest natural number such that
+\[
+\sum_{k=1}^{p_1}\lambda_k+\sum_{k=1}^{q_1}\beta_k<\alpha.
+\]
+Such $q_1$ exists because $\sum_{k=1}^{\infty}\beta_k=-\infty$ by \hyperref[item:claim:3.10:2]{item 2)} of \hyperref[claim:3.10]{Claim~3.10}.
+
+\item Let $p_2$ be the smallest natural number such that
+\[
+\sum_{k=1}^{p_1}\lambda_k+\sum_{k=1}^{q_1}\beta_k
++\sum_{k=p_1+1}^{p_2}\lambda_k>\alpha.
+\]
+Again, $p_2$ exists because $\sum\lambda_k=+\infty$.
+
+\item Let $q_2$ be the smallest natural number such that
+\[
+\sum_{k=1}^{p_1}\lambda_k+\sum_{k=1}^{q_1}\beta_k
++\sum_{k=p_1+1}^{p_2}\lambda_k
++\sum_{k=q_1+1}^{q_2}\beta_k<\alpha.
+\]
+Again, $q_2$ exists because $\sum\beta_k=-\infty$.
+\end{itemize}
+Continuing inductively, we obtain the sequence
+\[
+\lambda_1,\ldots,\lambda_{p_1},
+\beta_1,\ldots,\beta_{q_1},
+\lambda_{p_1+1},\ldots,\lambda_{p_2},
+\beta_{q_1+1},\ldots,\beta_{q_2},
+\lambda_{p_2+1},\ldots
+\tag{3}\label{eq:3:3:1}
+\]
+whose partial sums alternately pass above and below $\alpha$.
+
+The picture below illustrates the construction schematically.
+\begin{center}
+\begin{minipage}{\textwidth}
+\centering
+\includegraphics[width=0.92\textwidth]{figure_riemann_rearrangement.jpg}
+\par\smallskip
+\refstepcounter{figure}\label{fig:3.1}
+{\small Figure \thefigure}
+\end{minipage}
+\end{center}
+
+The constructed series converges to $\alpha$. Indeed, note that
+\[
+\left(\sum_{k=1}^{\infty}a_k\text{ converges}\right)
+\implies
+\left(\lim_{k\to+\infty}a_k=0\right)
+\iff
+\left(
+\lim_{k\to+\infty}\lambda_k=0
+\text{ and }
+\lim_{k\to+\infty}\beta_k=0
+\right).
+\]
+Equivalently,
+\[
+\forall\varepsilon>0\ \exists N\in\N:\ \forall k>N,
+\qquad
+\lambda_k<\varepsilon
+\quad\text{and}\quad
+|\beta_k|<\varepsilon.
+\]
+Therefore, after all $\lambda_k$ and $\beta_k$ with $k\in\{1,\ldots,N\}$ have been included in a partial sum of \hyperref[eq:3:3:1]{sequence (3)}---which eventually happens because at least one $\lambda_i$ and one $\beta_i$ are added at each step---all further deviations of partial sums from $\alpha$ do not exceed $\varepsilon$. This follows from $\lambda_k<\varepsilon$ and $|\beta_k|<\varepsilon$ for $k>N$, together with the choice of the integers $p_i$ and $q_i$. Due to \hyperref[claim:1.2]{Claim~1.2} (Cauchy's criterion), the constructed series converges to $\alpha$.
+
+Every entry in the original sequence $\{a_k\}_{k=1}^{\infty}$ appears in \hyperref[eq:3:3:1]{sequence (3)} exactly once. Thus \hyperref[eq:3:3:1]{sequence (3)} is a permutation of the original sequence $\{a_k\}_{k=1}^{\infty}$.
+\end{proof}

@@ -1,0 +1,811 @@
+% !TEX root = ../lectures.tex
+
+{\large\bfseries Calculus 2}
+
+\section{Lecture 6}
+\subsection*{Properties of Limit Functions}
+
+\begin{definition}\label{def:6.1}
+Let $E\subseteq\R$. Then, $\lambda\in\R$ is called a \emph{limit point} (or \emph{accumulation point}) of a set $E$ if
+\[
+\forall\varepsilon>0\quad \exists x\in E\setminus\{\lambda\}\quad\to\quad |\lambda-x|<\varepsilon.
+\]
+\end{definition}
+
+\begin{claim}[Theorem on Changing the Order of Two Limits]\label{claim:6.1}
+Let $E\subseteq\R$ and $f_n:E\to\R$, $\forall n\in\N$.
+If:
+\begin{enumerate}[label=\alph*)]
+    \item\label{item:claim:6.1:a} $\lambda$ is a \emph{finite limit point} of $E$ (finite means that $\lambda\neq\pm\infty$);
+    \item\label{item:claim:6.1:b} $\forall n\in\N\to \exists\displaystyle\lim_{x\to\lambda}f_n(x)=\alpha_n$;
+    \item\label{item:claim:6.1:c} $f_n\uconv{E}f$ \quad (see \hyperref[def:5.3]{Def 5.3}),
+\end{enumerate}
+then:
+\begin{enumerate}
+    \item\label{item:claim:6.1:1} $\exists\displaystyle\lim_{n\to\infty}\alpha_n$, that is, the sequence $\{\alpha_n\}_{n=1}^{\infty}$ converges;
+    \item\label{item:claim:6.1:2}
+    \[
+    \lim_{n\to\infty}\left(\lim_{x\to\lambda}f_n(x)\right)
+    =
+    \lim_{x\to\lambda}\left(\lim_{n\to\infty}f_n(x)\right).
+    \tag{1}\label{eq:6:1:1}
+    \]
+\end{enumerate}
+\end{claim}
+
+\begin{center}
+\begin{minipage}{\textwidth}
+\centering
+\includegraphics[width=0.76\textwidth]{figure_order_of_limits.jpg}
+\par\smallskip
+\refstepcounter{figure}\label{fig:6.1}
+{\small Figure \thefigure}
+\end{minipage}
+\end{center}
+
+The equality in \hyperref[eq:6:1:1]{Formula (1)} is the statement of \hyperref[item:claim:6.1:2]{Item 2)} of \hyperref[claim:6.1]{Claim 6.1} and the reason for the name of the claim.
+
+\begin{proof}
+1) Since, due to \hyperref[item:claim:6.1:b]{Item b)}, $\forall n\in\N\to\exists\lim_{x\to\lambda}f_n(x)=\alpha_n$, we have
+\[
+\bigl(\forall x\to\lambda\quad |f_m(x)-f_k(x)|<\varepsilon\bigr)
+\Longrightarrow
+\bigl(|\alpha_m-\alpha_k|\leq\varepsilon\bigr).
+\tag{*}\label{eq:6:star:1}
+\]
+
+Now note that:
+\[
+(f_n\uconv{E}f)
+\]
+\[
+\Updownarrow\quad\text{due to \hyperref[claim:5.4]{Claim 5.4}}
+\]
+\[
+\bigl(\forall\varepsilon>0\ \exists N(\varepsilon)\in\N:\ \forall k\geq N(\varepsilon)\ \forall m\geq N(\varepsilon)\ \forall x\in E
+\to |f_m(x)-f_k(x)|<\varepsilon\bigr)
+\]
+\[
+\Downarrow\quad\text{due to \hyperref[eq:6:star:1]{Formula (*)}}
+\]
+\[
+\bigl(\forall\varepsilon>0\ \exists N(\varepsilon)\in\N:\ \forall k\geq N(\varepsilon)\ \forall m\geq N(\varepsilon)
+\to |\alpha_m-\alpha_k|\leq\varepsilon\bigr)
+\]
+\[
+\Updownarrow\quad\text{due to the Cauchy criterion for convergence of numerical sequences (see Calculus-1)}
+\]
+\[
+\left(\exists\lim_{n\to\infty}\alpha_n\right).
+\]
+
+2) Let
+\[
+\lim_{n\to\infty}\alpha_n=\alpha
+\qquad\text{(the limit exists due to \hyperref[item:claim:6.1:1]{Item 1)}).}
+\]
+Then, in \hyperref[eq:6:1:1]{Formula (1)}:
+
+\emph{the left hand side} is
+\[
+\lim_{n\to\infty}\left(\lim_{x\to\lambda}f_n(x)\right)
+=\lim_{n\to\infty}\alpha_n=\alpha,
+\]
+
+\emph{the right hand side} is
+\[
+\lim_{x\to\lambda}\left(\lim_{n\to\infty}f_n(x)\right)
+=\lim_{x\to\lambda}f(x),
+\]
+since, due to \hyperref[item:claim:6.1:c]{Item c)} and \hyperref[claim:5.3]{Claim 5.3}, we have $f_n\pconv{E}f$.
+
+Thus, we need to prove that
+\[
+\exists\lim_{x\to\lambda}f(x)=\alpha.
+\]
+That is, due to a definition of the limit (see Calculus-1), we need to prove that
+\[
+\forall\varepsilon>0\ \exists\delta>0:\ \forall x\in(\alpha-\delta,\alpha+\delta)\cap E
+\to |f(x)-\alpha|<\varepsilon.
+\tag{**}\label{eq:6:starstar:1}
+\]
+
+Note that, for some $\varepsilon>0$ we have:
+
+\begin{enumerate}[label=\roman*)]
+\item
+\[
+(f_n\uconv{E}f)
+\Longrightarrow
+\left(\exists N_1(\varepsilon):\ \forall n\geq N_1(\varepsilon)\ \forall x\in E
+\to |f_n(x)-f(x)|<\frac{\varepsilon}{3}\right).
+\tag{1a}\label{eq:6:1a:1}
+\]
+\item
+\[
+\left(\lim_{n\to\infty}\alpha_n=\alpha\right)
+\Longrightarrow
+\left(\exists N_2:\ \forall n\geq N_2\to |\alpha_n-\alpha|<\frac{\varepsilon}{3}\right).
+\tag{2}\label{eq:6:2:1}
+\]
+\end{enumerate}
+
+Let $N(\varepsilon)=\max\{N_1(\varepsilon),N_2\}$. Then
+\[
+\left(\lim_{x\to\lambda}f_N(x)=\alpha_N\right)
+\]
+(for simplicity of notation we write $N$ instead of $N(\varepsilon)$), hence
+\[
+\left(\exists\delta>0:\ \forall x\in(\alpha-\delta,\alpha+\delta)\cap E
+\to |f_N(x)-\alpha_N|<\frac{\varepsilon}{3}\right).
+\tag{3}\label{eq:6:3:1}
+\]
+
+Now we are ready to verify (**). Indeed, for every $x\in(\alpha-\delta,\alpha+\delta)$ we have
+\begin{align*}
+|f(x)-\alpha|
+&=|f(x)-f_N(x)+f_N(x)-\alpha_N+\alpha_N-\alpha|\\
+&\leq |f(x)-f_N(x)|+|f_N(x)-\alpha_N|+|\alpha_N-\alpha|\\
+&<\frac{\varepsilon}{3}+\frac{\varepsilon}{3}+\frac{\varepsilon}{3}=\varepsilon,
+\end{align*}
+due to \hyperref[eq:6:1a:1]{(1a)}, \hyperref[eq:6:3:1]{(3)}, and \hyperref[eq:6:2:1]{(2)}, respectively.
+
+Thus, we verified \hyperref[eq:6:starstar:1]{(**)} and proved \hyperref[item:claim:6.1:2]{Item 2)}.
+\end{proof}
+
+\begin{claim}[Continuity of a Limit Function]\label{claim:6.2}
+Let $E\subseteq\R$ and $f_n:E\to\R$, $\forall n\in\N$.
+If:
+\begin{enumerate}[label=\alph*)]
+    \item\label{item:claim:6.2:a} for every $n\in\N$, $f_n$ is a continuous function on $E$, that is, $\forall n\in\N\to f_n\in C(E)$;
+    \item\label{item:claim:6.2:b} $f_n\uconv{E}f$ \quad (see \hyperref[def:5.3]{Def 5.3}),
+\end{enumerate}
+then, the function $f$ is continuous on $E$. That is, $f\in C(E)$.
+\end{claim}
+
+Compare \hyperref[claim:6.2]{Claim 6.2} with \hyperref[item:claim:5.1:1]{Item 1)} of \hyperref[claim:5.1]{Claim 5.1} and \hyperref[claim:5.2]{Claim 5.2}.
+
+\begin{proof}
+If $\lambda\in E$ is an \emph{isolated point of $E$} (that is, if $\lambda$ is an element of $E$ and there exists a neighborhood of $\lambda$ which does not contain any other elements of $E$), then, $f$ is continuous at $\lambda$ (see Calculus-1).
+
+If $\lambda\in E$ is a \emph{limit point of $E$}, then from Calculus-1, it is known that
+\[
+(f\text{ is continuous at }\lambda\in E)
+\Longleftrightarrow
+\left(\lim_{x\to\lambda}f(x)=f(\lambda)\right).
+\tag{4}\label{eq:6:4:1}
+\]
+Therefore, it remains to prove that for every limit point $\lambda\in E$ we have $\lim_{x\to\lambda}f(x)=f(\lambda)$.
+
+Let $\lambda\in E$ be a limit point of $E$.
+Then, due to \hyperref[item:claim:6.2:a]{Item a)} and \hyperref[eq:6:4:1]{Expression (4)}, we have
+\[
+\forall n\in\N\to \lim_{x\to\lambda}f_n(x)=f_n(\lambda)=\alpha_n.
+\]
+Therefore, all conditions of \hyperref[claim:6.1]{Claim 6.1} are satisfied and we have
+\[
+\lim_{x\to\lambda}f(x)
+=
+\lim_{x\to\lambda}\lim_{n\to\infty}f_n(x)
+=
+\lim_{n\to\infty}\lim_{x\to\lambda}f_n(x)
+=
+\lim_{n\to\infty}f_n(\lambda)
+=
+f(\lambda),
+\]
+since $(f_n\uconv{E}f)\Rightarrow(f_n\pconv{E}f)$, due to \hyperref[item:claim:6.1:2]{Item 2)} of \hyperref[claim:6.1]{Claim 6.1}, since $\forall n\in\N$ $f_n$ is continuous on $E$, and since $(f_n\uconv{E}f)\Rightarrow(f_n\pconv{E}f)$.
+
+That is, the claim is proved.
+\end{proof}
+
+To prove the next claim, we will need the following fact.
+
+\begin{claim}[The Darboux Criterion for Riemann Integrability]\label{claim:6.3}
+Let $I=[a,b]\subseteq\R$ and $f:I\to\R$.
+Then
+\[
+\bigl(f\text{ is Riemann integrable on }I=[a,b],\ \text{notation }f\in\Riem([a,b])\bigr)
+\]
+\[
+\Updownarrow
+\]
+\[
+\left(\forall\varepsilon>0\ \exists d(\varepsilon)>0\ \forall T:\ |T|<d(\varepsilon)
+\to \sum_{I_i\in T}\omega_{I_i}(f)\,|I_i|<\varepsilon\right).
+\tag{5}\label{eq:6:5:1}
+\]
+where: $T$ is a \emph{partition} of $I=[a,b]$ (see Calculus-1);
+$I_i$ is a \emph{subinterval} of $I$ from the partition $T$;
+$|I_i|$ is the \emph{length} of a subinterval $I_i$ (if $I_i=[x_{i-1},x_i]$, then $|I_i|=x_i-x_{i-1}$);
+\[
+|T|=\max_{I_i\in T}|I_i|
+\]
+is the \emph{mesh} of the partition $T$; and
+\[
+\omega_{I_i}(f)=\sup_{x\in I_i}f(x)-\inf_{x\in I_i}f(x)
+\]
+is the \emph{oscillation} of $f$ on an interval $I_i$.
+\end{claim}
+
+\begin{proof}
+See Calculus-1.
+\end{proof}
+
+\begin{claim}[Riemann Integrability of a Limit Function]\label{claim:6.4}
+Let $I=[a,b]\subset\R$ and $f_n:I\to\R$, $\forall n\in\N$.
+If:
+\begin{enumerate}[label=\alph*)]
+    \item\label{item:claim:6.4:a} for every $n\in\N$, $f_n$ is Riemann integrable on $I=[a,b]$, that is, $\forall n\in\N\to f_n\in\Riem([a,b])$;
+    \item\label{item:claim:6.4:b} $f_n\uconv{I}f$ \quad (see \hyperref[def:5.3]{Def 5.3}),
+\end{enumerate}
+then, the function $f$ is Riemann integrable on $I$, that is, $f\in\Riem([a,b])$.
+\end{claim}
+
+Compare \hyperref[claim:6.4]{Claim 6.4} with \hyperref[item:claim:5.1:3]{Item 3)} of \hyperref[claim:5.1]{Claim 5.1} and \hyperref[claim:5.2]{Claim 5.2}.
+
+\begin{proof}
+Due to \hyperref[claim:6.3]{Claim 6.3} and \hyperref[eq:6:5:1]{Formula (5)} it suffices to show that
+\[
+\forall\varepsilon>0\ \exists d(\varepsilon)>0\ \forall T:\ |T|<d(\varepsilon)
+\to \sum_{I_i\in T}\omega_{I_i}(f)\,|I_i|<\varepsilon.
+\tag{**}\label{eq:6:starstar:2}
+\]
+For some $\varepsilon>0$, note that:
+
+\textbf{i)}
+\[
+(f_n\uconv{I}f)
+\Longrightarrow
+\left(\exists N(\varepsilon)\ \forall x\in I\to |f(x)-f_N(x)|<\frac{\varepsilon}{4|I|}\right).
+\tag{6}\label{eq:6:6:1}
+\]
+For simplicity of notation we write $N$ instead of $N(\varepsilon)$, and $|I|=b-a$.
+
+If we know that
+\[
+\forall x\in I\to |f(x)-f_N(x)|<\frac{\varepsilon}{4|I|},
+\]
+then
+\[
+\forall x\in I\to f_N(x)-\frac{\varepsilon}{4|I|}<f(x)<f_N(x)+\frac{\varepsilon}{4|I|}.
+\]
+Then, for every subset $J\subseteq I$, we have
+\[
+\inf_{x\in J}f_N(x)-\frac{\varepsilon}{4|I|}\leq \inf_{x\in J}f(x)
+\tag{7a}\label{eq:6:7a:1}
+\]
+and
+\[
+\sup_{x\in J}f(x)\leq \sup_{x\in J}f_N(x)+\frac{\varepsilon}{4|I|}.
+\tag{7b}\label{eq:6:7b:1}
+\]
+Therefore, due to \hyperref[eq:6:6:1]{(6)}, for every subset $J\subseteq I$, we have
+\begin{align*}
+\omega_J(f)
+&=\sup_{x\in J}f(x)-\inf_{x\in J}f(x)\\
+&\leq \sup_{x\in J}f_N(x)+\frac{\varepsilon}{4|I|}
+-\left(\inf_{x\in J}f_N(x)-\frac{\varepsilon}{4|I|}\right)\\
+&=\omega_J(f_N)+\frac{\varepsilon}{2|I|}.
+\tag{8}\label{eq:6:8:1}
+\end{align*}
+
+\textbf{ii)} For $f_N$ from \hyperref[eq:6:6:1]{Formula (6)}, due to \hyperref[claim:6.3]{Claim 6.3}, we have
+\[
+(f_N\in\Riem(I))
+\Longrightarrow
+\left(\exists d(\varepsilon)>0\ \forall T:\ |T|<d(\varepsilon)
+\to \sum_{I_i\in T}\omega_{I_i}(f_N)\,|I_i|<\frac{\varepsilon}{2}\right).
+\tag{9}\label{eq:6:9:1}
+\]
+This holds true due to \hyperref[item:claim:6.4:a]{Item a)}. Here, for a given $\varepsilon>0$ and $N(\varepsilon)$, we define $d(\varepsilon)$ which we are going to use to verify (**).
+
+We will show now that $d(\varepsilon)$ from \hyperref[eq:6:9:1]{Formula (9)} satisfies \hyperref[eq:6:starstar:1]{(**)}. For every partition $T$ of $I$ such that $|T|<d(\varepsilon)$, we have
+\begin{align*}
+\sum_{I_i\in T}\omega_{I_i}(f)|I_i|
+&\leq \sum_{I_i\in T}\left(\omega_{I_i}(f_N)+\frac{\varepsilon}{2|I|}\right)|I_i|\\
+&=\sum_{I_i\in T}\omega_{I_i}(f_N)|I_i|
++\frac{\varepsilon}{2|I|}\sum_{I_i\in T}|I_i|\\
+&<\frac{\varepsilon}{2}+\frac{\varepsilon}{2|I|}|I|=\varepsilon.
+\end{align*}
+The first inequality holds due to \hyperref[eq:6:8:1]{Inequality (8)}, which holds true for every subset $J$ of $I$; the second term uses $\sum_{I_i\in T}|I_i|=|I|$, since we sum up the lengths of all subintervals from the partition $T$.
+
+Thus, we verified \hyperref[eq:6:starstar:1]{(**)} and proved the claim.
+\end{proof}
+
+\begin{claim}[Integration of a Uniformly Convergent Sequence]\label{claim:6.5}
+Let $I=[a,b]\subset\R$ and $f_n:I\to\R$.
+If:
+\begin{enumerate}[label=\alph*)]
+    \item\label{item:claim:6.5:a} for every $n\in\N$, $f_n$ is Riemann integrable on $I$, that is, $\forall n\in\N\to f_n\in\Riem(I)$;
+    \item\label{item:claim:6.5:b} $f_n\uconv{I}f$,
+\end{enumerate}
+then
+\[
+\lim_{n\to\infty}\int_a^b f_n(x)\,dx
+=
+\int_a^b\lim_{n\to\infty}f_n(x)\,dx.
+\]
+\end{claim}
+
+\begin{proof}
+Due to \hyperref[claim:6.4]{Claim 6.4}, the limit function
+\[
+f(x)=\lim_{n\to\infty}f_n(x),\qquad x\in I,
+\]
+is Riemann integrable on $I$.
+Therefore, exists the integral:
+\[
+\int_a^b f(x)\,dx=\int_a^b\lim_{n\to\infty}f_n(x)\,dx.
+\]
+
+Due to \hyperref[item:claim:6.5:b]{Item b)} and \hyperref[def:5.3]{Def 5.3}, we have:
+\[
+(f_n\uconv{I}f)
+\Longrightarrow
+\left(\forall\varepsilon>0\ \exists N(\varepsilon)\in\N\ \forall n\geq N(\varepsilon)\ \forall x\in I
+\to |f_n(x)-f(x)|<\frac{\varepsilon}{b-a}\right).
+\tag{10}\label{eq:6:10:1}
+\]
+Therefore, for $\forall\varepsilon>0$ and $\forall n\geq N(\varepsilon)$ we have
+\begin{align*}
+\left|\int_a^b f_n(x)\,dx-\int_a^b f(x)\,dx\right|
+&=\left|\int_a^b(f_n(x)-f(x))\,dx\right|\\
+&\leq\int_a^b|f_n(x)-f(x)|\,dx\\
+&\leq\int_a^b\frac{\varepsilon}{b-a}\,dx
+=\frac{\varepsilon}{b-a}(b-a)=\varepsilon.
+\end{align*}
+The first equality uses linearity of the Riemann integral, and the inequality
+\[
+\left|\int_a^b g(x)\,dx\right|\leq\int_a^b|g(x)|\,dx,
+\qquad \forall g\in\Riem([a,b]),
+\]
+see Calculus-1.
+
+Thus, due to a definition of the limit of a numerical sequence (see Calculus-1), we proved that
+\[
+\lim_{n\to\infty}\int_a^b f_n(x)\,dx
+=\int_a^b f(x)\,dx
+=\int_a^b\lim_{n\to\infty}f_n(x)\,dx.
+\]
+\end{proof}
+
+\textbf{Note} that if all the functions $f_n$ are differentiable on an interval $J=(a,b)$ and converge uniformly to a limit function $f$ on $J$, the limit function $f$ need not be differentiable.
+
+\textbf{Example.}
+Let $J=(0,2\pi)$ and
+\[
+f_n(x)=\sum_{k=1}^{n}\frac{\sin(k^2x)}{k^2},\qquad \forall n\in\N.
+\]
+Then, due to \hyperref[claim:5.7]{Claim 5.7} [The Weierstrass M-test], we have
+\[
+f_n\uconv{J}f,
+\qquad
+\text{where }f(x)=\sum_{k=1}^{\infty}\frac{\sin(k^2x)}{k^2}
+\]
+is called the Riemann function.
+
+It is clear that the functions $f_n$ are differentiable on $J$.
+I can be shown (though it is rather difficult and is therefore not included in our course) that the Riemann function $f$ is differentiable almost nowhere on $J$.
+
+That is, a direct analogue of \hyperref[claim:6.2]{Claim 6.2} and \hyperref[claim:6.4]{Claim 6.4} does not hold true for differentiation.
+Our next goal is to establish conditions under which the limit function of a sequence of differentiable functions is a differentiable function.
+
+\begin{claim}\label{claim:6.6}
+Let $E\subseteq\R$, $A\subseteq E$, $B\subseteq E$, and $f_n:E\to\R$, $\forall n\in\N$.
+If:
+\begin{enumerate}[label=\alph*)]
+    \item\label{item:claim:6.6:a} $f_n\pconv{E}f$ \quad (see \hyperref[def:5.2]{Def 5.2});
+    \item\label{item:claim:6.6:b} $f_n\uconv{A}f$ and $f_n\uconv{B}f$ \quad (see \hyperref[def:5.3]{Def 5.3}),
+\end{enumerate}
+then
+\[
+f_n\uconv{A\cup B}f.
+\]
+\end{claim}
+
+\begin{proof}
+Follows directly from \hyperref[def:5.3]{Def 5.3}:
+\[
+(f_n\uconv{A}f)
+\Longleftrightarrow
+\left(\forall\varepsilon>0\ \exists N_1(\varepsilon)\ \forall n\geq N_1(\varepsilon)\ \forall x\in A
+\to |f_n(x)-f(x)|<\varepsilon\right),
+\tag{11a}\label{eq:6:11a:1}
+\]
+\[
+(f_n\uconv{B}f)
+\Longleftrightarrow
+\left(\forall\varepsilon>0\ \exists N_2(\varepsilon)\ \forall n\geq N_2(\varepsilon)\ \forall x\in B
+\to |f_n(x)-f(x)|<\varepsilon\right).
+\tag{11b}\label{eq:6:11b:1}
+\]
+Let $N(\varepsilon)=\max\{N_1,N_2\}$. Then, from Formulas \hyperref[eq:6:11a:1]{(11a)}--\hyperref[eq:6:11b:1]{(11b)}, we have:
+\[
+\forall\varepsilon>0\ \exists N(\varepsilon)\ \forall n\geq N(\varepsilon)\ \forall x\in A\cup B
+\to |f_n(x)-f(x)|<\varepsilon.
+\]
+Therefore, due to \hyperref[def:5.3]{Def 5.3}, we have $f_n\uconv{A\cup B}f$.
+\end{proof}
+
+\begin{claim}\label{claim:6.7}
+Let $E\subseteq\R$, $g:E\to\R$, and $f_n:E\to\R$, $\forall n\in\N$.
+If:
+\begin{enumerate}[label=\alph*)]
+    \item\label{item:claim:6.7:a} $f_n\uconv{E}f$;
+    \item\label{item:claim:6.7:b} $g$ is bounded on $E$ (that is, $\exists M>0\ \forall x\in E\to |g(x)|\leq M$),
+\end{enumerate}
+then
+\[
+g\cdot f_n\uconv{E}g\cdot f.
+\]
+That is, when multiplying a uniformly convergent sequence by a bounded function, we obtain a uniformly convergent sequence.
+\end{claim}
+
+\begin{proof}
+Due to \hyperref[item:claim:6.7:b]{Item b)}, we have $\exists M>0\ \forall x\in E\to |g(x)|\leq M$.
+Then, due to \hyperref[def:5.3]{Def 5.3}, we have:
+\[
+(f_n\uconv{E}f)
+\Longrightarrow
+\left(\forall\varepsilon>0\ \exists N(\varepsilon)\in\N\ \forall n\geq N(\varepsilon)\ \forall x\in E
+\to |f_n(x)-f(x)|<\frac{\varepsilon}{M}\right).
+\tag{12}\label{eq:6:12:1}
+\]
+Since, for every $x\in E$, we have
+\[
+|g(x)f_n(x)-g(x)f(x)|=|g(x)|\,|f_n(x)-f(x)|\leq M|f_n(x)-f(x)|,
+\]
+\hyperref[eq:6:12:1]{Formula (12)} implies that
+\[
+\forall\varepsilon>0\ \exists N(\varepsilon)\in\N\ \forall n\geq N(\varepsilon)\ \forall x\in E
+\to |g(x)f_n(x)-g(x)f(x)|<\varepsilon,
+\]
+which, due to \hyperref[def:5.3]{Def 5.3}, means that $g f_n\uconv{E}g f$.
+\end{proof}
+
+\begin{claim}\label{claim:6.8}
+Let $E\subseteq\R$, $f_n:E\to\R$, and $g_n:E\to\R$, $\forall n\in\N$.
+If $f_n\uconv{E}f$ and $g_n\uconv{E}g$, then, $f_n+g_n\uconv{E}f+g$.
+\end{claim}
+
+\begin{proof}
+Follows directly from \hyperref[def:5.3]{Def 5.3}:
+\[
+(f_n\uconv{E}f)
+\Longrightarrow
+\left(\forall\varepsilon>0\ \exists N_1(\varepsilon)\ \forall n\geq N_1(\varepsilon)\ \forall x\in E
+\to |f_n(x)-f(x)|<\frac{\varepsilon}{2}\right),
+\tag{12a}\label{eq:6:12a:1}
+\]
+\[
+(g_n\uconv{E}g)
+\Longrightarrow
+\left(\forall\varepsilon>0\ \exists N_2(\varepsilon)\ \forall n\geq N_2(\varepsilon)\ \forall x\in E
+\to |g_n(x)-g(x)|<\frac{\varepsilon}{2}\right).
+\tag{12b}\label{eq:6:12b:1}
+\]
+Let $N(\varepsilon)=\max\{N_1(\varepsilon),N_2(\varepsilon)\}$.
+Then, from Formulas \hyperref[eq:6:12a:1]{(12a)}--\hyperref[eq:6:12b:1]{(12b)}, $\forall\varepsilon>0$, $\forall n\geq N(\varepsilon)$, $\forall x\in E$ we have
+\[
+|f_n(x)+g_n(x)-f(x)-g(x)|
+\leq |f_n(x)-f(x)|+|g_n(x)-g(x)|
+<\frac{\varepsilon}{2}+\frac{\varepsilon}{2}=\varepsilon,
+\]
+which, due to \hyperref[def:5.3]{Def 5.3}, implies that $f_n+g_n\uconv{E}f+g$.
+\end{proof}
+
+\begin{claim}\label{claim:6.9}
+Let $E\subseteq\R$, and $f_n:E\to\R$, $\forall n\in\N$.
+If $E$ is a \emph{finite set}, then
+\[
+(f_n\pconv{E}f)\Longleftrightarrow(f_n\uconv{E}f).
+\]
+\end{claim}
+
+\begin{proof}
+$(\Rightarrow)$ Let $E=\{\alpha_1,\alpha_2,\ldots,\alpha_K\}$.
+Then, due to \hyperref[def:5.2]{Def 5.2}, for every $\alpha_k\in E$, we have
+\[
+(f_n\pconv{E}f)
+\Longrightarrow
+\left(\forall\varepsilon>0\ \exists N(\varepsilon,\alpha_k)\in\N\ \forall n\geq N(\varepsilon,\alpha_k)
+\to |f_n(\alpha_k)-f(\alpha_k)|<\varepsilon\right).
+\tag{13}\label{eq:6:13:1}
+\]
+Let
+\[
+N(\varepsilon)=\max\{N(\varepsilon,\alpha_1),N(\varepsilon,\alpha_2),\ldots,N(\varepsilon,\alpha_K)\}.
+\]
+Then, from \hyperref[eq:6:13:1]{Formula (13)}, $\forall\varepsilon>0$, $\forall n\geq N(\varepsilon)$, $\forall x\in E$, we have
+\[
+|f_n(x)-f(x)|<\varepsilon,
+\]
+which, due to \hyperref[def:5.3]{Def 5.3}, implies that $f_n\uconv{E}f$.
+
+$(\Leftarrow)$ The claim holds true for every set $E$ (not necessarily finite) due to \hyperref[claim:5.3]{Claim 5.3}.
+\end{proof}
+
+\begin{claim}[Differentiability of a Limit Function]\label{claim:6.10}
+Let $J=(a,b)\subset\R$ and $f_n:J\to\R$, $\forall n\in\N$.
+If:
+\begin{enumerate}[label=\alph*)]
+    \item\label{item:claim:6.10:a} for every $n\in\N$, $f_n$ is differentiable on $J=(a,b)$, that is, $\forall n\in\N\ \forall x\in(a,b)\to \exists f_n'(x)\overset{\mathrm{def}}{=}\displaystyle\lim_{\delta\to0}\frac{f_n(x+\delta)-f_n(x)}{\delta}$;
+    \item\label{item:claim:6.10:b} there is $\lambda\in J=(a,b)$ such that $\exists\displaystyle\lim_{n\to\infty}f_n(\lambda)$;
+    \item\label{item:claim:6.10:c} the sequence $\{f_n'(x)\}_{n=1}^{\infty}$ converges uniformly on $J=(a,b)$, that is, $f_n'\uconv{J}g$ for some function $g:J\to\R$,
+\end{enumerate}
+then:
+\begin{enumerate}
+    \item\label{item:claim:6.10:1} $f_n\uconv{J}f$;
+    \item\label{item:claim:6.10:2} the limit function $f$ is differentiable on $J$ and
+    \[
+    \forall x\in J\to f'(x)=\lim_{n\to\infty}f_n'(x).
+    \]
+\end{enumerate}
+\end{claim}
+
+On the diagram, the green shows what is given and the red shows what need to be proved.
+
+\begin{center}
+\begin{minipage}{\textwidth}
+\centering
+\includegraphics[width=0.42\textwidth]{figure_differentiability_diagram.jpg}
+\par\smallskip
+\refstepcounter{figure}\label{fig:6.2}
+{\small Figure \thefigure}
+\end{minipage}
+\end{center}
+
+\begin{proof}
+1) Note that, due to \hyperref[item:claim:6.10:c]{Item c)} and \hyperref[claim:5.4]{Claim 5.4}, for every $\varepsilon>0$ there is $N(\varepsilon)\in\N$ such that
+\[
+\forall k\geq N(\varepsilon)\ \forall m\geq N(\varepsilon)\ \forall x\in J
+\to |f_k'(x)-f_m'(x)|<\varepsilon.
+\tag{14}\label{eq:6:14:1}
+\]
+
+For any $y\in J$, let
+\[
+J_y=J\setminus\{y\}=(a,y)\cup(y,b).
+\]
+Consider the functions
+\[
+h_n:J_y\to\R,
+\qquad
+h_n(x)=\frac{f_n(x)-f_n(y)}{x-y},
+\qquad \forall n\in\N,\ \forall x\in J_y.
+\tag{***}\label{eq:6:starstarstar:1}
+\]
+Let us prove that the sequence
+\[
+\left\{h_n(x)=\frac{f_n(x)-f_n(y)}{x-y}\right\}_{n=1}^{\infty}
+\]
+converges uniformly on $J_y$.
+
+Due to \hyperref[claim:5.4]{Claim 5.4}, it suffices to show that
+\[
+\forall\varepsilon>0\ \exists N(\varepsilon)\in\N\ \forall k\geq N(\varepsilon)\ \forall m\geq N(\varepsilon)\ \forall x\in J_y
+\to |h_k(x)-h_m(x)|<\varepsilon.
+\tag{15}\label{eq:6:15:1}
+\]
+Let $N(\varepsilon)\in\N$ be defined as in \hyperref[eq:6:14:1]{(14)}.
+Then, $\forall k\geq N(\varepsilon)$, $\forall m\geq N(\varepsilon)$, $\forall x\in J_y$ we have
+\begin{align*}
+|h_k(x)-h_m(x)|
+&=\left|\frac{f_k(x)-f_k(y)}{x-y}-\frac{f_m(x)-f_m(y)}{x-y}\right|\\
+&=\left|\frac{(f_k(x)-f_m(x))-(f_k(y)-f_m(y))}{x-y}\right|.
+\tag{16}\label{eq:6:16:1}
+\end{align*}
+Note that, due to \hyperref[item:claim:6.10:a]{Item a)}, the function $f_k-f_m$ is continuous on the closed interval
+\[
+[\min\{x,y\},\max\{x,y\}]
+\]
+and differentiable on the open interval
+\[
+(\min\{x,y\},\max\{x,y\}).
+\]
+Therefore, due to the Mean Value Theorem (see Calculus-1), we have
+\[
+(f_k(x)-f_m(x))-(f_k(y)-f_m(y))
+=(f_k'(z)-f_m'(z))(x-y),
+\]
+for some $z\in(\min\{x,y\},\max\{x,y\})$.
+Thus, due to \hyperref[eq:6:16:1]{Equality (16)}, we have
+\[
+|h_k(x)-h_m(x)|
+=\left|\frac{(f_k'(z)-f_m'(z))(x-y)}{x-y}\right|
+=|f_k'(z)-f_m'(z)|<\varepsilon,
+\]
+for some $z\in(\min\{x,y\},\max\{x,y\})$, since \hyperref[eq:6:14:1]{(14)} holds true for every $x\in J$ and
+\[
+z\in(\min\{x,y\},\max\{x,y\})\subset J.
+\]
+
+That is, we verified \hyperref[eq:6:15:1]{(15)}. Therefore the sequence
+\[
+\left\{h_n(x)=\frac{f_n(x)-f_n(y)}{x-y}\right\}_{n=1}^{\infty}
+\quad\text{converges uniformly on }J_y=J\setminus\{y\}.
+\tag{17}\label{eq:6:17:1}
+\]
+
+Let in \hyperref[eq:6:17:1]{Formula (17)} $y=\lambda$ (where $\lambda\in J$ is from \hyperref[item:claim:6.10:b]{Item b)}). Note that
+\[
+\left\{h_n(x)=\frac{f_n(x)-f_n(\lambda)}{x-\lambda}\right\}_{n=1}^{\infty}
+\quad\text{conv. uniformly on }J_\lambda.
+\]
+Due to \hyperref[claim:6.7]{Claim 6.7}, since the function $g(x)=x-\lambda$ is bounded on $J_\lambda$,
+\[
+\left\{g(x)h_n(x)=\frac{f_n(x)-f_n(\lambda)}{x-\lambda}(x-\lambda)=f_n(x)-f_n(\lambda)\right\}_{n=1}^{\infty}
+\]
+converges uniformly on $J_\lambda$.
+
+Due to \hyperref[claim:6.8]{Claim 6.8}, since
+\[
+f_n(x)=(f_n(x)-f_n(\lambda))+f_n(\lambda)
+\]
+and the sequence $\{f_n(\lambda)\}_{n=1}^{\infty}$ converges uniformly on $J_\lambda$ (since it converges due to \hyperref[item:claim:6.10:b]{Item b)} and does not depend on $x$), it follows that
+\[
+\{f_n(x)\}_{n=1}^{\infty}\quad\text{conv. uniformly on }J_\lambda.
+\]
+Due to \hyperref[item:claim:6.10:b]{Item b)}, the sequence $\{f_n(x)\}_{n=1}^{\infty}$ converges pointwise on the one element set $\{\lambda\}$. Due to \hyperref[claim:6.9]{Claim 6.9}, this implies that the sequence converges uniformly on the set $\{\lambda\}$. Since the sequence converges uniformly on the sets $J_\lambda$ and $\{\lambda\}$, due to \hyperref[claim:6.6]{Claim 6.6} it converges uniformly on the set $J\cup\{\lambda\}=J$.
+Thus,
+\[
+\{f_n(x)\}_{n=1}^{\infty}\quad\text{conv. uniformly on }J.
+\]
+
+2) Due to \hyperref[item:claim:6.10:1]{Item 1)}, we know that the sequence $\{f_n(x)\}_{n=1}^{\infty}$ converges uniformly on $J$.
+Let
+\[
+f(x)=\lim_{n\to\infty}f_n(x)\qquad(\forall x\in J).
+\tag{18}\label{eq:6:18:1}
+\]
+That is, $f$ is the limit function of the sequence $\{f_n(x)\}_{n=1}^{\infty}$ on $J$.
+
+Then, for every $n\in\N$, consider the function
+\[
+g_n:J_y\to\R,
+\qquad
+g_n(x)=\frac{f_n(x)-f_n(y)}{x-y},
+\qquad \forall x\in J_y=J\setminus\{y\}.
+\tag{19}\label{eq:6:19:1}
+\]
+Note that:
+\begin{enumerate}[label=\alph*)]
+    \item $y$ is a finite limit point of $J_y$;
+    \item $\forall n\in\N\to \exists\displaystyle\lim_{x\to y}g_n(x)
+    =\displaystyle\lim_{x\to y}\frac{f_n(x)-f_n(y)}{x-y}=f_n'(y)$ (holds true due to \hyperref[item:claim:6.10:a]{Item a)});
+    \item
+    \[
+    g_n(x)\uconv{J_y}\frac{f(x)-f(y)}{x-y}.
+    \]
+\end{enumerate}
+Due to \hyperref[eq:6:17:1]{Formula (17)}, we know that the sequence $\{g_n(x)\}_{n=1}^{\infty}$ converges uniformly on $J_y$. The limit function can be found from Formulas \hyperref[eq:6:18:1]{(18)} and \hyperref[eq:6:19:1]{(19)}:
+\[
+\lim_{n\to\infty}g_n(x)
+=\lim_{n\to\infty}\frac{f_n(x)-f_n(y)}{x-y}
+=\frac{f(x)-f(y)}{x-y}.
+\tag{20}\label{eq:6:20:1}
+\]
+Therefore, all conditions of \hyperref[claim:6.1]{Claim 6.1} are satisfied and due to \hyperref[item:claim:6.1:2]{Item 2)} of \hyperref[claim:6.1]{Claim 6.1}, we have:
+\[
+\lim_{n\to\infty}\left(\lim_{x\to y}g_n(x)\right)
+=
+\lim_{x\to y}\left(\lim_{n\to\infty}g_n(x)\right).
+\tag{21}\label{eq:6:21:1}
+\]
+The left hand side is $\lim_{n\to\infty}f_n'(y)$ due to \hyperref[eq:6:19:1]{(19)} and \hyperref[item:claim:6.10:a]{Item a)}, and the right hand side is
+\[
+\lim_{x\to y}\frac{f(x)-f(y)}{x-y}
+\]
+due to \hyperref[eq:6:20:1]{Formula (20)}.
+
+Due to \hyperref[item:claim:6.10:c]{Item c)} and \hyperref[claim:5.3]{Claim 5.3}, the limit $\lim_{n\to\infty}f_n'(y)$ exists for every $y\in J$. Therefore, due to \hyperref[eq:6:21:1]{Equalities (21)}, we have
+\[
+\exists f'(y)\overset{\mathrm{def}}{=}\lim_{x\to y}\frac{f(x)-f(y)}{x-y}
+=\lim_{n\to\infty}f_n'(y),
+\qquad (\forall y\in J).
+\]
+\end{proof}
+
+\begin{claim}[Continuity of a Series]\label{claim:6.11}
+Let $E\subseteq\R$, $u_k:E\to\R$, $\forall k\in\N$, and
+\[
+f_n(x)=\sum_{k=1}^{n}u_k(x),\qquad \forall n\in\N.
+\]
+If:
+\begin{enumerate}[label=\alph*)]
+    \item\label{item:claim:6.11:a} for every $k\in\N$, $u_k$ is a continuous function on $E$;
+    \item\label{item:claim:6.11:b} $f_n\uconv{E}f$,
+\end{enumerate}
+then, the function $f$ is continuous on $E$.
+\end{claim}
+
+\begin{proof}
+Since a finite sum of continuous functions is a continuous function (see Calculus-1),
+\[
+f_n(x)=\sum_{k=1}^{n}u_k(x)
+\]
+is continuous on $E$. Thus, the sequence $\{f_n\}_{n=1}^{\infty}$ satisfies all conditions of \hyperref[claim:6.2]{Claim 6.2}. Therefore, due to \hyperref[claim:6.2]{Claim 6.2}, the function $f$ is continuous on $E$.
+\end{proof}
+
+\begin{claim}[Term-by-term Integration of a Uniformly Conv. Series]\label{claim:6.12}
+Let $I=[a,b]\subset\R$, $u_k:I\to\R$, $\forall k\in\N$, and
+\[
+f_n(x)=\sum_{k=1}^{n}u_k(x),\qquad \forall n\in\N.
+\]
+If:
+\begin{enumerate}[label=\alph*)]
+    \item\label{item:claim:6.12:a} for every $k\in\N$, $u_k$ is Riemann integrable on $I$;
+    \item\label{item:claim:6.12:b} $f_n\uconv{I}f$,
+\end{enumerate}
+then
+\[
+\sum_{k=1}^{\infty}\int_a^b u_k(x)\,dx
+=
+\int_a^b\left(\sum_{k=1}^{\infty}u_k(x)\right)dx
+=
+\int_a^b f(x)\,dx.
+\]
+\end{claim}
+
+\begin{proof}
+Since a finite sum of Riemann integrable functions is a Riemann integrable function (see Calculus-1), the function
+\[
+f_n(x)=\sum_{k=1}^{n}u_k(x)
+\]
+is Riemann integrable on $I$. Thus, the sequence $\{f_n(x)\}_{n=1}^{\infty}$ satisfies all conditions of \hyperref[claim:6.5]{Claim 6.5}. Therefore, we have:
+\begin{align*}
+\sum_{k=1}^{\infty}\int_a^b u_k(x)\,dx
+&=\lim_{n\to\infty}\sum_{k=1}^{n}\int_a^b u_k(x)\,dx\\
+&=\lim_{n\to\infty}\int_a^b\sum_{k=1}^{n}u_k(x)\,dx\\
+&=\lim_{n\to\infty}\int_a^b f_n(x)\,dx\\
+&=\int_a^b\left(\lim_{n\to\infty}f_n(x)\right)dx\\
+&=\int_a^b\left(\lim_{n\to\infty}\sum_{k=1}^{n}u_k(x)\right)dx\\
+&=\int_a^b f(x)\,dx,
+\end{align*}
+where: 1) due to \hyperref[def:1.3]{Def 1.3}; 2) since the sum is finite; 3) and 5) since $f_n(x)=\sum_{k=1}^{n}u_k(x)$; 4) due to \hyperref[claim:6.5]{Claim 6.5}; 6) since $f_n\uconv{I}f$ due to \hyperref[item:claim:6.12:b]{Item b)} and \hyperref[claim:5.3]{Claim 5.3}.
+\end{proof}
+
+\begin{claim}[Term-by-term Differentiation of Series]\label{claim:6.13}
+Let $J=(a,b)\subset\R$, $u_k:J\to\R$, $\forall k\in\N$, and
+\[
+f_n(x)=\sum_{k=1}^{n}u_k(x),\qquad \forall n\in\N.
+\]
+If:
+\begin{enumerate}[label=\alph*)]
+    \item\label{item:claim:6.13:a} for every $k\in\N$, $u_k(x)$ is differentiable on $J$;
+    \item\label{item:claim:6.13:b} there is $\lambda\in J$ such that the series $\displaystyle\sum_{k=1}^{\infty}u_k(\lambda)$ converges;
+    \item\label{item:claim:6.13:c} the sequence $\{f_n'(x)\}_{n=1}^{\infty}$ converges uniformly on $J$,
+\end{enumerate}
+then:
+\begin{enumerate}
+    \item\label{item:claim:6.13:1} $f_n\uconv{J}f$;
+    \item\label{item:claim:6.13:2} the limit function $f$ is differentiable on $J$ and
+    \[
+    \sum_{k=1}^{\infty}u_k'(x)
+    =\left(\sum_{k=1}^{\infty}u_k(x)\right)'
+    =f'(x),
+    \qquad (\forall x\in J).
+    \]
+\end{enumerate}
+\end{claim}
+
+\begin{proof}
+Follows directly from \hyperref[claim:6.10]{Claim 6.10}.
+\end{proof}
+
+\begin{claim}[Stone-Weierstrass Theorem]\label{claim:6.14}
+Let $f:[a,b]$ be a continuous on $[a,b]$ function.
+Then, for every $\varepsilon>0$ there is a polynomial function
+\[
+p:[a,b]\to\R
+\]
+such that
+\[
+\forall x\in[a,b]\to |f(x)-p(x)|<\varepsilon.
+\]
+\end{claim}
+
+\begin{proof}
+Without proof, this is not a simple theorem.
+\end{proof}

@@ -1,0 +1,662 @@
+% !TEX root = ../lectures.tex
+
+{\large\bfseries Calculus 2}
+
+\section{Lecture 2}
+\subsection*{Series with non-negative terms}
+
+\begin{definition}[from Calculus 1]\label{def:2.1}
+A sequence $\{a_n\}_{n=1}^{\infty}$ is called
+\begin{itemize}
+\item \emph{increasing} if $a_{n+1}>a_n$ for all $n\in\N$;
+\item \emph{nondecreasing} if $a_{n+1}\ge a_n$ for all $n\in\N$;
+\item \emph{decreasing} if $a_{n+1}<a_n$ for all $n\in\N$;
+\item \emph{nonincreasing} if $a_{n+1}\le a_n$ for all $n\in\N$.
+\end{itemize}
+Any of the above sequences is called \emph{monotonic}. Increasing and decreasing sequences are called \emph{strictly monotonic}.
+\end{definition}
+
+\begin{claim}\label{claim:2.1}
+If, for all $n\in\N$, $a_n>0$ (respectively, $a_n\ge0$, $a_n<0$, $a_n\le0$), then the sequence
+\[
+\left\{A_n=\sum_{k=1}^{n}a_k\right\}_{n=1}^{\infty}
+\]
+is increasing (respectively, nondecreasing, decreasing, nonincreasing).
+\end{claim}
+
+\begin{proof}
+Obvious.
+\end{proof}
+
+\begin{claim}\label{claim:2.2}
+Let $a_n\ge0$ for every $n\in\N$. Then
+\[
+\left(\sum_{k=1}^{\infty}a_k\text{ is convergent}\right)
+\iff
+\left(\left\{A_n=\sum_{k=1}^{n}a_k\right\}_{n=1}^{\infty}\text{ is bounded}\right).
+\]
+\end{claim}
+
+\noindent By definition, a sequence $\{b_n\}_{n=1}^{\infty}$ is bounded if
+\[
+\exists M>0\quad \forall n\in\N:\quad |b_n|<M.
+\]
+
+\begin{proof}
+From left to right,
+\[
+\left(\sum_{k=1}^{\infty}a_k\text{ converges}\right)
+\overset{\mathrm{def}}{\implies}
+\left(\exists\lim_{n\to+\infty}A_n\right)
+\implies
+\left(\{A_n\}_{n=1}^{\infty}\text{ is bounded}\right),
+\]
+where the last implication is a result from Calculus 1.
+
+Conversely, suppose $\{A_n\}_{n=1}^{\infty}$ is bounded. Since $a_k\ge0$, the sequence $\{A_n\}_{n=1}^{\infty}$ is nondecreasing. Hence, by the corresponding result from Calculus 1, the limit $\lim_{n\to+\infty}A_n$ exists. By definition, this means that $\sum_{k=1}^{\infty}a_k$ converges.
+\end{proof}
+
+\begin{claim}[Cauchy Condensation Test]\label{claim:2.3}
+Let $\{a_k\}_{k=1}^{\infty}$ be a sequence such that
+\begin{enumerate}[label=\alph*)]
+\item\label{item:claim:2.3:a} $a_k\ge0$ for every $k\in\N$;
+\item\label{item:claim:2.3:b} $a_{k+1}\le a_k$ for every $k\in\N$.
+\end{enumerate}
+Then
+\[
+\left(\sum_{k=1}^{\infty}a_k\text{ converges}\right)
+\iff
+\left(\sum_{k=0}^{\infty}2^k a_{2^k}\text{ converges}\right).
+\]
+The series
+\[
+a_1+2a_2+4a_4+8a_8+\cdots+2^ka_{2^k}+\cdots
+\]
+is called the \emph{condensed series}.
+\end{claim}
+
+\begin{proof}
+Since $a_{k+1}\le a_k$, we have
+\[
+a_2\le a_2\le a_1,
+\]
+\[
+2a_4\le a_3+a_4\le2a_2,
+\]
+\[
+4a_8\le a_5+a_6+a_7+a_8\le4a_4,
+\]
+and, in general,
+\[
+2^n a_{2^{n+1}}
+\le a_{2^n+1}+\cdots+a_{2^{n+1}}
+\le2^n a_{2^n}.
+\]
+By adding these inequalities, we obtain
+\begin{equation}
+ a_2+2a_4+4a_8+\cdots+2^n a_{2^{n+1}}
+ \le \sum_{k=2}^{2^{n+1}}a_k
+ \le a_1+2a_2+4a_4+\cdots+2^n a_{2^n}.
+ \tag{2.1}\label{eq:2:2-1:1}
+\end{equation}
+
+Let
+\[
+S_n=a_1+2a_2+4a_4+\cdots+2^n a_{2^n}
+\]
+be the $n$-th partial sum of the condensed series $\sum_{k=0}^{\infty}2^k a_{2^k}$, and let
+\[
+A_n=a_1+\cdots+a_n
+\]
+be the $n$-th partial sum of $\sum_{k=1}^{\infty}a_k$. Then \hyperref[eq:2:2-1:1]{(2.1)} can be rewritten as
+\begin{equation}
+\frac12\bigl(S_{n+1}-a_1\bigr)
+\le A_{2^{n+1}}-a_1
+\le S_n.
+\tag{2.2}\label{eq:2:2-2:1}
+\end{equation}
+Since the sequences $\{A_n\}_{n=1}^{\infty}$ and $\{S_n\}_{n=1}^{\infty}$ are nondecreasing, \hyperref[eq:2:2-2:1]{inequality (2.2)} implies
+\[
+\left(\{A_n\}_{n=1}^{\infty}\text{ is bounded}\right)
+\iff
+\left(\{S_n\}_{n=1}^{\infty}\text{ is bounded}\right).
+\]
+Applying \hyperref[claim:2.2]{Claim~2.2} to both series proves the result.
+\end{proof}
+
+\begin{claim}[The First Comparison Test]\label{claim:2.4}
+Let $\{a_k\}_{k=1}^{\infty}$ and $\{b_k\}_{k=1}^{\infty}$ be two sequences such that
+\[
+0\le a_k\le b_k\qquad\text{for all }k\in\N.
+\]
+Then the following implications hold:
+\begin{enumerate}[label=\arabic*)]
+\item\label{item:claim:2.4:1}
+\[
+\left(\sum_{k=1}^{\infty}b_k\text{ converges}\right)
+\implies
+\left(\sum_{k=1}^{\infty}a_k\text{ converges}\right);
+\]
+\item\label{item:claim:2.4:2}
+\[
+\left(\sum_{k=1}^{\infty}a_k\text{ diverges}\right)
+\implies
+\left(\sum_{k=1}^{\infty}b_k\text{ diverges}\right).
+\]
+\end{enumerate}
+\end{claim}
+
+\begin{proof}
+\textbf{1)} Let
+\[
+A_n=\sum_{k=1}^{n}a_k,
+\qquad
+B_n=\sum_{k=1}^{n}b_k
+\]
+be the $n$-th partial sums. Since $0\le a_k\le b_k$ for every $k\in\N$, it is clear that
+\[
+0\le A_n\le B_n\qquad(\forall n\in\N).
+\]
+If $\sum_{k=1}^{\infty}b_k$ converges, then by \hyperref[claim:2.2]{Claim~2.2} the sequence $\{B_n\}_{n=1}^{\infty}$ is bounded. Hence $\{A_n\}_{n=1}^{\infty}$ is bounded, and \hyperref[claim:2.2]{Claim~2.2} gives the convergence of $\sum_{k=1}^{\infty}a_k$.
+
+\medskip
+\noindent\textbf{2)} Assume that the statement is false. Then there are series $\sum_{k=1}^{\infty}a_k$ and $\sum_{k=1}^{\infty}b_k$ such that
+\[
+\sum_{k=1}^{\infty}a_k\text{ diverges}
+\qquad\text{and}\qquad
+\sum_{k=1}^{\infty}b_k\text{ converges}.
+\]
+But, due to \hyperref[item:claim:2.4:1]{item 1)}, convergence of $\sum b_k$ implies convergence of $\sum a_k$. Thus we arrive at a contradiction.
+\end{proof}
+
+\begin{claim}[The Second Comparison Test]\label{claim:2.5}
+Let $\{a_k\}_{k=1}^{\infty}$ and $\{b_k\}_{k=1}^{\infty}$ be two sequences such that
+\begin{enumerate}[label=\alph*)]
+\item\label{item:claim:2.5:a} $a_k>0$ and $b_k>0$ for every $k\in\N$;
+\item\label{item:claim:2.5:b} there exist $m>0$ and $M>0$ such that, for every $n\in\N$,
+\[
+m\le\frac{a_n}{b_n}\le M.
+\]
+\end{enumerate}
+Then
+\[
+\left(\sum_{k=1}^{\infty}a_k\text{ converges}\right)
+\iff
+\left(\sum_{k=1}^{\infty}b_k\text{ converges}\right).
+\]
+\end{claim}
+
+\begin{proof}
+Since $b_k>0$, for every $k\in\N$ we have
+\[
+\left(m\le\frac{a_k}{b_k}\le M\right)
+\implies
+\left(mb_k\le a_k\le Mb_k\right).
+\]
+Therefore,
+\[
+\sum_{k=1}^{\infty}a_k\text{ converges}
+\implies
+\sum_{k=1}^{\infty}mb_k\text{ converges}
+\implies
+\sum_{k=1}^{\infty}b_k\text{ converges},
+\]
+where the first implication follows from \hyperref[item:claim:2.4:1]{item 1)} of \hyperref[claim:2.4]{Claim~2.4} and the second from $m>0$. Similarly,
+\[
+\sum_{k=1}^{\infty}b_k\text{ converges}
+\implies
+\sum_{k=1}^{\infty}Mb_k\text{ converges}
+\implies
+\sum_{k=1}^{\infty}a_k\text{ converges},
+\]
+using \hyperref[item:claim:2.4:1]{item 1)} of \hyperref[claim:2.4]{Claim~2.4} and $Mb_k\ge a_k$.
+\end{proof}
+
+\begin{claim}\label{claim:2.6}
+Let $\{a_k\}_{k=1}^{\infty}$ and $\{b_k\}_{k=1}^{\infty}$ be two sequences such that
+\begin{enumerate}[label=\alph*)]
+\item\label{item:claim:2.6:a} $a_k>0$ and $b_k>0$ for every $k\in\N$;
+\item\label{item:claim:2.6:b}
+\[
+\lim_{k\to+\infty}\frac{a_k}{b_k}=\lambda\in(0,+\infty).
+\]
+\end{enumerate}
+Then
+\[
+\left(\sum_{k=1}^{\infty}a_k\text{ converges}\right)
+\iff
+\left(\sum_{k=1}^{\infty}b_k\text{ converges}\right).
+\]
+\end{claim}
+
+\begin{proof}
+The condition
+\[
+\lim_{k\to+\infty}\frac{a_k}{b_k}=\lambda\in(0,+\infty)
+\]
+implies that
+\[
+m\le\frac{a_k}{b_k}\le M
+\]
+for some $m,M>0$ (see Calculus 1). Therefore the statement follows from \hyperref[claim:2.5]{Claim~2.5}.
+\end{proof}
+
+\begin{claim}[$p$-series convergence]\label{claim:2.7}
+The series
+\[
+\sum_{k=1}^{\infty}\frac1{k^p},
+\qquad p\in\R,
+\]
+is called the \emph{$p$-series} and converges if and only if $p>1$.
+\end{claim}
+
+\begin{proof}
+If $p\le0$, then
+\[
+\lim_{k\to+\infty}\frac1{k^p}\ne0.
+\]
+Therefore, due to the necessary condition for convergence (\hyperref[claim:1.5]{Claim~1.5}), the series diverges.
+
+If $p>0$, then
+\[
+\frac1{(k+1)^p}<\frac1{k^p}\qquad(\forall k\in\N),
+\]
+and all conditions of the Cauchy condensation test (\hyperref[claim:2.3]{Claim~2.3}) are satisfied. Thus
+\begin{align*}
+\left(\sum_{k=1}^{\infty}\frac1{k^p}\text{ converges}\right)
+&\iff
+\left(\sum_{k=0}^{\infty}2^k\frac1{(2^k)^p}\text{ converges}\right)\\
+&\iff
+\left(\sum_{k=0}^{\infty}\left(2^{1-p}\right)^k\text{ converges}\right)\\
+&\iff 2^{1-p}<1\\
+&\iff p>1.
+\end{align*}
+\end{proof}
+
+\begin{claim}[The Integral Test]\label{claim:2.8}
+Let
+\[
+f:[1,+\infty)\to\R
+\]
+be a positive, nonincreasing, continuous function. Then
+\[
+\left(\sum_{k=1}^{\infty}f(k)\text{ converges}\right)
+\iff
+\left(\int_1^{+\infty}f(x)\,dx\text{ converges}\right).
+\]
+\end{claim}
+
+\noindent\textbf{Note.} In general,
+\[
+\sum_{k=1}^{\infty}f(k)\ne\int_1^{+\infty}f(x)\,dx.
+\]
+
+\begin{proof}
+For every $k\in\N$ and every $x\in[k,k+1]$, due to the monotonicity of $f$,
+\[
+f(k+1)\le f(x)\le f(k).
+\]
+The geometric meaning of these inequalities is illustrated below.
+
+\begin{center}
+\begin{minipage}{\textwidth}
+\centering
+\includegraphics[width=0.72\textwidth]{figure_integral_test.jpg}
+\par\smallskip
+\refstepcounter{figure}\label{fig:2.1}
+{\small Figure \thefigure}
+\end{minipage}
+\end{center}
+
+By integrating the inequalities over $[k,k+1]$, we obtain
+\[
+f(k+1)
+=\int_k^{k+1}f(k+1)\,dx
+\le\int_k^{k+1}f(x)\,dx
+\le\int_k^{k+1}f(k)\,dx
+=f(k).
+\]
+The integrals exist because $f$ is continuous. By adding these inequalities from $k=1$ to $k=n-1$, and writing
+\[
+S_n=\sum_{k=1}^{n}f(k),
+\]
+we obtain
+\[
+S_n-f(1)
+=\sum_{k=1}^{n-1}f(k+1)
+\le\sum_{k=1}^{n-1}\int_k^{k+1}f(x)\,dx
+=\int_1^n f(x)\,dx
+\le\sum_{k=1}^{n-1}f(k)
+=S_{n-1}.
+\]
+Hence
+\[
+\left(\{S_n\}_{n=1}^{\infty}\text{ is bounded}\right)
+\iff
+\left(\left\{\int_1^n f(x)\,dx\right\}_{n=1}^{\infty}\text{ is bounded}\right).
+\]
+By \hyperref[claim:2.2]{Claim~2.2}, the left-hand condition is equivalent to the convergence of $\sum_{k=1}^{\infty}f(k)$. Since the sequence $\left\{\int_1^n f(x)\,dx\right\}$ is nondecreasing, the right-hand condition is equivalent to the convergence of $\int_1^{+\infty}f(x)\,dx$ (see Calculus 1).
+\end{proof}
+
+\begin{claim}[The Root Test]\label{claim:2.9}
+Let $a_k\ge0$ for every $k\in\N$. Then:
+\begin{enumerate}[label=\arabic*)]
+\item\label{item:claim:2.9:1}
+\[
+\left(\overline{\lim}_{k\to+\infty}a_k^{1/k}<1\right)
+\implies
+\left(\sum_{k=1}^{\infty}a_k\text{ converges}\right);
+\]
+\item\label{item:claim:2.9:2}
+\[
+\left(\overline{\lim}_{k\to+\infty}a_k^{1/k}>1\right)
+\implies
+\left(\sum_{k=1}^{\infty}a_k\text{ diverges}\right).
+\]
+\end{enumerate}
+\end{claim}
+
+\noindent\textbf{Definition (see Calculus 1).} Let $\{b_k\}_{k=1}^{\infty}\subset\R$ be a sequence. Then
+\[
+\overline{\lim}_{n\to+\infty}b_n
+\overset{\mathrm{def}}{=}
+\lim_{n\to+\infty}\left(\sup_{k\ge n}b_k\right)
+\]
+is called the \emph{upper limit} of $\{b_k\}$, and
+\[
+\underline{\lim}_{n\to+\infty}b_n
+\overset{\mathrm{def}}{=}
+\lim_{n\to+\infty}\left(\inf_{k\ge n}b_k\right)
+\]
+is called the \emph{lower limit} of $\{b_k\}$.
+
+\begin{proof}
+\textbf{1)} Due to the definition of the upper limit,
+\[
+\left(\overline{\lim}_{k\to+\infty}a_k^{1/k}<1\right)
+\implies
+\left(\exists q\in(0,1)\ \exists N\in\N:\ \forall n\ge N,
+\quad 0\le a_n^{1/n}<q\right).
+\]
+Equivalently, $0\le a_n<q^n$ for $n\ge N$. Since $q\in(0,1)$, the geometric series $\sum_{k=0}^{\infty}q^k$ converges. By changing a finite number of terms (\hyperref[claim:1.1]{Claim~1.1}), its tail $\sum_{k=N}^{\infty}q^k$ converges. Due to \hyperref[claim:2.4]{Claim~2.4} and $0\le a_n\le q^n$ for $n\ge N$, the series $\sum_{k=N}^{\infty}a_k$ converges, and again by \hyperref[claim:1.1]{Claim~1.1}, so does $\sum_{k=1}^{\infty}a_k$.
+
+\medskip
+\noindent\textbf{2)} Due to the definition of the upper limit,
+\[
+\left(\overline{\lim}_{k\to+\infty}a_k^{1/k}>1\right)
+\implies
+\left(\forall N\in\N\ \exists n\ge N:\ a_n>1\right).
+\]
+Thus $\lim_{k\to+\infty}a_k\ne0$, and \hyperref[claim:1.5]{Claim~1.5} implies that $\sum_{k=1}^{\infty}a_k$ diverges.
+\end{proof}
+
+\begin{claim}\label{claim:2.10}
+If $a_k>0$ for every $k\in\N$, then
+\[
+\underline{\lim}_{k\to+\infty}\frac{a_{k+1}}{a_k}
+\le
+\underline{\lim}_{k\to+\infty}a_k^{1/k}
+\le
+\overline{\lim}_{k\to+\infty}a_k^{1/k}
+\le
+\overline{\lim}_{k\to+\infty}\frac{a_{k+1}}{a_k}.
+\]
+\end{claim}
+
+\begin{proof}
+Without proof.
+\end{proof}
+
+\begin{claim}[The Ratio Test]\label{claim:2.11}
+Let $a_k>0$ for every $k\in\N$. Then:
+\begin{enumerate}[label=\arabic*)]
+\item\label{item:claim:2.11:1}
+\[
+\left(\overline{\lim}_{k\to+\infty}\frac{a_{k+1}}{a_k}<1\right)
+\implies
+\left(\sum_{k=1}^{\infty}a_k\text{ converges}\right);
+\]
+\item\label{item:claim:2.11:2}
+\[
+\left(\underline{\lim}_{k\to+\infty}\frac{a_{k+1}}{a_k}>1\right)
+\implies
+\left(\sum_{k=1}^{\infty}a_k\text{ diverges}\right).
+\]
+\end{enumerate}
+\end{claim}
+
+\begin{proof}
+Follows directly from \hyperref[claim:2.9]{Claim~2.9} and \hyperref[claim:2.10]{Claim~2.10}.
+\end{proof}
+
+\begin{claim}\label{claim:2.12}
+The root test (\hyperref[claim:2.9]{Claim~2.9}) is stronger than the ratio test (\hyperref[claim:2.11]{Claim~2.11}).
+\end{claim}
+
+\begin{proof}
+Due to \hyperref[claim:2.10]{Claim~2.10}, the root test is not weaker than the ratio test. Consider the series
+\[
+\sum_{k=1}^{+\infty}2^{(-1)^k-k}.
+\]
+It ought to be clear that
+\[
+\overline{\lim}_{k\to+\infty}
+\left(2^{(-1)^k-k}\right)^{1/k}
+=2^{-1}<1,
+\]
+so by \hyperref[claim:2.9]{Claim~2.9} the series converges. On the other hand,
+\[
+\overline{\lim}_{k\to+\infty}
+\frac{2^{(-1)^{k+1}-k-1}}{2^{(-1)^k-k}}
+=
+\overline{\lim}_{k\to+\infty}
+2^{(-1)^{k+1}-(-1)^k-1}
+=2>1,
+\]
+whereas
+\[
+\underline{\lim}_{k\to+\infty}
+\frac{2^{(-1)^{k+1}-k-1}}{2^{(-1)^k-k}}
+=
+\underline{\lim}_{k\to+\infty}
+2^{(-1)^{k+1}-(-1)^k-1}
+=2^{-3}<1.
+\]
+Thus \hyperref[claim:2.11]{Claim~2.11} cannot be applied. Since the root test works for this series and the ratio test does not, the claim is proved.
+\end{proof}
+
+\begin{claim}[Kummer's Test]\label{claim:2.13}
+Let $a_k>0$ and $b_k>0$ for every $k\in\N$. Let
+\[
+c_k=\frac{a_k}{a_{k+1}}b_k-b_{k+1}
+\qquad\text{for every }k\in\N.
+\]
+Then:
+\begin{enumerate}[label=\arabic*)]
+\item\label{item:claim:2.13:1}
+\[
+\left(\exists L>0\ \exists N\in\N:\ \forall n\ge N,\ c_n\ge L\right)
+\implies
+\left(\sum_{k=1}^{\infty}a_k\text{ converges}\right);
+\]
+\item\label{item:claim:2.13:2}
+\[
+\left(
+\sum_{k=1}^{\infty}\frac1{b_k}\text{ diverges}
+\quad\text{and}\quad
+\exists N\in\N:\ \forall n\ge N,\ c_n\le0
+\right)
+\implies
+\left(\sum_{k=1}^{\infty}a_k\text{ diverges}\right).
+\]
+\end{enumerate}
+\end{claim}
+
+\begin{proof}
+\textbf{1)} Without loss of generality, we can assume that
+\[
+c_k\ge L\qquad\forall k\in\N.
+\]
+Since $a_k>0$, we have
+\begin{equation}
+\left(\frac{a_k}{a_{k+1}}b_k-b_{k+1}\ge L\right)
+\iff
+\left(a_kb_k-a_{k+1}b_{k+1}\ge La_{k+1}\right).
+\tag{$*$}\label{eq:2:star:1}
+\end{equation}
+For every $n\in\N$, let
+\[
+S_n=\sum_{k=1}^{n}a_k.
+\]
+Then
+\begin{align*}
+S_n
+&=\frac1L\sum_{k=1}^{n}(La_k)\\
+&\le\frac1L\sum_{k=1}^{n}(a_kb_k-a_{k+1}b_{k+1})\\
+&=\frac1L(a_1b_1-a_{n+1}b_{n+1})\\
+&\le\frac1L a_1b_1.
+\end{align*}
+Thus $\{S_n\}_{n=1}^{\infty}$ is bounded. Since $\{S_n\}$ is increasing, this implies that $\sum_{k=1}^{\infty}a_k$ converges.
+
+\medskip
+\noindent\textbf{2)} Without loss of generality, we can assume that
+\[
+c_k=\frac{a_k}{a_{k+1}}b_k-b_{k+1}\le0
+\qquad\forall k\in\N.
+\]
+For every $k\in\N$,
+\begin{equation}
+\left(\frac{a_k}{a_{k+1}}b_k-b_{k+1}\le0\right)
+\iff
+\left(\frac{a_k}{a_{k+1}}\le\frac{b_{k+1}}{b_k}\right),
+\tag{$**$}\label{eq:2:starstar:1}
+\end{equation}
+where $b_k>0$. Multiplying the inequalities \hyperref[eq:2:starstar:1]{$(**)$} from $k=1$ to $k=n$, we obtain
+\[
+\frac{a_1}{a_{n+1}}
+=\frac{a_1}{a_2}\frac{a_2}{a_3}\cdots\frac{a_n}{a_{n+1}}
+\le
+\frac{b_2}{b_1}\frac{b_3}{b_2}\cdots\frac{b_{n+1}}{b_n}
+=\frac{b_{n+1}}{b_1}.
+\]
+Thus
+\[
+\frac{a_1}{a_{n+1}}\le\frac{b_{n+1}}{b_1}
+\iff
+a_{n+1}\ge a_1b_1\frac1{b_{n+1}}.
+\]
+Since
+\[
+\sum_{k=1}^{\infty}a_1b_1\frac1{b_k}
+\]
+diverges (it is given that $\sum 1/b_k$ diverges and $a_1b_1$ is a nonzero constant), \hyperref[item:claim:2.4:2]{item 2)} of \hyperref[claim:2.4]{Claim~2.4} implies that $\sum_{k=1}^{\infty}a_k$ diverges.
+\end{proof}
+
+\begin{claim}[Bertrand's Test]\label{claim:2.14}
+Let $a_k>0$ for every $k\in\N$. Let
+\[
+\lim_{k\to+\infty}
+\ln(k)\left(k\left(\frac{a_k}{a_{k+1}}-1\right)-1\right)
+=B\in[-\infty,+\infty].
+\]
+Then:
+\begin{enumerate}[label=\arabic*)]
+\item\label{item:claim:2.14:1}
+\[
+(B>1)\implies\left(\sum_{k=1}^{\infty}a_k\text{ converges}\right);
+\]
+\item\label{item:claim:2.14:2}
+\[
+(B<1)\implies\left(\sum_{k=1}^{\infty}a_k\text{ diverges}\right).
+\]
+\end{enumerate}
+The cases $B=\pm\infty$ are allowed in this claim.
+\end{claim}
+
+\begin{proof}
+\textbf{1)} Let
+\[
+b_k=k\ln k\qquad(k\ge2).
+\]
+Then
+\begin{align}
+ c_k
+ &=\frac{a_k}{a_{k+1}}b_k-b_{k+1}\notag\\
+ &=\ln(k)\left(k\left(\frac{a_k}{a_{k+1}}-1\right)-1\right)
+ -(k+1)\bigl(\ln(k+1)-\ln k\bigr).
+ \tag{$***$}\label{eq:2:starstarstar:1}
+\end{align}
+The first term tends to $B$, and
+\[
+\lim_{k\to+\infty}(k+1)\bigl(\ln(k+1)-\ln k\bigr)=1
+\]
+(see Calculus 1). Hence, if $B>1$,
+\[
+\lim_{k\to+\infty}c_k=B-1>0.
+\]
+Therefore
+\[
+\exists L>0\ \exists N\in\N:\ \forall n\ge N,\ c_n\ge L,
+\]
+and \hyperref[item:claim:2.13:1]{item 1)} of \hyperref[claim:2.13]{Claim~2.13} implies that $\sum_{k=1}^{\infty}a_k$ converges.
+
+\medskip
+\noindent\textbf{2)} Since
+\[
+\int_2^{+\infty}\frac1{x\ln x}\,dx
+=\left.\ln\ln x\right|_2^{+\infty}
+\]
+diverges, \hyperref[claim:2.8]{Claim~2.8} gives that the series
+\[
+\sum_{k=2}^{+\infty}\frac1{k\ln k}
+\]
+diverges. If $B<1$, then by equality \hyperref[eq:2:starstarstar:1]{$(***)$},
+\[
+\lim_{k\to+\infty}c_k=B-1<0,
+\]
+so there exists $N$ such that $c_n<0$ for every $n\ge N$. Therefore, due to \hyperref[item:claim:2.13:2]{item 2)} of \hyperref[claim:2.13]{Claim~2.13}, the series $\sum_{k=1}^{\infty}a_k$ diverges.
+\end{proof}
+
+\begin{claim}[The Gauss Test]\label{claim:2.15}
+Let
+\begin{enumerate}[label=\alph*)]
+\item\label{item:claim:2.15:a} $a_k>0$ for every $k\in\N$;
+\item\label{item:claim:2.15:b} there exist $\varepsilon>0$ and $\lambda,\mu\in\R$ such that, for every $k\in\N$,
+\[
+\frac{a_k}{a_{k+1}}
+=\lambda+\frac{\mu}{k}+\frac{\gamma_k}{k^{1+\varepsilon}},
+\]
+where the sequence $\{\gamma_n\}_{n=1}^{\infty}$ is bounded.
+\end{enumerate}
+Then:
+\begin{enumerate}[label=\arabic*)]
+\item\label{item:claim:2.15:1}
+\[
+\bigl((\lambda>1)\text{ or }(\lambda=1\text{ and }\mu>1)\bigr)
+\implies
+\left(\sum_{k=1}^{\infty}a_k\text{ converges}\right);
+\]
+\item\label{item:claim:2.15:2}
+\[
+\bigl((\lambda<1)\text{ or }(\lambda=1\text{ and }\mu\le1)\bigr)
+\implies
+\left(\sum_{k=1}^{\infty}a_k\text{ diverges}\right).
+\]
+\end{enumerate}
+\end{claim}
+
+\begin{proof}
+Follows directly from \hyperref[claim:2.14]{Claim~2.14} (can you see why?).
+\end{proof}
+
+\begin{claim}\label{claim:2.16}
+Bertrand's test (\hyperref[claim:2.14]{Claim~2.14}) is stronger than the Gauss test (\hyperref[claim:2.15]{Claim~2.15}).
+\end{claim}
+
+\begin{proof}
+Since \hyperref[claim:2.15]{Claim~2.15} follows from \hyperref[claim:2.14]{Claim~2.14}, Bertrand's test is not weaker than the Gauss test. One can verify by direct calculation that \hyperref[claim:2.14]{Claim~2.14} works for
+\[
+\sum_{k=2}^{\infty}\frac1{k(\ln k)^2}
+\]
+and \hyperref[claim:2.15]{Claim~2.15} does not.
+\end{proof}
